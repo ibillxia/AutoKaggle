@@ -1,0 +1,68 @@
+# ---------------------------------------------------------------------------
+# AutoKaggle working tree
+#
+# 原则：仓库只放源码 / 配置 / 文档 / 小体积报告。
+# 权重、数据集、训练产物、本地环境一律不进仓库。
+# ---------------------------------------------------------------------------
+
+# ---------- Python / OS ----------
+.venv/
+.venv-win/
+__pycache__/
+*.pyc
+.DS_Store
+
+# ---------- local tooling / editor state ----------
+.vscode/
+.klogs/
+_tmp/
+.workbuddy/
+
+# ---------- credentials ----------
+kaggle.json
+access_token
+.env
+
+# ---------- 大型资产：只匹配仓库根目录下的同名目录 ----------
+/models/
+/runs/
+/kaggle/
+/data/
+/third_party/
+/submissions/
+/_verify_scratch/
+
+# ---------- 样例竞赛输入数据（Kaggle 原始 csv，不是本项目产出）----------
+multi_agents/competition/bank_churn/
+multi_agents/competition/classification_with_an_academic_success_dataset/
+multi_agents/competition/ghouls_goblins_and_ghosts_boo/
+multi_agents/competition/house_prices/
+multi_agents/competition/obesity_risks/
+multi_agents/competition/plate_defect/
+multi_agents/competition/spaceship_titanic/
+multi_agents/competition/titanic/
+
+# ---------- Competition data is CC BY-NC 4.0 and must NOT be redistributed ----------
+multi_agents/competition/nfl_big_data_bowl_2027/data/
+solutions/nfl_big_data_bowl_2027/data/
+
+# ---------- generated artefacts (regenerable by the pipeline) ----------
+solutions/nfl_big_data_bowl_2027/artifacts/
+solutions/nfl_big_data_bowl_2027/cache/
+multi_agents/experiments_history/
+multi_agents/example_results/
+multi_agents/competition/*/*.log
+validation/runs/
+validation/data/
+validation/logs/
+solutions/*/train/runs/
+solutions/*/train/_smoke/
+solutions/*/artifacts/_work/fixtures/
+
+# ---------- 归档包：默认不要，但保留 gemma 的提交物 ----------
+*.zip
+!solutions/gemma_4_developer_agent/artifacts/*.zip
+!solutions/gemma_4_developer_agent/artifacts/submissions/*/*.zip
+
+# ---------- 日志 ----------
+*.log
