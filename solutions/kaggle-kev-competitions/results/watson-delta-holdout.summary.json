@@ -1,0 +1,33 @@
+{
+  "model": "kev-0.8b-ft-watson-delta",
+  "run": "runs/kev-0.8b-ft-watson-delta",
+  "task": "watson",
+  "device": "cuda",
+  "dtype": "fp32",
+  "params_base": "E:\\Bill\\AI\\AutoKaggle\\models\\Qwen3.5-0.8B-Base",
+  "load_s": 3.6,
+  "eval_wall_s": 77.5,
+  "sec_per_row": 0.064,
+  "peak_vram_gb": 1.51,
+  "n": 1213,
+  "accuracy": 0.8178,
+  "macro_f1": 0.8388,
+  "brier": 0.3031,
+  "nll": 0.6559,
+  "ece": 0.1213,
+  "mean_confidence": 0.9364,
+  "coverage@0.9": 0.8087,
+  "acc@0.9": 0.8828,
+  "coverage@0.8": 0.8788,
+  "acc@0.8": 0.8593,
+  "per_class_acc": {
+    "contradiction": 0.8305,
+    "entailment": 0.8589,
+    "neutral": 0.7603
+  },
+  "per_class_f1": {
+    "contradiction": 0.8356,
+    "entailment": 0.8388,
+    "neutral": 0.7753
+  }
+}

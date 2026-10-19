@@ -1,0 +1,27 @@
+{
+  "model": "kev-4b-local",
+  "run": "../models/kev-4b-local",
+  "task": "sms_spam",
+  "device": "cuda",
+  "dtype": "bf16",
+  "params_base": "E:\\Bill\\AI\\AutoKaggle\\models\\Qwen3.5-4B-Base",
+  "load_s": 14.8,
+  "eval_wall_s": 83.3,
+  "sec_per_row": 0.416,
+  "peak_vram_gb": 8.24,
+  "n": 200,
+  "accuracy": 0.88,
+  "macro_f1": 0.8868,
+  "brier": 0.2322,
+  "nll": 0.3902,
+  "ece": 0.1587,
+  "mean_confidence": 0.7213,
+  "coverage@0.9": 0.06,
+  "acc@0.9": 1.0,
+  "coverage@0.8": 0.325,
+  "acc@0.8": 1.0,
+  "per_class_acc": {
+    "false": 0.94,
+    "true": 0.82
+  }
+}

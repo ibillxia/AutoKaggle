@@ -1,0 +1,32 @@
+{
+  "model": "kev-0.8b-ft-disaster",
+  "run": "E:/Bill/AI/AutoKaggle/runs/kev-0.8b-ft-disaster",
+  "task": "disaster",
+  "device": "cuda",
+  "dtype": "bf16",
+  "params_base": "E:\\Bill\\AI\\AutoKaggle\\models\\Qwen3.5-0.8B-Base",
+  "load_s": 3.7,
+  "eval_wall_s": 68.8,
+  "sec_per_row": 0.069,
+  "peak_vram_gb": 1.51,
+  "n": 1000,
+  "accuracy": 0.836,
+  "macro_f1": 0.8462,
+  "brier": 0.2752,
+  "nll": 0.5117,
+  "ece": 0.1001,
+  "mean_confidence": 0.9321,
+  "coverage@0.9": 0.8,
+  "acc@0.9": 0.8812,
+  "coverage@0.8": 0.891,
+  "acc@0.8": 0.8608,
+  "per_class_acc": {
+    "false": 0.902,
+    "true": 0.77
+  },
+  "per_class_f1": {
+    "false": 0.8462,
+    "true": 0.8244
+  },
+  "f1_positive": 0.8244
+}

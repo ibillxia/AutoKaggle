@@ -1,0 +1,20 @@
+{
+  "run": "runs/kev-0.8b-ft-watson",
+  "data": "data/comp/contradictory-my-dear-watson/kev_holdout.jsonl",
+  "n": 1213,
+  "accuracy": 0.3437757625721352,
+  "macro_f1": 0.2271695031118217,
+  "log_loss": 1.0981297616379155,
+  "sec_per_row": 0.06952224815569923,
+  "temperature": 1.0,
+  "gold_distribution": {
+    "entailment": 418,
+    "contradiction": 407,
+    "neutral": 388
+  },
+  "pred_distribution": {
+    "contradiction": 150,
+    "entailment": 1062,
+    "neutral": 1
+  }
+}

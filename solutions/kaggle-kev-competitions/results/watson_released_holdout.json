@@ -1,0 +1,19 @@
+{
+  "run": "models/kev-0.8b-local",
+  "data": "data/comp/contradictory-my-dear-watson/kev_holdout.jsonl",
+  "n": 600,
+  "accuracy": 0.6616666666666666,
+  "macro_f1": 0.776768012834244,
+  "log_loss": 0.7402970627205208,
+  "sec_per_row": 0.05917884548505147,
+  "temperature": 2.3510958125672174,
+  "gold_distribution": {
+    "entailment": 418,
+    "contradiction": 182
+  },
+  "pred_distribution": {
+    "entailment": 283,
+    "neutral": 186,
+    "contradiction": 131
+  }
+}

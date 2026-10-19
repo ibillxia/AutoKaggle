@@ -1,0 +1,21 @@
+{
+  "model": "tfidf+logreg",
+  "task": "ag_news",
+  "n": 400,
+  "accuracy": 0.9525,
+  "macro_f1": 0.9527,
+  "brier": 0.0877,
+  "nll": 0.1929,
+  "ece": 0.0449,
+  "mean_confidence": 0.9095,
+  "coverage@0.9": 0.735,
+  "acc@0.9": 0.983,
+  "coverage@0.8": 0.84,
+  "acc@0.8": 0.9821,
+  "per_class_acc": {
+    "Business": 0.93,
+    "Sci/Tech": 0.94,
+    "Sports": 1.0,
+    "World": 0.94
+  }
+}

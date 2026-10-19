@@ -1,0 +1,19 @@
+{
+  "model": "tfidf+logreg",
+  "task": "imdb",
+  "n": 400,
+  "accuracy": 0.9075,
+  "macro_f1": 0.9075,
+  "brier": 0.144,
+  "nll": 0.253,
+  "ece": 0.0626,
+  "mean_confidence": 0.8484,
+  "coverage@0.9": 0.5,
+  "acc@0.9": 0.99,
+  "coverage@0.8": 0.71,
+  "acc@0.8": 0.9754,
+  "per_class_acc": {
+    "false": 0.925,
+    "true": 0.89
+  }
+}

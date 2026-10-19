@@ -1,0 +1,24 @@
+{
+  "model": "tfidf+logreg",
+  "task": "disaster",
+  "n": 1000,
+  "accuracy": 0.779,
+  "macro_f1": 0.7776,
+  "per_class_f1": {
+    "false": 0.7952,
+    "true": 0.76
+  },
+  "f1_positive": 0.76,
+  "brier": 0.3099,
+  "nll": 0.4775,
+  "ece": 0.0442,
+  "mean_confidence": 0.7907,
+  "coverage@0.9": 0.287,
+  "acc@0.9": 0.9129,
+  "coverage@0.8": 0.529,
+  "acc@0.8": 0.8866,
+  "per_class_acc": {
+    "false": 0.858,
+    "true": 0.7
+  }
+}

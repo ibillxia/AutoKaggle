@@ -1,0 +1,27 @@
+{
+  "model": "tfidf+logreg",
+  "task": "nli",
+  "n": 300,
+  "accuracy": 0.1833,
+  "macro_f1": 0.1765,
+  "per_class_f1": {
+    "World": 0.2133,
+    "Sports": 0.2236,
+    "Business": 0.2692,
+    "Sci/Tech": 0.0
+  },
+  "f1_positive": null,
+  "brier": 1.0003,
+  "nll": 2.0001,
+  "ece": 0.3609,
+  "mean_confidence": 0.5393,
+  "coverage@0.9": 0.0267,
+  "acc@0.9": 0.0,
+  "coverage@0.8": 0.08,
+  "acc@0.8": 0.25,
+  "per_class_acc": {
+    "Business": 0.21,
+    "Sports": 0.18,
+    "World": 0.16
+  }
+}

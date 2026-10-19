@@ -1,0 +1,33 @@
+{
+  "model": "kev-4b-local",
+  "run": "../models/kev-4b-local",
+  "task": "nli",
+  "device": "cuda",
+  "dtype": "bf16",
+  "params_base": "E:\\Bill\\AI\\AutoKaggle\\models\\Qwen3.5-4B-Base",
+  "load_s": 15.2,
+  "eval_wall_s": 225.4,
+  "sec_per_row": 0.751,
+  "peak_vram_gb": 8.24,
+  "n": 300,
+  "accuracy": 0.8767,
+  "macro_f1": 0.8889,
+  "brier": 0.1947,
+  "nll": 0.3885,
+  "ece": 0.067,
+  "mean_confidence": 0.9391,
+  "coverage@0.9": 0.82,
+  "acc@0.9": 0.9268,
+  "coverage@0.8": 0.8833,
+  "acc@0.8": 0.9208,
+  "per_class_acc": {
+    "contradiction": 0.85,
+    "entailment": 0.84,
+    "neutral": 0.94
+  },
+  "per_class_f1": {
+    "contradiction": 0.9091,
+    "entailment": 0.8889,
+    "neutral": 0.8393
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "model": "tfidf+logreg",
+  "task": "sms_spam",
+  "n": 200,
+  "accuracy": 0.92,
+  "macro_f1": 0.9195,
+  "brier": 0.1217,
+  "nll": 0.2165,
+  "ece": 0.0329,
+  "mean_confidence": 0.8976,
+  "coverage@0.9": 0.68,
+  "acc@0.9": 0.9632,
+  "coverage@0.8": 0.815,
+  "acc@0.8": 0.9693,
+  "per_class_acc": {
+    "false": 1.0,
+    "true": 0.84
+  }
+}

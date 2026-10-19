@@ -1,0 +1,27 @@
+{
+  "model": "kev-0.8b-local",
+  "run": "../models/kev-0.8b-local",
+  "task": "imdb",
+  "device": "cuda",
+  "dtype": "bf16",
+  "params_base": "E:\\Bill\\AI\\AutoKaggle\\models\\Qwen3.5-0.8B-Base",
+  "load_s": 4.1,
+  "eval_wall_s": 29.4,
+  "sec_per_row": 0.073,
+  "peak_vram_gb": 1.58,
+  "n": 400,
+  "accuracy": 0.935,
+  "macro_f1": 0.9356,
+  "brier": 0.0951,
+  "nll": 0.1719,
+  "ece": 0.0174,
+  "mean_confidence": 0.9502,
+  "coverage@0.9": 0.8825,
+  "acc@0.9": 0.9745,
+  "coverage@0.8": 0.925,
+  "acc@0.8": 0.9622,
+  "per_class_acc": {
+    "false": 0.945,
+    "true": 0.925
+  }
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jev 类决策模型 · Kaggle 分类任务验证</title>
+<style>
+  :root {
+    --bg:#ffffff; --panel:#f7f8fa; --line:#e3e6ea; --text:#1b1f24; --muted:#6b7280;
+    --accent:#2f6feb; --accent2:#12a594;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:36px 28px 64px; background:var(--bg); color:var(--text);
+         font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; }
+  .wrap { max-width:1120px; margin:0 auto; }
+  h1 { font-size:26px; margin:0 0 6px; letter-spacing:-.01em; }
+  h2 { font-size:19px; margin:34px 0 4px; }
+  h3 { font-size:15px; margin:26px 0 8px; color:var(--muted); font-weight:600; }
+  .lede { color:var(--muted); margin:0 0 26px; }
+  .sub { color:var(--muted); margin:0 0 14px; font-size:13.5px; }
+  section { border-top:1px solid var(--line); padding-top:10px; }
+  table { width:100%; border-collapse:collapse; background:var(--panel); border-radius:10px; overflow:hidden; }
+  th,td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:middle; font-size:13.5px; }
+  th { background:#eef1f5; font-weight:600; color:#38414b; white-space:nowrap; }
+  tr:last-child td { border-bottom:none; }
+  .mn { font-weight:600; }
+  .md { color:var(--muted); font-size:12px; margin-top:2px; }
+  .bar { position:relative; background:#e6e9ee; border-radius:5px; height:20px; min-width:120px; }
+  .fill { height:100%; border-radius:5px; }
+  .bl { position:absolute; left:8px; top:0; line-height:20px; font-size:12px; font-weight:600; color:#10406b; }
+  .pcs { display:grid; gap:10px; }
+  .pcm { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .pcgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px 18px; margin-top:8px; }
+  .pc { display:grid; grid-template-columns:96px 1fr; gap:10px; align-items:center; }
+  .pcn { font-size:12.5px; color:var(--muted); }
+  code { background:#eef1f5; padding:1px 5px; border-radius:4px; font-size:12.5px; }
+  footer { margin-top:40px; color:var(--muted); font-size:12.5px; border-top:1px solid var(--line); padding-top:14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Jev 类决策模型在 Kaggle 分类任务上的验证</h1>
+  <p class="lede">RTX 4060 Ti 8GB · i7-14700F · 32GB RAM &nbsp;|&nbsp; 本地推理，无 API 调用</p>
+  <p class="sub">IMDB 与 AG News 都出现在 kev 的训练源列表中，因此前两行是<b>域内</b>成绩；SMS Spam 未被训练过，是唯一的<b>零样本</b>成绩。</p>
+  <section>
+    <h2>关键结论</h2>
+    <ol>
+      <li><b>差距在域外不在域内。</b>AG News 上 0.8B 与 4B 完全打平（均 90.75%）；到了没见过的 SMS Spam，4B 88.0% vs 0.8B 56.5%（spam 召回仅 0.22）。</li>
+      <li><b>置信度是可用信号。</b>0.8B 在 SMS 上 0% 的样本置信度 ≥0.9，等于明确"报错"；4B 只有 6% 的样本 ≥0.9，但那部分准确率 100%。</li>
+      <li><b>校准优于传统分类器。</b>IMDB 上 ECE：kev-0.8B 0.0174、kev-4B 0.0249，TF-IDF+LogReg 0.0626。</li>
+      <li><b>选项顺序完全稳。</b>AG News <code>choice</code> 题做 1/2/4 次循环轮转，准确率恒为 0.9000，<b>0/200</b> 条答案改变。</li>
+      <li><b>打不过域内监督学习。</b>AG News TF-IDF+LogReg 95.25% 完胜；SMS 92% vs 88%。有标注数据时，微调小编码器通常更划算。</li>
+      <li><b>精度无影响。</b>SMS 在 CPU/fp32 与 GPU/bf16 下均为 56.5%。</li>
+    </ol>
+  </section>
+  
+    <section>
+      <h2>IMDB 影评情感</h2>
+      <p class="sub">二分类 · <code>noul</code> · 域内</p>
+      <table><thead><tr><th>模型</th><th>n</th><th>Accuracy</th><th>Macro-F1</th><th>Brier</th><th>ECE</th><th>平均置信度</th><th>coverage@0.9</th><th>acc@0.9</th><th>每条耗时</th></tr></thead><tbody><tr><td><div class="mn">kev-0.8B</div><div class="md">Qwen3.5-0.8B + LoRA + 指针头 · 1.6 GB 显存</div></td><td>400</td><td><div class="bar"><div class="fill" style="width:93.5%;background:var(--accent)"></div><span class="bl">0.935</span></div></td><td>0.9356</td><td>0.0951</td><td>0.0174</td><td>0.9502</td><td>0.8825</td><td>0.9745</td><td>0.073 s</td></tr><tr><td><div class="mn">kev-4B</div><div class="md">Qwen3.5-4B + LoRA + 指针头 · 8.2 GB 显存（贴边）</div></td><td>400</td><td><div class="bar"><div class="fill" style="width:96.0%;background:var(--accent)"></div><span class="bl">0.960</span></div></td><td>0.9606</td><td>0.0698</td><td>0.0249</td><td>0.9506</td><td>0.8675</td><td>0.9827</td><td>5.912 s</td></tr><tr><td><div class="mn">TF-IDF + LogReg</div><div class="md">词/双词 TF-IDF + 逻辑回归（监督基线）</div></td><td>400</td><td><div class="bar"><div class="fill" style="width:90.8%;background:var(--accent)"></div><span class="bl">0.907</span></div></td><td>0.9075</td><td>0.144</td><td>0.0626</td><td>0.8484</td><td>0.5</td><td>0.99</td><td>—</td></tr></tbody></table>
+      <h3>分类型准确率</h3>
+      <div class="pcs"><div class="pcm"><div class="mn">kev-0.8B</div><div class="pcgrid"><div class="pc"><span class="pcn">false</span><div class="bar"><div class="fill" style="width:94.5%;background:var(--accent2)"></div><span class="bl">0.945</span></div></div><div class="pc"><span class="pcn">true</span><div class="bar"><div class="fill" style="width:92.5%;background:var(--accent2)"></div><span class="bl">0.925</span></div></div></div></div><div class="pcm"><div class="mn">kev-4B</div><div class="pcgrid"><div class="pc"><span class="pcn">false</span><div class="bar"><div class="fill" style="width:97.5%;background:var(--accent2)"></div><span class="bl">0.975</span></div></div><div class="pc"><span class="pcn">true</span><div class="bar"><div class="fill" style="width:94.5%;background:var(--accent2)"></div><span class="bl">0.945</span></div></div></div></div><div class="pcm"><div class="mn">TF-IDF + LogReg</div><div class="pcgrid"><div class="pc"><span class="pcn">false</span><div class="bar"><div class="fill" style="width:92.5%;background:var(--accent2)"></div><span class="bl">0.925</span></div></div><div class="pc"><span class="pcn">true</span><div class="bar"><div class="fill" style="width:89.0%;background:var(--accent2)"></div><span class="bl">0.890</span></div></div></div></div></div>
+    </section>
+    <section>
+      <h2>AG News 主题</h2>
+      <p class="sub">4 分类 · <code>choice</code> · 域内</p>
+      <table><thead><tr><th>模型</th><th>n</th><th>Accuracy</th><th>Macro-F1</th><th>Brier</th><th>ECE</th><th>平均置信度</th><th>coverage@0.9</th><th>acc@0.9</th><th>每条耗时</th></tr></thead><tbody><tr><td><div class="mn">kev-0.8B</div><div class="md">Qwen3.5-0.8B + LoRA + 指针头 · 1.6 GB 显存</div></td><td>400</td><td><div class="bar"><div class="fill" style="width:90.8%;background:var(--accent)"></div><span class="bl">0.907</span></div></td><td>0.9192</td><td>0.14</td><td>0.0397</td><td>0.9338</td><td>0.8275</td><td>0.9637</td><td>0.056 s</td></tr><tr><td><div class="mn">kev-4B</div><div class="md">Qwen3.5-4B + LoRA + 指针头 · 8.2 GB 显存（贴边）</div></td><td>400</td><td><div class="bar"><div class="fill" style="width:90.8%;background:var(--accent)"></div><span class="bl">0.907</span></div></td><td>0.934</td><td>0.1287</td><td>0.041</td><td>0.9001</td><td>0.75</td><td>0.9767</td><td>2.076 s</td></tr><tr><td><div class="mn">TF-IDF + LogReg</div><div class="md">词/双词 TF-IDF + 逻辑回归（监督基线）</div></td><td>400</td><td><div class="bar"><div class="fill" style="width:95.2%;background:var(--accent)"></div><span class="bl">0.953</span></div></td><td>0.9527</td><td>0.0877</td><td>0.0449</td><td>0.9095</td><td>0.735</td><td>0.983</td><td>—</td></tr></tbody></table>
+      <h3>分类型准确率</h3>
+      <div class="pcs"><div class="pcm"><div class="mn">kev-0.8B</div><div class="pcgrid"><div class="pc"><span class="pcn">Business</span><div class="bar"><div class="fill" style="width:84.0%;background:var(--accent2)"></div><span class="bl">0.840</span></div></div><div class="pc"><span class="pcn">Sci/Tech</span><div class="bar"><div class="fill" style="width:88.0%;background:var(--accent2)"></div><span class="bl">0.880</span></div></div><div class="pc"><span class="pcn">Sports</span><div class="bar"><div class="fill" style="width:100.0%;background:var(--accent2)"></div><span class="bl">1.000</span></div></div><div class="pc"><span class="pcn">World</span><div class="bar"><div class="fill" style="width:91.0%;background:var(--accent2)"></div><span class="bl">0.910</span></div></div></div></div><div class="pcm"><div class="mn">kev-4B</div><div class="pcgrid"><div class="pc"><span class="pcn">Business</span><div class="bar"><div class="fill" style="width:79.0%;background:var(--accent2)"></div><span class="bl">0.790</span></div></div><div class="pc"><span class="pcn">Sci/Tech</span><div class="bar"><div class="fill" style="width:92.0%;background:var(--accent2)"></div><span class="bl">0.920</span></div></div><div class="pc"><span class="pcn">Sports</span><div class="bar"><div class="fill" style="width:100.0%;background:var(--accent2)"></div><span class="bl">1.000</span></div></div><div class="pc"><span class="pcn">World</span><div class="bar"><div class="fill" style="width:92.0%;background:var(--accent2)"></div><span class="bl">0.920</span></div></div></div></div><div class="pcm"><div class="mn">TF-IDF + LogReg</div><div class="pcgrid"><div class="pc"><span class="pcn">Business</span><div class="bar"><div class="fill" style="width:93.0%;background:var(--accent2)"></div><span class="bl">0.930</span></div></div><div class="pc"><span class="pcn">Sci/Tech</span><div class="bar"><div class="fill" style="width:94.0%;background:var(--accent2)"></div><span class="bl">0.940</span></div></div><div class="pc"><span class="pcn">Sports</span><div class="bar"><div class="fill" style="width:100.0%;background:var(--accent2)"></div><span class="bl">1.000</span></div></div><div class="pc"><span class="pcn">World</span><div class="bar"><div class="fill" style="width:94.0%;background:var(--accent2)"></div><span class="bl">0.940</span></div></div></div></div></div>
+    </section>
+    <section>
+      <h2>SMS Spam 垃圾短信</h2>
+      <p class="sub">二分类 · <code>noul</code> · <b>零样本</b></p>
+      <table><thead><tr><th>模型</th><th>n</th><th>Accuracy</th><th>Macro-F1</th><th>Brier</th><th>ECE</th><th>平均置信度</th><th>coverage@0.9</th><th>acc@0.9</th><th>每条耗时</th></tr></thead><tbody><tr><td><div class="mn">kev-0.8B</div><div class="md">Qwen3.5-0.8B + LoRA + 指针头 · 1.6 GB 显存</div></td><td>200</td><td><div class="bar"><div class="fill" style="width:56.5%;background:var(--accent)"></div><span class="bl">0.565</span></div></td><td>0.6766</td><td>0.4975</td><td>0.089</td><td>0.6286</td><td>0.0</td><td>None</td><td>0.047 s</td></tr><tr><td><div class="mn">kev-4B</div><div class="md">Qwen3.5-4B + LoRA + 指针头 · 8.2 GB 显存（贴边）</div></td><td>200</td><td><div class="bar"><div class="fill" style="width:88.0%;background:var(--accent)"></div><span class="bl">0.880</span></div></td><td>0.8868</td><td>0.2322</td><td>0.1587</td><td>0.7213</td><td>0.06</td><td>1.0</td><td>0.416 s</td></tr><tr><td><div class="mn">TF-IDF + LogReg</div><div class="md">词/双词 TF-IDF + 逻辑回归（监督基线）</div></td><td>200</td><td><div class="bar"><div class="fill" style="width:92.0%;background:var(--accent)"></div><span class="bl">0.920</span></div></td><td>0.9195</td><td>0.1217</td><td>0.0329</td><td>0.8976</td><td>0.68</td><td>0.9632</td><td>—</td></tr></tbody></table>
+      <h3>分类型准确率</h3>
+      <div class="pcs"><div class="pcm"><div class="mn">kev-0.8B</div><div class="pcgrid"><div class="pc"><span class="pcn">false</span><div class="bar"><div class="fill" style="width:91.0%;background:var(--accent2)"></div><span class="bl">0.910</span></div></div><div class="pc"><span class="pcn">true</span><div class="bar"><div class="fill" style="width:22.0%;background:var(--accent2)"></div><span class="bl">0.220</span></div></div></div></div><div class="pcm"><div class="mn">kev-4B</div><div class="pcgrid"><div class="pc"><span class="pcn">false</span><div class="bar"><div class="fill" style="width:94.0%;background:var(--accent2)"></div><span class="bl">0.940</span></div></div><div class="pc"><span class="pcn">true</span><div class="bar"><div class="fill" style="width:82.0%;background:var(--accent2)"></div><span class="bl">0.820</span></div></div></div></div><div class="pcm"><div class="mn">TF-IDF + LogReg</div><div class="pcgrid"><div class="pc"><span class="pcn">false</span><div class="bar"><div class="fill" style="width:100.0%;background:var(--accent2)"></div><span class="bl">1.000</span></div></div><div class="pc"><span class="pcn">true</span><div class="bar"><div class="fill" style="width:84.0%;background:var(--accent2)"></div><span class="bl">0.840</span></div></div></div></div></div>
+    </section>
+  <footer>数据与脚本：<code>validation/</code> · 原始报告：<code>validation/runs/*/report.json</code></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "model": "kev-0.8b-local",
+  "run": "../models/kev-0.8b-local",
+  "task": "ag_news",
+  "device": "cuda",
+  "dtype": "bf16",
+  "params_base": "E:\\Bill\\AI\\AutoKaggle\\models\\Qwen3.5-0.8B-Base",
+  "load_s": 4.8,
+  "eval_wall_s": 22.5,
+  "sec_per_row": 0.056,
+  "peak_vram_gb": 1.52,
+  "n": 400,
+  "accuracy": 0.9075,
+  "macro_f1": 0.9192,
+  "brier": 0.14,
+  "nll": 0.2884,
+  "ece": 0.0397,
+  "mean_confidence": 0.9338,
+  "coverage@0.9": 0.8275,
+  "acc@0.9": 0.9637,
+  "coverage@0.8": 0.9025,
+  "acc@0.8": 0.9501,
+  "per_class_acc": {
+    "Business": 0.84,
+    "Sci/Tech": 0.88,
+    "Sports": 1.0,
+    "World": 0.91
+  }
+}
