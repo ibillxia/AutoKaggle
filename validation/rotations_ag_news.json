@@ -1,0 +1,14 @@
+{
+  "1": {
+    "accuracy": 0.9,
+    "rows_whose_answer_changed_vs_rotations_1": 0
+  },
+  "2": {
+    "accuracy": 0.9,
+    "rows_whose_answer_changed_vs_rotations_1": 0
+  },
+  "4": {
+    "accuracy": 0.9,
+    "rows_whose_answer_changed_vs_rotations_1": 0
+  }
+}

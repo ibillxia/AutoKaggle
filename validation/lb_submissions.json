@@ -1,0 +1,50 @@
+{
+  "_note": "真实 Kaggle 公开榜成绩，全部来自 ibillxia 账号的实提交（ref 可在竞赛 Submissions 页核对）。按竞赛分组，rows 内 public 为公开榜分数。",
+  "competitions": [
+    {
+      "slug": "nlp-getting-started",
+      "name": "灾难推文二分类",
+      "metric": "F1",
+      "kind": "普通上传赛",
+      "head": "榜前端 ≈0.851–0.854",
+      "quota": "5/5",
+      "date": "2026-10-13",
+      "rows": [
+        {"ref": 0, "method": "kev-0.8B LoRA 微调（6613 条 × 2 epoch）@0.5", "public": 0.82623, "delta": null, "note": ""},
+        {"ref": 0, "method": "全量 7613 条 × 3 epoch @0.5", "public": 0.81887, "delta": -0.00736, "note": "训练数据更多反而更差（末段 loss 0.08，记住训练集了）"},
+        {"ref": 0, "method": "#1 + F1 调优阈值 0.40", "public": 0.82194, "delta": -0.00429, "note": "均衡留出集选的阈值失效：留出集必须复刻真实先验"},
+        {"ref": 0, "method": "两模型概率平均（#1 + #2）", "public": 0.82745, "delta": 0.00122, "note": "集成"},
+        {"ref": 0, "method": "三模型概率平均（#1 + #2 + seed=1）", "public": 0.83113, "delta": 0.00368, "note": "唯一单调有效的操作"}
+      ]
+    },
+    {
+      "slug": "contradictory-my-dear-watson",
+      "name": "15 语言 NLI 三分类",
+      "metric": "accuracy",
+      "kind": "代码赛（code competition）",
+      "head": "榜头 ≈0.9365",
+      "quota": "5/天",
+      "date": "2026-10-13",
+      "rows": [
+        {"ref": 57150918, "method": "kev-0.8B 发布头零样本", "public": 0.72107, "delta": null, "note": "5195 行测试集，T4 fp32 0.191 s/条"},
+        {"ref": 57153619, "method": "delta 微调 10907 条 × 2 ep（--init_from 发布头，lr 2e-5）", "public": 0.78498, "delta": 0.06391, "note": "本地留出 0.8178"},
+        {"ref": 57158788, "method": "全量 12120 条 × 2 ep（同配方）", "public": 0.78440, "delta": -0.00058, "note": "与切分版在噪声内打平，0.8B 上限 ≈0.785"},
+        {"ref": 57177009, "method": "外部数据增强 30077 条（比赛 10907 + XNLI 14 语言 11172 + MNLI 英语 7998）× 1 ep", "public": 0.79384, "delta": 0.00944, "note": "rules Rule C 允许外部数据；留出集 acc 0.8178→0.8228、NLL 0.656→0.451、ECE 0.121→0.024"}
+      ]
+    },
+    {
+      "slug": "llm-classification-finetuning",
+      "name": "LLM 对战胜负三分类",
+      "metric": "log loss（越低越好）",
+      "kind": "代码赛（code competition）",
+      "head": "榜头 ≈0.8287；三分类随机 = 1.0986",
+      "quota": "9/天",
+      "date": "2026-10-13",
+      "rows": [
+        {"ref": 57151150, "method": "kev-0.8B 发布头零样本", "public": 1.16439, "delta": null, "note": "比随机还差 → 发布头在 3 分类上过度自信"},
+        {"ref": 57155449, "method": "delta 微调 12000 条 × 2 ep + 温度校准 T=1.587", "public": 1.04073, "delta": -0.12366, "note": "留出集 NLL 1.0504 → 1.0310，与 LB 吻合"},
+        {"ref": 57172184, "method": "加宽上下文 600/1200 字符 + max_state 1024，20000 条 × 1 ep，T=1.176", "public": 1.02857, "delta": -0.01216, "note": "留出集 raw 1.0179、拟合后 1.0159（旧 1.0310）；原设置丢弃 7.7% 记录且截断长回复"}
+      ]
+    }
+  ]
+}

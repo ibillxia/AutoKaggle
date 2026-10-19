@@ -1,0 +1,200 @@
+[
+ {
+  "ref": "https://www.kaggle.com/competitions/kaggriculture",
+  "deadline": "2026-10-14T23:59:00",
+  "category": "Featured",
+  "reward": "50,000 Usd",
+  "teamCount": 10148,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/rsna-knee-abnormality-detection",
+  "deadline": "2026-10-22T23:59:00",
+  "category": "Research",
+  "reward": "77,000 Usd",
+  "teamCount": 5897,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/playground-series-s6e10",
+  "deadline": "2026-10-31T23:59:00",
+  "category": "Playground",
+  "reward": "Swag",
+  "teamCount": 1696,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-2",
+  "deadline": "2026-11-02T23:59:00",
+  "category": "Featured",
+  "reward": "700,000 Usd",
+  "teamCount": 2830,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3",
+  "deadline": "2026-11-02T23:59:00",
+  "category": "Featured",
+  "reward": "850,000 Usd",
+  "teamCount": 4231,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/arc-prize-2026-paper-track",
+  "deadline": "2026-11-09T23:59:00",
+  "category": "Featured",
+  "reward": "450,000 Usd",
+  "teamCount": 252,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/gemma-4-developer-agent-paper",
+  "deadline": "2026-11-12T23:59:00.807000",
+  "category": "Featured",
+  "reward": "35,000 Usd",
+  "teamCount": 205,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/gemma-4-developer-agent",
+  "deadline": "2026-12-02T23:59:00",
+  "category": "Featured",
+  "reward": "65,000 Usd",
+  "teamCount": 2626,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra",
+  "deadline": "2026-12-14T23:59:00",
+  "category": "Featured",
+  "reward": "50,000 Usd",
+  "teamCount": 3193,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/nfl-big-data-bowl-2027",
+  "deadline": "2027-01-06T23:59:00",
+  "category": "Featured",
+  "reward": "100,000 Usd",
+  "teamCount": 212,
+  "userHasEntered": true,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/the-pokemon-company-ptcg-ai-battle-challenge-playground",
+  "deadline": "2027-01-08T23:59:59",
+  "category": "Playground",
+  "reward": "Swag",
+  "teamCount": 340,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/spaceship-titanic",
+  "deadline": "2030-01-01T00:00:00",
+  "category": "Getting Started",
+  "reward": "Knowledge",
+  "teamCount": 1616,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/nlp-getting-started",
+  "deadline": "2030-01-01T00:00:00",
+  "category": "Getting Started",
+  "reward": "Knowledge",
+  "teamCount": 451,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/connectx",
+  "deadline": "2030-01-01T00:00:00",
+  "category": "Getting Started",
+  "reward": "Knowledge",
+  "teamCount": 204,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques",
+  "deadline": "2030-01-01T00:00:00",
+  "category": "Getting Started",
+  "reward": "Knowledge",
+  "teamCount": 4101,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/titanic",
+  "deadline": "2030-01-01T00:00:00",
+  "category": "Getting Started",
+  "reward": "Knowledge",
+  "teamCount": 10878,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/digit-recognizer",
+  "deadline": "2030-01-01T00:00:00",
+  "category": "Getting Started",
+  "reward": "Knowledge",
+  "teamCount": 919,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/home-data-for-ml-course",
+  "deadline": "2030-01-01T23:59:00",
+  "category": "Getting Started",
+  "reward": "Knowledge",
+  "teamCount": 3854,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/tpu-getting-started",
+  "deadline": "2030-06-03T23:59:00",
+  "category": "Getting Started",
+  "reward": "Knowledge",
+  "teamCount": 43,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/store-sales-time-series-forecasting",
+  "deadline": "2030-06-30T23:59:00",
+  "category": "Getting Started",
+  "reward": "Knowledge",
+  "teamCount": 551,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/llm-classification-finetuning",
+  "deadline": "2030-07-01T23:59:00",
+  "category": "Getting Started",
+  "reward": "Knowledge",
+  "teamCount": 249,
+  "userHasEntered": false,
+  "userRank": 0
+ },
+ {
+  "ref": "https://www.kaggle.com/competitions/contradictory-my-dear-watson",
+  "deadline": "2030-07-01T23:59:00",
+  "category": "Getting Started",
+  "reward": "Knowledge",
+  "teamCount": 49,
+  "userHasEntered": false,
+  "userRank": 0
+ }
+]
