@@ -1,0 +1,117 @@
+{
+  "mode": "hackathon",
+  "description": "AutoKaggle SOP adapted for judged, insight-generation competitions (Kaggle 'Hackathons') where the submission is a writeup rather than a leaderboard prediction. Replaces the tabular train/test phases with audit -> hypothesis -> validation -> metric -> narrative phases, and replaces the numeric competition metric with the published judging rubric.",
+  "competition": "nfl_big_data_bowl_2027",
+  "submission_kind": "writeup_plus_notebook",
+  "phases": [
+    "Understand Background and Rubric",
+    "Data Audit and Sensor Inventory",
+    "Hypothesis Generation and Feasibility Scan",
+    "Topic Selection and Analysis Plan",
+    "Deep Dive and Statistical Validation",
+    "Metric Construction and Robustness",
+    "Visualization and Narrative",
+    "Writeup Assembly and Rubric Self-Review"
+  ],
+  "phase_to_agents": {
+    "Understand Background and Rubric": ["Reader", "Reviewer"],
+    "Data Audit and Sensor Inventory": ["Planner", "Developer", "Reviewer", "Summarizer"],
+    "Hypothesis Generation and Feasibility Scan": ["Planner", "Developer", "Reviewer", "Summarizer"],
+    "Topic Selection and Analysis Plan": ["Planner", "Reviewer"],
+    "Deep Dive and Statistical Validation": ["Planner", "Developer", "Reviewer", "Summarizer"],
+    "Metric Construction and Robustness": ["Developer", "Reviewer", "Summarizer"],
+    "Visualization and Narrative": ["Planner", "Developer", "Reviewer", "Summarizer"],
+    "Writeup Assembly and Rubric Self-Review": ["Developer", "Reviewer", "Summarizer"]
+  },
+  "phase_to_iterations": {
+    "Understand Background and Rubric": 0,
+    "Data Audit and Sensor Inventory": 0,
+    "Hypothesis Generation and Feasibility Scan": 0,
+    "Topic Selection and Analysis Plan": 0,
+    "Deep Dive and Statistical Validation": 0,
+    "Metric Construction and Robustness": 0,
+    "Visualization and Narrative": 0,
+    "Writeup Assembly and Rubric Self-Review": 0
+  },
+  "phase_to_directory": {
+    "Understand Background and Rubric": "01_background",
+    "Data Audit and Sensor Inventory": "02_data_audit",
+    "Hypothesis Generation and Feasibility Scan": "03_feasibility",
+    "Topic Selection and Analysis Plan": "04_topic_selection",
+    "Deep Dive and Statistical Validation": "05_deep_dive",
+    "Metric Construction and Robustness": "06_metric",
+    "Visualization and Narrative": "07_visualization",
+    "Writeup Assembly and Rubric Self-Review": "08_writeup"
+  },
+  "phase_to_required_artifacts": {
+    "Understand Background and Rubric": ["background.md", "rubric_checklist.md"],
+    "Data Audit and Sensor Inventory": ["audit_report.md", "audit_summary.json"],
+    "Hypothesis Generation and Feasibility Scan": ["feasibility_report.md", "feasibility_results.csv"],
+    "Topic Selection and Analysis Plan": ["topic_selection.md", "analysis_plan.md"],
+    "Deep Dive and Statistical Validation": ["deep_dive.md", "statistics.json"],
+    "Metric Construction and Robustness": ["metric_definition.md", "robustness.md"],
+    "Visualization and Narrative": ["figure_captions.md"],
+    "Writeup Assembly and Rubric Self-Review": ["writeup.md", "public_notebook.ipynb", "self_review.md"]
+  },
+  "phase_to_unit_tests": {
+    "Understand Background and Rubric": ["test_document_exist", "test_rubric_checklist_complete"],
+    "Data Audit and Sensor Inventory": ["test_document_exist", "test_audit_reports_effective_n", "test_audit_lists_confounds"],
+    "Hypothesis Generation and Feasibility Scan": ["test_document_exist", "test_feasibility_covers_all_focus_groups", "test_feasibility_reports_uncertainty"],
+    "Topic Selection and Analysis Plan": ["test_document_exist", "test_topic_selection_justified", "test_analysis_plan_has_falsification"],
+    "Deep Dive and Statistical Validation": ["test_document_exist", "test_statistics_report_uncertainty", "test_confounds_controlled"],
+    "Metric Construction and Robustness": ["test_document_exist", "test_metric_has_formula_and_direction", "test_robustness_checks_present"],
+    "Visualization and Narrative": ["test_document_exist", "test_figure_count_within_limit", "test_figures_have_takeaways"],
+    "Writeup Assembly and Rubric Self-Review": ["test_document_exist", "test_word_count_within_limit", "test_public_notebook_exists", "test_uses_tracking_data", "test_combine_to_nfl_linkage_explicit"]
+  },
+  "rubric": {
+    "weights": {
+      "football": 0.30,
+      "data_science": 0.30,
+      "writeup": 0.20,
+      "visualization": 0.20
+    },
+    "components": {
+      "football": [
+        "Would NFL teams or the league office use this on a week-to-week basis?",
+        "Does the analysis account for the variables that make football data complex (draft capital, opportunity, position, exposure, scheme)?",
+        "Are the ideas unique relative to conventional scouting wisdom?"
+      ],
+      "data_science": [
+        "Is the work correct and reproducible?",
+        "Are the claims backed by data with stated uncertainty?",
+        "Are the statistical models appropriate for the sample size and structure?",
+        "Are the analytical applications innovative?"
+      ],
+      "writeup": [
+        "Is the writeup well written and easy to follow?",
+        "Is the motivation (metric, player evaluation goal) clearly defined?"
+      ],
+      "visualization": [
+        "Are the charts and tables accessible to a football audience?",
+        "Are they accurate (no truncated axes, no misleading aggregation)?",
+        "Are they innovative?"
+      ]
+    },
+    "hard_limits": {
+      "max_words": 2000,
+      "max_tables_and_figures": 9,
+      "notebook_required": true,
+      "must_use_tracking_data": true
+    },
+    "pass_fail_gates": [
+      "Explicitly links Combine sensor tracking data to regular-season NFL game performance.",
+      "Readable markdown writeup with embedded visuals and an attached public Kaggle Notebook."
+    ]
+  },
+  "scoring": {
+    "scale_min": 0,
+    "scale_max": 10,
+    "pass_threshold": 6.0,
+    "max_iterations_per_phase": 3,
+    "note": "A phase advances only when the reviewer's weighted rubric score reaches pass_threshold AND every phase unit test passes. Otherwise the phase repeats with the reviewer's suggestions injected, up to max_iterations_per_phase."
+  },
+  "user_interaction": {
+    "plan": "True",
+    "checkpoint_phases": ["Topic Selection and Analysis Plan"]
+  }
+}

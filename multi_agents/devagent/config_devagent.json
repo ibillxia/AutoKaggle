@@ -1,0 +1,113 @@
+{
+  "mode": "devagent",
+  "description": "AutoKaggle SOP adapted for code-agent harness competitions, where the deliverable is a submission.zip containing an agent configuration and the score is an external SWE-Bench-style pass rate that cannot be computed locally. The SOP optimises harness-gate compliance and agent engineering discipline instead.",
+  "competition": "gemma_4_developer_agent",
+  "submission_kind": "agent_config_zip",
+  "objective": "maximise the probability that the submitted agent configuration (a) survives the harness's upload gates and (b) resolves issues within the 12-hour budget",
+  "explicit_non_objective": "this SOP does not compute, estimate or claim a hidden-set pass rate",
+  "phases": [
+    "Understand Rules and Harness",
+    "Candidate Strategy Design",
+    "Config Assembly",
+    "Gate Validation",
+    "Proxy Evaluation",
+    "Ranking and Selection",
+    "Submission Packaging"
+  ],
+  "phase_to_agents": {
+    "Understand Rules and Harness": ["Reader", "Reviewer"],
+    "Candidate Strategy Design": ["Planner", "Reviewer"],
+    "Config Assembly": ["Developer", "Reviewer"],
+    "Gate Validation": ["Developer", "Reviewer"],
+    "Proxy Evaluation": ["Developer", "Reviewer"],
+    "Ranking and Selection": ["Planner", "Reviewer", "Summarizer"],
+    "Submission Packaging": ["Developer", "Reviewer", "Summarizer"]
+  },
+  "phase_to_iterations": {
+    "Understand Rules and Harness": 0,
+    "Candidate Strategy Design": 0,
+    "Config Assembly": 0,
+    "Gate Validation": 0,
+    "Proxy Evaluation": 0,
+    "Ranking and Selection": 0,
+    "Submission Packaging": 0
+  },
+  "phase_to_directory": {
+    "Understand Rules and Harness": "01_rules",
+    "Candidate Strategy Design": "02_candidates",
+    "Config Assembly": "03_assembly",
+    "Gate Validation": "04_gates",
+    "Proxy Evaluation": "05_proxy",
+    "Ranking and Selection": "06_ranking",
+    "Submission Packaging": "07_submission"
+  },
+  "phase_to_required_artifacts": {
+    "Understand Rules and Harness": ["background.md", "gate_checklist.md"],
+    "Candidate Strategy Design": ["candidate_ladder.md", "ablation_plan.md"],
+    "Config Assembly": ["build_manifest.json"],
+    "Gate Validation": ["gate_report.json", "gate_report.md"],
+    "Proxy Evaluation": ["proxy_report.json"],
+    "Ranking and Selection": ["ranking.md", "comparison.csv"],
+    "Submission Packaging": ["submission_summary.json"]
+  },
+  "phase_to_unit_tests": {
+    "Understand Rules and Harness": ["test_document_exist", "test_gate_checklist_covers_hard_gates"],
+    "Candidate Strategy Design": ["test_document_exist", "test_candidate_ladder_is_ablation"],
+    "Config Assembly": ["test_document_exist", "test_every_candidate_has_agent_yaml"],
+    "Gate Validation": ["test_document_exist", "test_gate_report_records_every_candidate"],
+    "Proxy Evaluation": ["test_document_exist", "test_proxy_report_has_evidence_or_absence_is_declared"],
+    "Ranking and Selection": ["test_document_exist", "test_ranking_derived_from_gates_and_rubric", "test_ranking_declares_limits"],
+    "Submission Packaging": ["test_document_exist", "test_best_candidate_passes_hard_gates", "test_submission_summary_declares_no_official_score"]
+  },
+  "rubric": {
+    "weights": {
+      "harness_compliance": 0.40,
+      "strategy_quality": 0.30,
+      "executed_evidence": 0.20,
+      "packaging": 0.10
+    },
+    "components": {
+      "harness_compliance": [
+        "Does the candidate survive every hard upload gate?",
+        "Are the tool names inside the closed harness registry?",
+        "Do all !include directives resolve inside the submission root?"
+      ],
+      "strategy_quality": [
+        "Does the prompt address the 12-hour budget explicitly?",
+        "Does it navigate by the code graph before reading files?",
+        "Does it verify the fix on the targeted test before submitting?"
+      ],
+      "executed_evidence": [
+        "Are the shipped skill scripts actually executed by the proxy?",
+        "Do the executed checks pass on fixture repositories?"
+      ],
+      "packaging": [
+        "Is agent.yaml at the archive root?",
+        "Is a per-task budget declared?",
+        "Is the best candidate published as a single zip?"
+      ]
+    },
+    "hard_limits": {
+      "total_budget_minutes": 720,
+      "expected_tasks": 120,
+      "allowed_extensions": [".yaml", ".yml", ".md", ".txt", ".py", ".json", ".safetensors"],
+      "required_base_model": "gemma-4-31b-it-qat-w4a16-ct"
+    },
+    "pass_fail_gates": [
+      "No hard harness gate fails for the selected candidate.",
+      "The selection rule is stated and applied mechanically.",
+      "No official score is claimed anywhere in the deliverable."
+    ]
+  },
+  "scoring": {
+    "scale_min": 0,
+    "scale_max": 10,
+    "pass_threshold": 6.0,
+    "max_iterations_per_phase": 3,
+    "note": "A phase advances only when its evidence score reaches pass_threshold AND every phase unit test passes."
+  },
+  "user_interaction": {
+    "plan": "True",
+    "checkpoint_phases": ["Candidate Strategy Design"]
+  }
+}
