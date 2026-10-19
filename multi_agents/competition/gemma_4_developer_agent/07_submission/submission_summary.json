@@ -1,0 +1,13 @@
+{
+  "competition": "gemma_4_developer_agent",
+  "selected_candidate": "v5_verified_full",
+  "zip": "E:\\Bill\\AI\\AutoKaggle\\solutions\\gemma_4_developer_agent\\artifacts\\best_submission.zip",
+  "compliant": true,
+  "hard_failures": [],
+  "composite": 1.0,
+  "rubric_score_10": 10.0,
+  "proxy_score": 1.0,
+  "official_score": null,
+  "official_score_note": "Not computed and not computable here. The official metric is the percentage of hidden repository issues whose validation tests pass after applying the submitted patch; obtaining it requires the organiser's harness with the gemma-4-31b-it-qat-w4a16-ct weights and the hidden task set.",
+  "next_lever": "Train a LoRA adapter on the released task graph and place it in adapters/main_lora/, then set `adapter: main_lora` on the root agent in agent.yaml."
+}

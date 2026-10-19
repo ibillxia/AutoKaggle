@@ -1,0 +1,194 @@
+{
+  "n_executed_checks": 18,
+  "n_passed": 18,
+  "fixtures": "E:\\Bill\\AI\\AutoKaggle\\solutions\\gemma_4_developer_agent\\artifacts\\_work\\fixtures",
+  "candidates": [
+    {
+      "candidate": "v1_starter_kit",
+      "executed": 0,
+      "passed": 0,
+      "score": null,
+      "checks": [
+        {
+          "id": "repro_first_skill",
+          "passed": null,
+          "applicable": false,
+          "detail": "candidate ships no repro_first skill"
+        },
+        {
+          "id": "patch_hygiene_skill",
+          "passed": null,
+          "applicable": false,
+          "detail": "candidate ships no patch_hygiene skill"
+        }
+      ],
+      "note": "no executable artefact shipped; the composite gives this candidate the neutral prior 0.50 rather than crediting evidence it does not have"
+    },
+    {
+      "candidate": "v2_budget_guard",
+      "executed": 0,
+      "passed": 0,
+      "score": null,
+      "checks": [
+        {
+          "id": "repro_first_skill",
+          "passed": null,
+          "applicable": false,
+          "detail": "candidate ships no repro_first skill"
+        },
+        {
+          "id": "patch_hygiene_skill",
+          "passed": null,
+          "applicable": false,
+          "detail": "candidate ships no patch_hygiene skill"
+        }
+      ],
+      "note": "no executable artefact shipped; the composite gives this candidate the neutral prior 0.50 rather than crediting evidence it does not have"
+    },
+    {
+      "candidate": "v3_graph_navigator",
+      "executed": 0,
+      "passed": 0,
+      "score": null,
+      "checks": [
+        {
+          "id": "repro_first_skill",
+          "passed": null,
+          "applicable": false,
+          "detail": "candidate ships no repro_first skill"
+        },
+        {
+          "id": "patch_hygiene_skill",
+          "passed": null,
+          "applicable": false,
+          "detail": "candidate ships no patch_hygiene skill"
+        }
+      ],
+      "note": "no executable artefact shipped; the composite gives this candidate the neutral prior 0.50 rather than crediting evidence it does not have"
+    },
+    {
+      "candidate": "v4_skill_pack",
+      "executed": 9,
+      "passed": 9,
+      "score": 1.0,
+      "checks": [
+        {
+          "id": "shipped_scripts_compile",
+          "passed": true,
+          "applicable": true,
+          "detail": "2 script(s) compile"
+        },
+        {
+          "id": "repro_repo_fail",
+          "passed": true,
+          "applicable": true,
+          "detail": "expected passed=False, got passed=False (rc=1, 0.611s)"
+        },
+        {
+          "id": "repro_repo_pass",
+          "passed": true,
+          "applicable": true,
+          "detail": "expected passed=True, got passed=True (rc=0, 0.595s)"
+        },
+        {
+          "id": "hygiene_good_patch",
+          "passed": true,
+          "applicable": true,
+          "detail": "ok=True (expected True), failed=[]"
+        },
+        {
+          "id": "hygiene_bad_debug",
+          "passed": true,
+          "applicable": true,
+          "detail": "ok=False (expected False), failed=['no_debug_leftovers']"
+        },
+        {
+          "id": "hygiene_bad_test_edit",
+          "passed": true,
+          "applicable": true,
+          "detail": "ok=False (expected False), failed=['no_test_file_edits']"
+        },
+        {
+          "id": "hygiene_bad_traversal",
+          "passed": true,
+          "applicable": true,
+          "detail": "ok=False (expected False), failed=['no_path_traversal']"
+        },
+        {
+          "id": "hygiene_empty_patch",
+          "passed": true,
+          "applicable": true,
+          "detail": "ok=False (expected False), failed=['diff_non_empty']"
+        },
+        {
+          "id": "hygiene_git_mode",
+          "passed": true,
+          "applicable": true,
+          "detail": "ok=True, source=git, files=['calc.py']"
+        }
+      ]
+    },
+    {
+      "candidate": "v5_verified_full",
+      "executed": 9,
+      "passed": 9,
+      "score": 1.0,
+      "checks": [
+        {
+          "id": "shipped_scripts_compile",
+          "passed": true,
+          "applicable": true,
+          "detail": "2 script(s) compile"
+        },
+        {
+          "id": "repro_repo_fail",
+          "passed": true,
+          "applicable": true,
+          "detail": "expected passed=False, got passed=False (rc=1, 0.578s)"
+        },
+        {
+          "id": "repro_repo_pass",
+          "passed": true,
+          "applicable": true,
+          "detail": "expected passed=True, got passed=True (rc=0, 0.53s)"
+        },
+        {
+          "id": "hygiene_good_patch",
+          "passed": true,
+          "applicable": true,
+          "detail": "ok=True (expected True), failed=[]"
+        },
+        {
+          "id": "hygiene_bad_debug",
+          "passed": true,
+          "applicable": true,
+          "detail": "ok=False (expected False), failed=['no_debug_leftovers']"
+        },
+        {
+          "id": "hygiene_bad_test_edit",
+          "passed": true,
+          "applicable": true,
+          "detail": "ok=False (expected False), failed=['no_test_file_edits']"
+        },
+        {
+          "id": "hygiene_bad_traversal",
+          "passed": true,
+          "applicable": true,
+          "detail": "ok=False (expected False), failed=['no_path_traversal']"
+        },
+        {
+          "id": "hygiene_empty_patch",
+          "passed": true,
+          "applicable": true,
+          "detail": "ok=False (expected False), failed=['diff_non_empty']"
+        },
+        {
+          "id": "hygiene_git_mode",
+          "passed": true,
+          "applicable": true,
+          "detail": "ok=True, source=git, files=['calc.py']"
+        }
+      ]
+    }
+  ]
+}

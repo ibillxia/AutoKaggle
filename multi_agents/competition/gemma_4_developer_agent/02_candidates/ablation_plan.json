@@ -1,0 +1,37 @@
+[
+  {
+    "rank": 1,
+    "name": "v1_starter_kit",
+    "delta": "baseline",
+    "boundary": "baseline",
+    "idea": "Baseline shaped like the official starter kit: prompt-only, no budgets, no skills."
+  },
+  {
+    "rank": 2,
+    "name": "v2_budget_guard",
+    "delta": "12-hour budget ceiling across ~120 tasks",
+    "boundary": "12-hour budget ceiling across ~120 tasks",
+    "idea": "Adds explicit per-task budgets and a get_status-before-everything policy."
+  },
+  {
+    "rank": 3,
+    "name": "v3_graph_navigator",
+    "delta": "context exhaustion / blind grep on large repositories",
+    "boundary": "context exhaustion / blind grep on large repositories",
+    "idea": "Adds graph-first navigation and a read-only code_analyzer AgentTool."
+  },
+  {
+    "rank": 4,
+    "name": "v4_skill_pack",
+    "delta": "plausible-but-wrong patches; malformed or test-editing diffs",
+    "boundary": "plausible-but-wrong patches; malformed or test-editing diffs",
+    "idea": "Adds reproduce-first and patch-hygiene skills, with real scripts."
+  },
+  {
+    "rank": 5,
+    "name": "v5_verified_full",
+    "delta": "context bloat, edit cycles, submitting a red tree",
+    "boundary": "context bloat, edit cycles, submitting a red tree",
+    "idea": "Adds the verification loop, context compaction and anti-cycle rules."
+  }
+]

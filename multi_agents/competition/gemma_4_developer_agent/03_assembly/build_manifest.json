@@ -1,0 +1,89 @@
+{
+  "solution_dir": "E:\\Bill\\AI\\AutoKaggle\\solutions\\gemma_4_developer_agent",
+  "candidates": [
+    {
+      "name": "v1_starter_kit",
+      "n_files": 3,
+      "files": [
+        "agent.yaml",
+        "configs/sampling.yaml",
+        "prompts/system.md"
+      ],
+      "zip": "E:\\Bill\\AI\\AutoKaggle\\solutions\\gemma_4_developer_agent\\artifacts\\submissions\\v1_starter_kit\\submission.zip",
+      "zip_bytes": 976
+    },
+    {
+      "name": "v2_budget_guard",
+      "n_files": 4,
+      "files": [
+        "agent.yaml",
+        "configs/sampling.yaml",
+        "eval_config.yaml",
+        "prompts/system.md"
+      ],
+      "zip": "E:\\Bill\\AI\\AutoKaggle\\solutions\\gemma_4_developer_agent\\artifacts\\submissions\\v2_budget_guard\\submission.zip",
+      "zip_bytes": 1810
+    },
+    {
+      "name": "v3_graph_navigator",
+      "n_files": 9,
+      "files": [
+        "agent.yaml",
+        "configs/sampling.yaml",
+        "eval_config.yaml",
+        "prompts/analyzer.md",
+        "prompts/system.md",
+        "skills/repo_triage/SKILL.md",
+        "skills/repo_triage/resources/issue_taxonomy.md",
+        "skills/repo_triage/resources/navigation_protocol.md",
+        "sub_agents/code_analyzer.yaml"
+      ],
+      "zip": "E:\\Bill\\AI\\AutoKaggle\\solutions\\gemma_4_developer_agent\\artifacts\\submissions\\v3_graph_navigator\\submission.zip",
+      "zip_bytes": 5139
+    },
+    {
+      "name": "v4_skill_pack",
+      "n_files": 13,
+      "files": [
+        "agent.yaml",
+        "configs/sampling.yaml",
+        "eval_config.yaml",
+        "prompts/analyzer.md",
+        "prompts/system.md",
+        "skills/patch_hygiene/SKILL.md",
+        "skills/patch_hygiene/scripts/check_patch.py",
+        "skills/repo_triage/SKILL.md",
+        "skills/repo_triage/resources/issue_taxonomy.md",
+        "skills/repo_triage/resources/navigation_protocol.md",
+        "skills/repro_first/SKILL.md",
+        "skills/repro_first/scripts/run_targeted_test.py",
+        "sub_agents/code_analyzer.yaml"
+      ],
+      "zip": "E:\\Bill\\AI\\AutoKaggle\\solutions\\gemma_4_developer_agent\\artifacts\\submissions\\v4_skill_pack\\submission.zip",
+      "zip_bytes": 10788
+    },
+    {
+      "name": "v5_verified_full",
+      "n_files": 15,
+      "files": [
+        "agent.yaml",
+        "configs/sampling.yaml",
+        "eval_config.yaml",
+        "prompts/analyzer.md",
+        "prompts/system.md",
+        "skills/patch_hygiene/SKILL.md",
+        "skills/patch_hygiene/resources/why_hygiene_scores.md",
+        "skills/patch_hygiene/scripts/check_patch.py",
+        "skills/repo_triage/SKILL.md",
+        "skills/repo_triage/resources/issue_taxonomy.md",
+        "skills/repo_triage/resources/navigation_protocol.md",
+        "skills/repro_first/SKILL.md",
+        "skills/repro_first/resources/reading_a_failure.md",
+        "skills/repro_first/scripts/run_targeted_test.py",
+        "sub_agents/code_analyzer.yaml"
+      ],
+      "zip": "E:\\Bill\\AI\\AutoKaggle\\solutions\\gemma_4_developer_agent\\artifacts\\submissions\\v5_verified_full\\submission.zip",
+      "zip_bytes": 12405
+    }
+  ]
+}

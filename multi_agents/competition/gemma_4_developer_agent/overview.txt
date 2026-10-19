@@ -1,0 +1,147 @@
+================================================================================
+GEMMA 4 DEVELOPER AGENT  --  COMPETITION OVERVIEW (for Reader / Planner agents)
+================================================================================
+
+Competition URL : https://www.kaggle.com/competitions/gemma-4-developer-agent
+Host            : Google DeepMind
+Competition type: FEATURED CODE-AGENT COMPETITION (SWE-Bench style PASS/FAIL on
+                  hidden repository issues -- NOT a tabular prediction task and
+                  NOT a judged writeup hackathon)
+Prize pool      : $65,000 prediction track ($37k / $18k / $10k)
+                  + $35,000 optional paper track (separate competition)
+Tags            : Artificial Intelligence, Coding
+Custom metric   : percentage of patched repositories that pass validation tests
+
+--------------------------------------------------------------------------------
+1. TAGLINE
+--------------------------------------------------------------------------------
+"Post-train an open model into a reliable agent that navigates complex codebases
+and drafts fixes for real software issues, on everyday hardware."
+
+--------------------------------------------------------------------------------
+2. PROBLEM STATEMENT
+--------------------------------------------------------------------------------
+Today's strongest coding agents depend on large cloud API models. The goal is to
+build an autonomous software-engineering agent that fits on a single consumer
+accelerator and can independently navigate a repository and draft a fix for a
+real issue -- without network access.
+
+This is an *agent engineering + post-training* competition. There is no
+train.csv. The deliverable is an **agent configuration**, compiled by the
+organiser's harness into an ADK agent and run against hidden issues.
+
+--------------------------------------------------------------------------------
+3. EVALUATION
+--------------------------------------------------------------------------------
+Submit a zip archive named `submission.zip` containing an Agent Config:
+system prompts, custom tools, skills, and optional LoRA adapters. An `agent.yaml`
+file MUST be located at the root of the archive.
+
+    submission.zip
+    |-- agent.yaml                  # REQUIRED: root agent config
+    |-- eval_config.yaml            # optional: per-task time / turn budgets
+    |-- configs/sampling.yaml       # optional: generation params via !include
+    |-- prompts/system.md           # optional: system instructions via !include
+    |-- prompts/analyzer.md
+    |-- sub_agents/code_analyzer.yaml
+    |-- adapters/                   # optional PEFT LoRA (adapter_config.json +
+    |   |-- main_lora/              #          adapter_model.safetensors)
+    |   `-- tool_lora/
+    `-- skills/                     # optional ADK Skill directories
+        `-- repo_navigation/
+            |-- SKILL.md            # manifest, YAML frontmatter `name:`
+            |-- scripts/            # sandboxed scripts
+            `-- resources/          # domain knowledge markdown
+
+Scoring: SWE-Bench style. For each issue the submitted patch is applied to that
+issue's repository and the issue's validation tests are run. Overall score =
+percentage of patched repositories that pass the validation tests.
+
+Budget: the agent has a limit of 12 hours (wall clock) to submit patches for all
+tasks, inclusive of sandbox setup, excluding patch validation. Per-task limits
+may be declared in `eval_config.yaml`.
+
+--------------------------------------------------------------------------------
+4. MODEL SELECTION AND LoRA ADAPTERS
+--------------------------------------------------------------------------------
+* Only ONE base model is supported: `gemma-4-31b-it-qat-w4a16-ct`.
+  You MUST choose this model for EVERY agent and subagent.
+* LoRA adapters are optional. If used, place PEFT LoRA directories (containing
+  `adapter_config.json` and `adapter_model.safetensors`) inside
+  `adapters/<adapter_name>/` and reference `adapter: <adapter_name>` on any
+  LlmAgent in `agent.yaml` or `sub_agents/*.yaml`.
+* Different adapters may be used per agent (e.g. `main_lora` on the coder,
+  `tool_lora` on a read-only analyzer AgentTool).
+
+--------------------------------------------------------------------------------
+5. TOOL, PROMPT AND SKILL RULES  (hard constraints)
+--------------------------------------------------------------------------------
+* `!include` directives resolve RELATIVE TO THE DIRECTORY OF THE INCLUDING FILE.
+  e.g. in `agent.yaml`, `!include prompts/system.md` loads `prompts/system.md`.
+* Sandboxing: path traversal outside the submission root (`../`, symlinks) is
+  NOT allowed.
+* Allowed tools: the agent may ONLY request tools provided by the harness, or
+  custom subagents defined via `agent_tool`.
+* Skills: each skill is a directory containing a `SKILL.md` manifest with YAML
+  frontmatter (`name: <skill-name>`). Scripts run inside the competition's
+  persistent Docker container and debit the central execution budget.
+* Observed harness gates (from the released `swegemma` / `adk-submission`
+  validator, version 0.2.x):
+  - allowed submission file extensions are ONLY
+    `.yaml .yml .md .txt .py .json .safetensors`
+    (a `.sh` skill script causes a hard upload error)
+  - the tool registry is CLOSED: listing a non-registered tool name (for example
+    `run_skill_script` or `load_skill_resource` in `tools:`) raises a
+    ToolNotFoundError at compile time
+  - a sub-agent must be wired as an AgentTool:
+    `- agent_tool: {config_path: sub_agents/x.yaml, skip_summarization: true}`
+    and NOT via a `sub_agents:` transfer list
+
+--------------------------------------------------------------------------------
+6. PREDEFINED TOOLS (the complete registry)
+--------------------------------------------------------------------------------
+ 1. run_command(command)                        -> shell in /bin/bash -c, cwd /workspace
+ 2. submit_patch()                              -> git add -N . ; git diff HEAD
+ 3. get_status()                                -> live budget + patch status
+ 4. read_file(filepath, start_line, end_line)   -> 1-indexed inclusive slicing
+ 5. edit_file(filepath, old_string, new_string, allow_multiple)
+ 6. write_file(filepath, content)
+ 7. get_code_neighbors(node, edge_type, max_neighbors)
+ 8. search_similar_code(query, k)
+ 9. get_code_subgraph(nodes)
+
+--------------------------------------------------------------------------------
+7. EXECUTION ENVIRONMENT
+--------------------------------------------------------------------------------
+* Repositories are Python 3.13 sandboxes; the harness host runs Python >= 3.12.
+* Released harness packages: swegemma 0.2.x, adk-submission 0.2.11,
+  adk-eval-core 0.1.0, google-adk 1.36.1, vllm 0.19.1.
+* Dataset (~22.4 GB): HARNESS_README.md, tasks.jsonl, snapshots/, graphs/,
+  embeddings/, wheels/, docker/, sandbox/, sample_submission/.
+* tasks.jsonl: 1129 tasks over 127 distinct base commits across many real
+  Python repositories (e.g. willmcgugan/rich).
+* No internet on evaluation accelerators (L4x4, 96 GB VRAM).
+* `configs/sampling.yaml` feeds a hosted vLLM: `include_thoughts: true` plus
+  `thinking_budget` is expected; a `thinking_level` key is not accepted.
+
+--------------------------------------------------------------------------------
+8. TIMELINE
+--------------------------------------------------------------------------------
+* 2026-09-23  Start date
+* 2026-11-12  Optional research paper deadline (paper track)
+* 2026-11-25  Entry deadline + team merger deadline
+* 2026-12-02  Final submission deadline
+
+--------------------------------------------------------------------------------
+9. WHAT "SOLVING THIS" ACTUALLY MEANS
+--------------------------------------------------------------------------------
+The winning artefacts are:
+  (a) a well-engineered agent config (prompt / tool policy / sub-agent / skills)
+      that survives compilation and the 12-hour budget, and
+  (b) optionally, a fine-tuned LoRA adapter that measurably raises the pass rate.
+
+Neither (a) nor (b) can be *scored* without the organiser's harness (Docker
+sandbox + the 31B base weights + hidden issues). Local work can therefore only
+maximise: format compliance (gate survival), budget safety, navigation and
+verification discipline, and patch hygiene -- which is exactly what this
+solution package measures with a local proxy.

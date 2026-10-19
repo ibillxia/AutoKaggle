@@ -1,0 +1,408 @@
+{
+  "linkage": {
+    "position_group": "DL",
+    "outcome": "sack_rate",
+    "trait": "skill_dl__entry_speed_max",
+    "partial_r": 0.3879410303551755,
+    "ci_low": 0.144345824495869,
+    "ci_high": 0.44311787511163864,
+    "n": 84,
+    "p_boot": 0.0,
+    "q_value": null,
+    "delta_r2": 0.08006231852090628,
+    "r2_base": -0.03306205494624326,
+    "r2_full": 0.047000263574663026,
+    "reliability": null,
+    "leave_one_out": {
+      "base_r": 0.3879410303551755,
+      "max_abs_delta": 0.03890960397302984,
+      "min_partial_r": 0.3518824304640916,
+      "max_partial_r": 0.42685063432820536,
+      "n_flips_sign": 0.0,
+      "n": 84.0
+    },
+    "ols": "OLS with HC3 robust SE   n=84  k=20  R2=0.354  adjR2=0.163\n  intercept                    +10.1292 [-13.7904, +34.0487]  p=0.4096\n  log_draft_capital            -0.2590 [-0.5347, +0.0167]  p=0.0703\n  age_at_draft                 -0.1199 [-0.3492, +0.1094]  p=0.3094\n  combine_height               -0.1486 [-0.3245, +0.0273]  p=0.1026\n  combine_weight               -0.0099 [-0.0259, +0.0061]  p=0.2281\n  forty                        +0.3478 [-3.7588, +4.4545]  p=0.8687\n  ten_yd_split                 -0.4650 [-12.2045, +11.2744]  p=0.9351\n  three_cone                   +0.3848 [-2.2332, +3.0028]  p=0.7742\n  short_shuttle                +0.4861 [-3.1518, +4.1240]  p=0.7942\n  vertical                     -0.0383 [-0.1567, +0.0800]  p=0.5279\n  broad_jump                   +0.0156 [-0.0596, +0.0908]  p=0.6859\n  bench_reps                   +0.0602 [-0.0282, +0.1486]  p=0.1864\n  forty_not_tested             +0.1183 [-0.1858, +0.4225]  p=0.4486\n  ten_yd_split_not_tested      +0.1183 [-0.1858, +0.4225]  p=0.4486\n  three_cone_not_tested        -0.2400 [-1.4930, +1.0130]  p=0.7086\n  short_shuttle_not_tested     -0.2402 [-1.2795, +0.7991]  p=0.6521\n  vertical_not_tested          -0.6116 [-2.0608, +0.8376]  p=0.4112\n  broad_jump_not_tested        +0.1314 [-1.3331, +1.5959]  p=0.8610\n  bench_reps_not_tested        +0.4404 [-0.1543, +1.0351]  p=0.1515\n  __trait_z                    +0.3655 [+0.0978, +0.6332]  p=0.0094",
+    "convergent_get_off": "-0.17, 95% CI [-0.34, -0.09], n = 84"
+  },
+  "linkage_sentence": "In DL, skill_dl__entry_speed_max is positively associated with sack_rate after controlling for the conventional Combine battery and draft capital (partial r = +0.39, 95% CI [+0.14, +0.44], n = 84), adding +0.080 out-of-sample R^2.",
+  "metric_validation": {
+    "position_group": "DL",
+    "outcome": "sack_rate",
+    "metric": "Cut Entry Speed Index",
+    "estimate": 0.38193059555559566,
+    "ci_low": 0.13450472371653582,
+    "ci_high": 0.5894967136427002,
+    "n": 84.0,
+    "n_boot": 3000.0,
+    "p_boot": 0.005333333333333333,
+    "r2_base": -0.03306205494624326,
+    "r2_full": 0.041898317308578514,
+    "delta_r2": 0.07496037225482177,
+    "r2_trait_only": 0.10410199000152265,
+    "metric_components": [
+      "skill_dl__entry_speed_max",
+      "skill_dl__cut_radius_proxy_max"
+    ],
+    "rank_stability_top10": {
+      "mean_jaccard": 0.3726648473842685,
+      "median_jaccard": 0.36363636363636365,
+      "n_boot": 500
+    }
+  },
+  "metric_vs_stopwatch": {
+    "metric_n": 84,
+    "best_traditional_test": "vertical",
+    "best_traditional_r2": -0.07477626558782999,
+    "metric_r2": 0.03401794506385865,
+    "gain_over_best_test": 0.10879421065168864
+  },
+  "blind_spots": {
+    "n": 34,
+    "archetype_counts": {
+      "sensor_beats_stopwatch": 11,
+      "stopwatch_beats_sensor": 11,
+      "confirmed_elite": 6,
+      "confirmed_limited": 6
+    },
+    "outcome_mean_by_archetype": {
+      "confirmed_elite": 0.010186512364211853,
+      "confirmed_limited": 0.008536066631661827,
+      "sensor_beats_stopwatch": 0.0117562522094829,
+      "stopwatch_beats_sensor": 0.006350914056780171
+    },
+    "outcome": "sack_rate",
+    "lower_is_better": false,
+    "verdict": "the in-game outcome favours the sensor's preferred quadrant",
+    "hidden_talent": [
+      {
+        "nfl_id": 57177,
+        "display_name": "Marshawn Kneeland",
+        "draft_overall_pick": 56.0,
+        "draft_round": 2.0,
+        "archetype": "sensor_beats_stopwatch",
+        "sensor_z": 1.8405182605106718,
+        "trad_z": -1.5147381649757363,
+        "disagreement": 3.355256425486408,
+        "__y": 0.004273504273504274
+      },
+      {
+        "nfl_id": 55877,
+        "display_name": "Lukas Van Ness",
+        "draft_overall_pick": 13.0,
+        "draft_round": 1.0,
+        "archetype": "sensor_beats_stopwatch",
+        "sensor_z": 0.8485488411325579,
+        "trad_z": -1.5147381649757363,
+        "disagreement": 2.363287006108294,
+        "__y": 0.01581843191196699
+      },
+      {
+        "nfl_id": 56456,
+        "display_name": "Isaiah Land",
+        "draft_overall_pick": null,
+        "draft_round": null,
+        "archetype": "sensor_beats_stopwatch",
+        "sensor_z": 0.5993748081540005,
+        "trad_z": -0.9036506521443893,
+        "disagreement": 1.5030254602983897,
+        "__y": 0.020942408376963352
+      },
+      {
+        "nfl_id": 58931,
+        "display_name": "Jah Joyner",
+        "draft_overall_pick": null,
+        "draft_round": null,
+        "archetype": "sensor_beats_stopwatch",
+        "sensor_z": 0.966219545755318,
+        "trad_z": -0.4623096706550849,
+        "disagreement": 1.4285292164104029,
+        "__y": 0.0
+      },
+      {
+        "nfl_id": 56497,
+        "display_name": "Jalen Redmond",
+        "draft_overall_pick": null,
+        "draft_round": null,
+        "archetype": "sensor_beats_stopwatch",
+        "sensor_z": 0.7326177495589911,
+        "trad_z": -0.5641575894603099,
+        "disagreement": 1.2967753390193009,
+        "__y": 0.01303538175046555
+      },
+      {
+        "nfl_id": 55905,
+        "display_name": "Isaiah Foskey",
+        "draft_overall_pick": 40.0,
+        "draft_round": 2.0,
+        "archetype": "sensor_beats_stopwatch",
+        "sensor_z": 0.6517993067208985,
+        "trad_z": -0.6320562019971245,
+        "disagreement": 1.283855508718023,
+        "__y": 0.006024096385542169
+      },
+      {
+        "nfl_id": 56078,
+        "display_name": "Dante Stills",
+        "draft_overall_pick": 213.0,
+        "draft_round": 6.0,
+        "archetype": "sensor_beats_stopwatch",
+        "sensor_z": 0.9695478751207499,
+        "trad_z": -0.2925631393130452,
+        "disagreement": 1.262111014433795,
+        "__y": 0.010011123470522803
+      },
+      {
+        "nfl_id": 58340,
+        "display_name": "Tonka Hemingway",
+        "draft_overall_pick": 135.0,
+        "draft_round": 4.0,
+        "archetype": "sensor_beats_stopwatch",
+        "sensor_z": 0.7239611677344955,
+        "trad_z": -0.36046175184985985,
+        "disagreement": 1.0844229195843553,
+        "__y": 0.025806451612903226
+      },
+      {
+        "nfl_id": 57441,
+        "display_name": "Nelson Ceaser",
+        "draft_overall_pick": null,
+        "draft_round": null,
+        "archetype": "sensor_beats_stopwatch",
+        "sensor_z": 0.4918972855003863,
+        "trad_z": -0.5641575894603099,
+        "disagreement": 1.0560548749606962,
+        "__y": 0.014925373134328358
+      },
+      {
+        "nfl_id": 55991,
+        "display_name": "Isaiah McGuire",
+        "draft_overall_pick": 126.0,
+        "draft_round": 4.0,
+        "archetype": "sensor_beats_stopwatch",
+        "sensor_z": 0.6831962782468605,
+        "trad_z": -0.25861383304463786,
+        "disagreement": 0.9418101112914983,
+        "__y": 0.009938837920489297
+      }
+    ],
+    "over_graded": [
+      {
+        "nfl_id": 58348,
+        "display_name": "Jordan Phillips",
+        "draft_overall_pick": 143.0,
+        "draft_round": 5.0,
+        "archetype": "stopwatch_beats_sensor",
+        "sensor_z": -2.0951147489170956,
+        "trad_z": 2.457330668428006,
+        "disagreement": -4.552445417345101,
+        "__y": 0.007575757575757576
+      },
+      {
+        "nfl_id": 57216,
+        "display_name": "DeWayne Carter",
+        "draft_overall_pick": 95.0,
+        "draft_round": 3.0,
+        "archetype": "stopwatch_beats_sensor",
+        "sensor_z": -1.9862924539562625,
+        "trad_z": 1.6425473179862151,
+        "disagreement": -3.6288397719424776,
+        "__y": 0.0
+      },
+      {
+        "nfl_id": 58810,
+        "display_name": "Eric Gregory",
+        "draft_overall_pick": null,
+        "draft_round": null,
+        "archetype": "stopwatch_beats_sensor",
+        "sensor_z": -2.0348942272407013,
+        "trad_z": 0.725916048739196,
+        "disagreement": -2.7608102759798974,
+        "__y": 0.0
+      },
+      {
+        "nfl_id": 58369,
+        "display_name": "Yahya Black",
+        "draft_overall_pick": 164.0,
+        "draft_round": 5.0,
+        "archetype": "stopwatch_beats_sensor",
+        "sensor_z": -1.6191842184596137,
+        "trad_z": 0.5561695173971563,
+        "disagreement": -2.17535373585677,
+        "__y": 0.008130081300813009
+      },
+      {
+        "nfl_id": 56514,
+        "display_name": "P.J. Mustipher",
+        "draft_overall_pick": null,
+        "draft_round": null,
+        "archetype": "stopwatch_beats_sensor",
+        "sensor_z": 0.14475899061160877,
+        "trad_z": 1.846243155596662,
+        "disagreement": -1.7014841649850534,
+        "__y": 0.0
+      },
+      {
+        "nfl_id": 58270,
+        "display_name": "Darius Alexander",
+        "draft_overall_pick": 65.0,
+        "draft_round": 3.0,
+        "archetype": "stopwatch_beats_sensor",
+        "sensor_z": -0.8198262906876654,
+        "trad_z": 0.4543215985919313,
+        "disagreement": -1.2741478892795968,
+        "__y": 0.01282051282051282
+      },
+      {
+        "nfl_id": 55963,
+        "display_name": "Siaki Ika",
+        "draft_overall_pick": 98.0,
+        "draft_round": 3.0,
+        "archetype": "stopwatch_beats_sensor",
+        "sensor_z": -0.04272406025128484,
+        "trad_z": 1.133307723960093,
+        "disagreement": -1.1760317842113779,
+        "__y": 0.007462686567164179
+      },
+      {
+        "nfl_id": 57434,
+        "display_name": "Leonard Taylor",
+        "draft_overall_pick": null,
+        "draft_round": null,
+        "archetype": "stopwatch_beats_sensor",
+        "sensor_z": 0.09103805528610069,
+        "trad_z": 1.1672570302285004,
+        "disagreement": -1.0762189749423996,
+        "__y": 0.017605633802816902
+      },
+      {
+        "nfl_id": 58316,
+        "display_name": "Ty Robinson",
+        "draft_overall_pick": 111.0,
+        "draft_round": 4.0,
+        "archetype": "stopwatch_beats_sensor",
+        "sensor_z": -0.5195779273022267,
+        "trad_z": 0.3864229860551166,
+        "disagreement": -0.9060009133573433,
+        "__y": 0.009523809523809525
+      },
+      {
+        "nfl_id": 57409,
+        "display_name": "Gabe Hall",
+        "draft_overall_pick": null,
+        "draft_round": null,
+        "archetype": "stopwatch_beats_sensor",
+        "sensor_z": 0.038519633738510285,
+        "trad_z": 0.624068129933974,
+        "disagreement": -0.5855484961954637,
+        "__y": 0.0
+      }
+    ]
+  },
+  "leaderboard_top": [
+    {
+      "nfl_id": 57136,
+      "display_name": "Laiatu Latu",
+      "position_group": "DL",
+      "draft_overall_pick": 15.0,
+      "Cut Entry Speed Index": 2.593098477176575
+    },
+    {
+      "nfl_id": 57358,
+      "display_name": "Solomon Byrd",
+      "position_group": "DL",
+      "draft_overall_pick": 238.0,
+      "Cut Entry Speed Index": 2.0407871519959246
+    },
+    {
+      "nfl_id": 57177,
+      "display_name": "Marshawn Kneeland",
+      "position_group": "DL",
+      "draft_overall_pick": 56.0,
+      "Cut Entry Speed Index": 1.9916162232676622
+    },
+    {
+      "nfl_id": 57436,
+      "display_name": "Eric Watts",
+      "position_group": "DL",
+      "draft_overall_pick": null,
+      "Cut Entry Speed Index": 1.9581243243349147
+    },
+    {
+      "nfl_id": 57743,
+      "display_name": "Trajan Jeffcoat",
+      "position_group": "DL",
+      "draft_overall_pick": null,
+      "Cut Entry Speed Index": 1.7327669509824317
+    },
+    {
+      "nfl_id": 57334,
+      "display_name": "Cedric Johnson",
+      "position_group": "DL",
+      "draft_overall_pick": 214.0,
+      "Cut Entry Speed Index": 1.4528083861942913
+    },
+    {
+      "nfl_id": 57356,
+      "display_name": "Myles Cole",
+      "position_group": "DL",
+      "draft_overall_pick": 236.0,
+      "Cut Entry Speed Index": 1.3151153867402523
+    },
+    {
+      "nfl_id": 57265,
+      "display_name": "Austin Booker",
+      "position_group": "DL",
+      "draft_overall_pick": 144.0,
+      "Cut Entry Speed Index": 1.1941722308300902
+    },
+    {
+      "nfl_id": 56078,
+      "display_name": "Dante Stills",
+      "position_group": "DL",
+      "draft_overall_pick": 213.0,
+      "Cut Entry Speed Index": 1.1200232921269935
+    },
+    {
+      "nfl_id": 58931,
+      "display_name": "Jah Joyner",
+      "position_group": "DL",
+      "draft_overall_pick": null,
+      "Cut Entry Speed Index": 1.116692583762989
+    },
+    {
+      "nfl_id": 55995,
+      "display_name": "Tyler Lacy",
+      "position_group": "DL",
+      "draft_overall_pick": 130.0,
+      "Cut Entry Speed Index": 1.0631189521927287
+    },
+    {
+      "nfl_id": 56218,
+      "display_name": "Brenton Cox",
+      "position_group": "DL",
+      "draft_overall_pick": null,
+      "Cut Entry Speed Index": 1.011595446402422
+    },
+    {
+      "nfl_id": 55877,
+      "display_name": "Lukas Van Ness",
+      "position_group": "DL",
+      "draft_overall_pick": 13.0,
+      "Cut Entry Speed Index": 0.9989377713469227
+    },
+    {
+      "nfl_id": 56497,
+      "display_name": "Jalen Redmond",
+      "position_group": "DL",
+      "draft_overall_pick": null,
+      "Cut Entry Speed Index": 0.8829238154077595
+    },
+    {
+      "nfl_id": 58340,
+      "display_name": "Tonka Hemingway",
+      "position_group": "DL",
+      "draft_overall_pick": 135.0,
+      "Cut Entry Speed Index": 0.8742610460959266
+    }
+  ]
+}

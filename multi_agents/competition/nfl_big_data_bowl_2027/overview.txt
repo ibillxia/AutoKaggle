@@ -1,0 +1,341 @@
+================================================================================
+NFL BIG DATA BOWL 2027  --  COMPETITION OVERVIEW (for Reader / Planner agents)
+================================================================================
+
+Competition URL : https://www.kaggle.com/competitions/nfl-big-data-bowl-2027
+Host            : The National Football League (NFL), powered by AWS
+Competition type: FEATURED HACKATHON  (judged writeup competition -- NOT a
+                  leaderboard / metric competition)
+Prize pool      : $100,000  (Open Track $45k, University Track $45k, Grand Prize $10k)
+Data license    : CC BY-NC 4.0 (non-commercial use only; do not redistribute data)
+Tags            : Football, Sports, Data Analytics
+
+--------------------------------------------------------------------------------
+1. TAGLINE
+--------------------------------------------------------------------------------
+"Uncover non-obvious linkages between Combine sensor tracking and regular-season
+NFL game performance."
+
+--------------------------------------------------------------------------------
+2. BACKGROUND AND PROBLEM STATEMENT
+--------------------------------------------------------------------------------
+Every spring, college football's top prospects gather in Indianapolis for the NFL
+Scouting Combine. For decades, player evaluation at the Combine has relied on
+standardized stopwatch timings and physical testing numbers, such as the 40-yard
+dash, short shuttle, 3-cone drill, and vertical jump. While these numbers provide
+a baseline measure of straight-line speed and explosiveness, player tracking
+sensors worn during workouts now capture the full detail of HOW athletes move
+throughout each drill.
+
+The 2027 Big Data Bowl provides player tracking data from the NFL Scouting
+Combine alongside regular-season NFL game tracking data. The goal is to better
+understand how player movement during Combine drills translates to performance
+on the field during the NFL regular season.
+
+Participants must build an analytical framework that uncovers non-obvious,
+actionable linkages between 10 Hz Combine sensor tracking data and future
+regular-season NFL game performance. The submission should look beyond
+conventional scouting wisdom and identify novel signals that help coaches and
+evaluators identify hidden talent, avoid costly draft busts, and design
+position-specific player development protocols.
+
+Participants are encouraged to focus on ONE small aspect of movement, a specific
+position group, or an individual drill, rather than attempting to evaluate every
+prospect across all drills.
+
+Examples suggested by the organizers (non-exhaustive):
+  * Route running and coverage -- measuring change of direction, deceleration
+    into breaks, and acceleration out of cuts for receivers and defensive backs,
+    and comparing to in-game separation.
+  * Trench play -- evaluating first-step quickness, lateral agility, and burst
+    for offensive and defensive linemen during agility drills and comparing to
+    pass-rush or run-blocking performance.
+  * Drill translation -- comparing sensor-based movement metrics with traditional
+    drill times to identify where tracking data adds context to prospect
+    evaluation.
+  * Position-specific mechanics -- analyzing body control, acceleration profiles,
+    or pursuit angles during position drills and their relationship to NFL rookie
+    performance.
+
+--------------------------------------------------------------------------------
+3. CRITICAL STRUCTURAL FACT ABOUT THIS COMPETITION (READ CAREFULLY)
+--------------------------------------------------------------------------------
+This is a HACKATHON, not a predictive-modeling leaderboard competition.
+
+  * There is NO train.csv / test.csv split.
+  * There is NO evaluation metric (no RMSE / AUC / logloss).
+  * There is NO leaderboard to optimize against.
+  * There is NO sample_submission.csv in the usual sense.
+
+The "submission" is a WRITEUP. Therefore the AutoKaggle tabular pipeline
+(train -> clean -> feature engineer -> fit model -> predict -> submit) does NOT
+apply directly and MUST be re-targeted to an insight-generation pipeline:
+  hypothesis search -> statistical validation -> metric construction ->
+  communication (figures + writeup).
+
+--------------------------------------------------------------------------------
+4. DELIVERABLE / SUBMISSION REQUIREMENTS
+--------------------------------------------------------------------------------
+  * Word and figure limits: no more than 2,000 words and fewer than 10 tables or
+    figures. Submissions over these limits may be penalized.
+  * Code reproducibility: participants are encouraged to show statistical code if
+    it helps readers understand the analyses, but most code should be placed in an
+    Appendix or a linked notebook.
+  * Any writeup that does not use the PLAYER TRACKING data will not be scored.
+  * A PUBLIC KAGGLE NOTEBOOK must be attached to the submission.
+  * Each team may submit ONE (1) submission only (hackathon rule).
+  * Maximum team size: 5.
+
+--------------------------------------------------------------------------------
+5. EVALUATION RUBRIC (how the writeup is scored)
+--------------------------------------------------------------------------------
+Two PASS/FAIL gates:
+  1. Combine-to-NFL Linkage -- explicitly links Combine sensor tracking data to
+     regular-season NFL game performance.
+  2. Writeup Completeness -- readable markdown, embedded visuals, and an attached
+     public Kaggle Notebook.
+
+Then four scored components, each 0-10, combined as a weighted average:
+
+  * Football Score (30%)
+      - Would NFL teams (or the league office) be able to use these results on a
+        week-to-week basis?
+      - Does the analysis account for variables that make football data complex?
+      - Are the ideas unique?
+  * Data Science Score (30%)
+      - Is the work correct? Are claims backed up by data?
+      - Are the statistical models appropriate given the data?
+      - Are the analytical applications innovative?
+  * Writeup Score (20%)
+      - Is the writeup well-written and easy to follow?
+      - Is the motivation (metric, player evaluation, etc.) clearly defined?
+  * Data Visualization Score (20%)
+      - Are the charts and tables accessible, accurate, and innovative?
+
+Judges are analytics staffers working for the 32 NFL teams or player tracking
+vendors. Named judges include Tom Bliss (Data Scientist, NFL) and Michael Lopez.
+
+Submission deadline: 2027-01-06 (11:59 PM UTC).
+Results announced : 2027-01-26.
+
+--------------------------------------------------------------------------------
+6. DATASETS (9 CSV files, ~2.2 GiB total)
+--------------------------------------------------------------------------------
+The competition dataset contains high-frequency optical tracking, standardized
+physical testing results, and multi-season NFL game performance metrics for 510
+rookie prospects drafted or signed between 2023 and 2025. The dataset is
+partitioned into 9 CSV files linking pre-draft physical traits directly to
+regular-season on-field outcomes.
+
++------------------------------+-----------+-----------+---------+-----------------------------------+
+| File Name                    | Size      | Rows      | Columns | Primary Keys / Description        |
++------------------------------+-----------+-----------+---------+-----------------------------------+
+| players.csv                  | 47 KiB    | 510       | 10      | nfl_id (Rookie prospect metadata) |
+| combine_results.csv          | 41 KiB    | 510       | 18      | nfl_id (Combine testing splits)   |
+| combine_tracking.csv         | 79.9 MiB  | 463,189   | 14      | event_id, nfl_id, time (10 Hz)    |
+| player_career_successes.csv  | 14 KiB    | 510       | 9       | nfl_id (Career volume & honors)   |
+| player_play.csv              | 139.3 MiB | 316,338   | 64      | game_id, play_id, nfl_id          |
+| games.csv                    | 43 KiB    | 1,002     | 7       | game_id (Schedule metadata)       |
+| game_tracking_2023.csv       | 319.9 MiB | 1,421,805 | 12      | game_id, play_id, nfl_id, time    |
+| game_tracking_2024.csv       | 684.7 MiB | 3,042,118 | 12      | game_id, play_id, nfl_id, time    |
+| game_tracking_2025.csv       | 975.2 MiB | 4,339,021 | 12      | game_id, play_id, nfl_id, time    |
++------------------------------+-----------+-----------+---------+-----------------------------------+
+
+RELATIONSHIPS
+  players 1-1 combine_results            (evaluated at)
+  players 1-N combine_tracking           (runs drills in)
+  players 1-1 player_career_successes    (accumulates)
+  players 1-N player_play                (participates in)
+  games   1-N player_play                (contains)
+  games   1-N game_tracking_YYYY         (tracks)
+  player_play 1-N game_tracking_YYYY     (frames)
+
+--------------------------------------------------------------------------------
+7. COLUMN DICTIONARY
+--------------------------------------------------------------------------------
+--- players.csv (510 rows, 10 cols) ---
+  nfl_id                  int64   Unique NFL player id. Primary key across all tables.
+  display_name            str     Player full name.
+  draft_year              int64   2023, 2024 or 2025.
+  nfl_position            str     Official roster position (WR, TE, CB, T, G, C, DT,
+                                  DE, OLB, SS, FS, NT, DB, ILB, MLB, RB, FB).
+  birth_date              str     YYYY-MM-DD.
+  college_name            str     College / university.
+  college_conference      str     NCAA conference.
+  draft_round             int64   Round 1-7; null for UDFA.
+  draft_pick_within_round int64   Pick within round; null for UDFA.
+  draft_overall_pick      int64   Overall pick number; null for UDFA.
+
+--- combine_results.csv (510 rows, 18 cols) ---
+  draft_year                    int64
+  nfl_id                        int64
+  combine_position              str     Position group used at the Combine.
+  combine_height                float64 Inches.
+  combine_weight                int64   Pounds.
+  hand_size                     float64 Inches.
+  arm_length                    float64 Inches.
+  wing_span                     float64 Inches.
+  ten_yd_split                  float64 Seconds (electronic).
+  forty                         float64 Seconds.
+  vertical                      float64 Inches.
+  broad_jump                    float64 Inches.
+  three_cone                    float64 Seconds (null = drill opt-out).
+  short_shuttle                 float64 Seconds (null = drill opt-out).
+  bench_reps                    float64 Reps at 225 lb (null = opt-out).
+  ngs_athleticism_score         int64   0-100 percentile composite.
+  ngs_college_production_score  float64 College production score.
+  ngs_final_score               float64 Overall prospect score.
+
+--- combine_tracking.csv (463,189 rows, 14 cols) ---
+  draft_year   int64   2023/2024/2025.
+  event_id     str     Unique id linking all tracking frames of ONE drill attempt.
+  nfl_id       int64   Player id; NULL for BALL frames.
+  entity_type  str     PLAYER or BALL.
+  time         str     ISO 8601 timestamp, sampled every 0.10 s (10 Hz).
+  drill_type   str     FORTY_YARD_DASH, THREE_CONE_DRILL, SHORT_SHUTTLE,
+                       SKILL_DRILLS_WR, SKILL_DRILLS_DB, SKILL_DRILLS_OL,
+                       SKILL_DRILLS_DL, SKILL_DRILLS_TE.
+  drill_name   str     Specific drill, e.g. GAUNTLET_DRILL, RUN_THE_HOOP_DRILL,
+                       BACK_PEDAL_AND_TRANSITION_45_DEGREE_REACTION,
+                       SLOT_STRIKE_ROUTE_LEFT, PASS_PRO_MIRROR_DRILL,
+                       OL_PULL_DRILL_*.
+  attempt      int64   Attempt index for this player in this drill.
+  x            float64 Yards along field length (0-120).
+  y            float64 Yards across field width (0-53.33).
+  s            float64 Instantaneous speed (yd/s).
+  a            float64 Instantaneous acceleration (yd/s^2).
+  dis          float64 Distance travelled since previous frame (yards).
+  dir          float64 Motion direction angle in degrees (0-360).
+  NOTE: combine_tracking has NO orientation column `o` and NO event column.
+
+--- player_career_successes.csv (510 rows, 9 cols) ---
+  nfl_id                        int64
+  career_offensive_snaps        int64
+  career_defensive_snaps        int64
+  career_special_teams_snaps    int64
+  career_games_active           int64
+  career_games_started          int64
+  ap_all_pro_1st_team           int64
+  ap_all_pro_2nd_team           int64
+  pro_bowl_original_ballot      int64
+
+--- player_play.csv (316,338 rows, 64 cols) ---
+  A. Play context & identifiers
+     game_id, play_id, team_abbr, nfl_id, lined_up_position, play_description,
+     quarter, down, yards_to_go, possession_team, yardline_side,
+     yardline_number, game_clock, pre_snap_home_score, pre_snap_visitor_score,
+     play_direction
+  B. Win probability & expected points
+     pre_snap_home_team_win_probability, pre_snap_visitor_team_win_probability,
+     home_team_win_probability_added, visitor_team_win_probility_added,
+     expected_points_added, expected_points
+  C. Schemes, formations & play results
+     offense_formation, receiver_alignment, pass_result (C/I/S/IN/R),
+     pass_length, play_nullified_by_penalty, penalty_yards,
+     pre_penalty_yards_gained, yards_gained, team_coverage_man_zone,
+     team_coverage_type, in_motion_at_ball_snap
+  D. Receiver & ball carrier metrics
+     target (bool), rec_yards, rush_yards, yards_after_catch, fumble,
+     fumble_lost, route_ran (GO/OUT/SLANT/CROSS/POST/CORNER/HITCH/SCREEN/FLAT/
+     WHEEL), separation_at_pass_forward, cushion, expected_yards_after_catch
+  E. Offensive line & pass protection metrics
+     dropback_duration, extended_sack_allowed, pass_rushers_encountered,
+     peak_pressure_probability_allowed, pressure_allowed (bool), sack_allowed,
+     time_to_pressure_allowed
+  F. Defensive pass rush & tackle metrics
+     blitzing (bool), player_get_off, sack, tackle, assist,
+     caused_forced_fumble, recovered_fumble, tackle_for_loss, time_to_pressure,
+     time_to_qb_hurry, coverage_assignment, coverage_assignment_at_snap,
+     quick_pressure, unblocked_pressure
+
+--- games.csv (1,002 rows, 7 cols) ---
+  game_id (10-digit YYYYMMDD##), game_key, season, season_type (REG/POST),
+  week, home_team_abbr, visitor_team_abbr
+
+--- game_tracking_2023.csv / 2024 / 2025 (12 cols each) ---
+  game_id     int64
+  play_id     int64
+  nfl_id      int64
+  time        str     ISO 8601, 10 Hz.
+  x           float64 Yards along field length.
+  y           float64 Yards across field width.
+  s           float64 Speed (yd/s).
+  a           float64 Acceleration (yd/s^2).
+  dis         float64 Distance since previous frame (yards).
+  o           float64 Body orientation angle, degrees 0-360.
+  dir         float64 Motion direction angle, degrees 0-360.
+  event       str     Play milestone tag: ball_snap, pass_forward, pass_arrived,
+                      tackle, touchdown, first_contact, out_of_bounds, or null.
+
+--------------------------------------------------------------------------------
+8. WHY THIS COMPETITION IS HARD (modelling / validity hazards)
+--------------------------------------------------------------------------------
+  * N is tiny at the player level (510 prospects; a single position group can be
+    50-120 players). Effect sizes must be interpreted with wide uncertainty.
+  * Heavy MULTIPLE-COMPARISONS risk: hundreds of candidate kinematic features x
+    dozens of outcomes. Naive "best correlation" findings are almost certainly
+    false positives. Any credible analysis needs either pre-registered
+    hypotheses, cross-validated incremental validity, or explicit FDR control.
+  * CONFOUNDING BY DRAFT CAPITAL / OPPORTUNITY: higher draft picks receive more
+    snaps, more targets and more pass-rush reps. A raw correlation between a
+    Combine trait and an in-game counting stat may only reflect draft position.
+    Outcome models must control for draft capital, or use rate/opportunity-
+    normalized outcomes.
+  * POSITION HETEROGENEITY: the same drill means different things for a 320 lb
+    defensive tackle and a 180 lb corner. Analyses must be position-stratified or
+    position-adjusted; pooling all 510 players will wash out real signal.
+  * SURVIVORSHIP: career-cumulative outcomes (career snaps, All-Pro) are only
+    observed for players who stayed in the league; 2025 draftees have far less
+    exposure than 2023 draftees. Season exposure must be normalized.
+  * TRACKING ARTIFACTS: 10 Hz optical tracking is noisy; raw `a` is a finite
+    difference and is extremely noisy. Kinematic features should be smoothed
+    before differentiating (e.g. Savitzky-Golay) and should be cross-validated
+    against the official electronic timings in combine_results.csv.
+  * DRILL MIXTURE: drill_type / drill_name are unbalanced across positions and
+    years; attempts per player vary. Features must be defined per attempt and
+    aggregated carefully (best attempt vs mean attempt).
+  * The competition explicitly asks for ACTIONABLE and NOVEL insights -- a
+    marginally significant regression coefficient is not a deliverable. The
+    output must be a metric, a ranking, or a decision rule that a coach, scout or
+    front office could actually use on a week-to-week basis.
+
+--------------------------------------------------------------------------------
+9. WHAT A WINNING SUBMISSION LOOKS LIKE
+--------------------------------------------------------------------------------
+  * One crisp, well-motivated question, not a survey of everything.
+  * A sensor-derived movement metric that is NOT already captured by the
+    stopwatch numbers in combine_results.csv (this is the entire point: "where
+    tracking data adds context to prospect evaluation").
+  * A demonstrated link to a concrete in-game outcome (separation, get-off,
+    pressure rate, coverage, snaps) with correct statistics and stated
+    uncertainty.
+  * Explicit handling of the confounds above (draft capital, position, exposure).
+  * A validation that the new metric beats / adds to the traditional Combine
+    numbers -- quantified as incremental explanatory power.
+  * 3-5 excellent figures that a non-technical football audience can read.
+  * A reproducible public notebook.
+
+--------------------------------------------------------------------------------
+10. LOCAL DATA PLACEMENT CONVENTION USED BY THIS FRAMEWORK
+--------------------------------------------------------------------------------
+Because this is a hackathon with a writeup deliverable, the tabular
+train.csv / test.csv / sample_submission.csv convention does not apply. The data
+for this competition is expected under:
+
+    multi_agents/competition/nfl_big_data_bowl_2027/data/
+        players.csv
+        combine_results.csv
+        combine_tracking.csv
+        player_career_successes.csv
+        player_play.csv
+        games.csv
+        game_tracking_2023.csv
+        game_tracking_2024.csv
+        game_tracking_2025.csv
+
+The derived analysis pipeline lives in:
+    solutions/nfl_big_data_bowl_2027/
+
+The hackathon-mode multi-agent SOP lives in:
+    multi_agents/hackathon/
+================================================================================

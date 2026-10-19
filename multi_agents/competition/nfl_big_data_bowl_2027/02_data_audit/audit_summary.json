@@ -1,0 +1,242 @@
+{
+  "row_counts": {
+    "players": 510,
+    "combine_results": 510,
+    "combine_tracking": 463189,
+    "player_career_successes": 510,
+    "games": 1002
+  },
+  "row_count_matches_catalog": {
+    "players": true,
+    "combine_results": true,
+    "combine_tracking": true,
+    "player_career_successes": true,
+    "games": true
+  },
+  "key_integrity": [
+    {
+      "relationship": "combine_results -> players",
+      "child_unique_keys": 510,
+      "parent_unique_keys": 510,
+      "orphan_keys": 0,
+      "coverage": 1.0
+    },
+    {
+      "relationship": "career_successes -> players",
+      "child_unique_keys": 510,
+      "parent_unique_keys": 510,
+      "orphan_keys": 0,
+      "coverage": 1.0
+    },
+    {
+      "relationship": "combine_tracking -> players",
+      "child_unique_keys": 510,
+      "parent_unique_keys": 510,
+      "orphan_keys": 0,
+      "coverage": 1.0
+    }
+  ],
+  "players_pk_unique": true,
+  "results_pk_unique": true,
+  "position_group_counts": {
+    "OL": 121,
+    "DB": 118,
+    "WR": 106,
+    "DL": 88,
+    "TE": 42,
+    "LB": 33,
+    "RB": 2
+  },
+  "focus_group_counts": {
+    "WR": 106,
+    "TE": 42,
+    "DB": 118,
+    "OL": 121,
+    "DL": 88
+  },
+  "draft_year_counts": {
+    "2023": 160,
+    "2024": 177,
+    "2025": 173
+  },
+  "combine_tracking_entity_types": {
+    "PLAYER": 431094,
+    "BALL": 32095
+  },
+  "combine_tracking_drill_types": {
+    "SKILL_DRILLS_WR": 120383,
+    "SKILL_DRILLS_DB": 94623,
+    "SKILL_DRILLS_DL": 77428,
+    "SKILL_DRILLS_OL": 61129,
+    "FORTY_YARD_DASH": 41500,
+    "SKILL_DRILLS_TE": 37222,
+    "THREE_CONE_DRILL": 15951,
+    "SHORT_SHUTTLE": 11690,
+    "SKILL_DRILLS_LB": 3263
+  },
+  "combine_tracking_n_attempts": 6310,
+  "combine_frames_per_attempt": {
+    "mean": 73.4,
+    "median": 67.0,
+    "p05": 42.0,
+    "p95": 131.0
+  },
+  "drill_attempts_by_position_group": {
+    "DB": {
+      "FORTY_YARD_DASH": 189,
+      "SHORT_SHUTTLE": 35,
+      "SKILL_DRILLS_DB": 1130,
+      "SKILL_DRILLS_DL": 0,
+      "SKILL_DRILLS_LB": 0,
+      "SKILL_DRILLS_OL": 0,
+      "SKILL_DRILLS_TE": 0,
+      "SKILL_DRILLS_WR": 0,
+      "THREE_CONE_DRILL": 29
+    },
+    "DL": {
+      "FORTY_YARD_DASH": 136,
+      "SHORT_SHUTTLE": 33,
+      "SKILL_DRILLS_DB": 0,
+      "SKILL_DRILLS_DL": 703,
+      "SKILL_DRILLS_LB": 27,
+      "SKILL_DRILLS_OL": 0,
+      "SKILL_DRILLS_TE": 0,
+      "SKILL_DRILLS_WR": 0,
+      "THREE_CONE_DRILL": 47
+    },
+    "LB": {
+      "FORTY_YARD_DASH": 45,
+      "SHORT_SHUTTLE": 12,
+      "SKILL_DRILLS_DB": 30,
+      "SKILL_DRILLS_DL": 304,
+      "SKILL_DRILLS_LB": 10,
+      "SKILL_DRILLS_OL": 0,
+      "SKILL_DRILLS_TE": 0,
+      "SKILL_DRILLS_WR": 0,
+      "THREE_CONE_DRILL": 15
+    },
+    "OL": {
+      "FORTY_YARD_DASH": 179,
+      "SHORT_SHUTTLE": 70,
+      "SKILL_DRILLS_DB": 0,
+      "SKILL_DRILLS_DL": 0,
+      "SKILL_DRILLS_LB": 0,
+      "SKILL_DRILLS_OL": 910,
+      "SKILL_DRILLS_TE": 0,
+      "SKILL_DRILLS_WR": 0,
+      "THREE_CONE_DRILL": 55
+    },
+    "RB": {
+      "FORTY_YARD_DASH": 4,
+      "SHORT_SHUTTLE": 1,
+      "SKILL_DRILLS_DB": 10,
+      "SKILL_DRILLS_DL": 0,
+      "SKILL_DRILLS_LB": 0,
+      "SKILL_DRILLS_OL": 0,
+      "SKILL_DRILLS_TE": 11,
+      "SKILL_DRILLS_WR": 0,
+      "THREE_CONE_DRILL": 1
+    },
+    "TE": {
+      "FORTY_YARD_DASH": 66,
+      "SHORT_SHUTTLE": 36,
+      "SKILL_DRILLS_DB": 0,
+      "SKILL_DRILLS_DL": 0,
+      "SKILL_DRILLS_LB": 0,
+      "SKILL_DRILLS_OL": 0,
+      "SKILL_DRILLS_TE": 427,
+      "SKILL_DRILLS_WR": 16,
+      "THREE_CONE_DRILL": 26
+    },
+    "WR": {
+      "FORTY_YARD_DASH": 174,
+      "SHORT_SHUTTLE": 36,
+      "SKILL_DRILLS_DB": 0,
+      "SKILL_DRILLS_DL": 0,
+      "SKILL_DRILLS_LB": 0,
+      "SKILL_DRILLS_OL": 0,
+      "SKILL_DRILLS_TE": 0,
+      "SKILL_DRILLS_WR": 1513,
+      "THREE_CONE_DRILL": 30
+    }
+  },
+  "combine_tracking_players": 510,
+  "combine_tracking_players_missing": 0,
+  "traditional_test_optout_rate": {
+    "forty": 0.1686,
+    "ten_yd_split": 0.1667,
+    "three_cone": 0.6471,
+    "short_shuttle": 0.6059,
+    "vertical": 0.1412,
+    "broad_jump": 0.1706,
+    "bench_reps": 0.6235
+  },
+  "combine_results_missing_by_column": {
+    "ten_yd_split": 85,
+    "forty": 86,
+    "vertical": 72,
+    "broad_jump": 87,
+    "three_cone": 330,
+    "short_shuttle": 309,
+    "bench_reps": 318,
+    "ngs_college_production_score": 1,
+    "ngs_final_score": 1
+  },
+  "mean_exposure_by_draft_year": {
+    "2023": {
+      "career_games_active": 33.06,
+      "career_offensive_snaps": 537.81,
+      "career_defensive_snaps": 332.31
+    },
+    "2024": {
+      "career_games_active": 21.94,
+      "career_offensive_snaps": 306.47,
+      "career_defensive_snaps": 269.23
+    },
+    "2025": {
+      "career_games_active": 11.01,
+      "career_offensive_snaps": 154.26,
+      "career_defensive_snaps": 107.94
+    }
+  },
+  "udfa_count": 127,
+  "draft_capital_null_rate": 0.249,
+  "player_play_rows": 314197,
+  "player_play_players": 497,
+  "player_play_players_missing_vs_players": 13,
+  "player_play_key_unique": true,
+  "player_play_snaps_per_player": {
+    "mean": 632.2,
+    "median": 347.0,
+    "p10": 56.6,
+    "max": 3942,
+    "n_players_with_lt_20_snaps": 9
+  },
+  "player_play_outcome_availability": {
+    "separation_at_pass_forward": 0.1488,
+    "cushion": 0.3302,
+    "player_get_off": 0.14,
+    "time_to_pressure": 0.0121,
+    "time_to_qb_hurry": 0.0123,
+    "peak_pressure_probability_allowed": 0.1847,
+    "time_to_pressure_allowed": 0.0158,
+    "dropback_duration": 0.1935,
+    "pass_rushers_encountered": 0.1935,
+    "expected_yards_after_catch": 0.0286,
+    "yards_after_catch": 0.0199,
+    "pass_length": 0.588,
+    "expected_points_added": 1.0,
+    "target": 1.0,
+    "sack": 0.2764,
+    "tackle": 0.0379,
+    "assist": 0.0379,
+    "tackle_for_loss": 0.0379,
+    "caused_forced_fumble": 0.0379,
+    "recovered_fumble": 0.007,
+    "fumble": 0.0002,
+    "fumble_lost": 0.0002,
+    "pressure_allowed": 0.1935,
+    "blitzing": 0.6389,
+    "quick_pressure": 0.012
+  }
+}

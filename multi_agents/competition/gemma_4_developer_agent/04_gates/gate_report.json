@@ -1,0 +1,665 @@
+{
+  "n_candidates": 5,
+  "candidates": [
+    {
+      "name": "v1_starter_kit",
+      "checks": [
+        {
+          "id": "agent_yaml_at_root",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "extension_allowlist",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_shell_scripts",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "archive_hygiene",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_path_traversal_in_archive",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "agent_yaml_parses",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "agent_yaml_required_keys",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "root_model_is_mandated",
+          "level": "hard",
+          "passed": true,
+          "detail": "model='gemma-4-31b-it-qat-w4a16-ct', required 'gemma-4-31b-it-qat-w4a16-ct'"
+        },
+        {
+          "id": "subagent_models_mandated",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "include_targets_resolve",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "tools_in_registry",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_unregistered_tool_names",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "agent_tool_configs_exist",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_subagents_transfer_wiring",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "sampling_vllm_compatible",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "budget_declared",
+          "level": "soft",
+          "passed": false,
+          "detail": "no eval_config.yaml: the agent has no per-task time ceiling, so the 12-hour total budget is unbounded"
+        },
+        {
+          "id": "skill_manifests_valid",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "adapter_references_resolve",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "adapter_optional",
+          "level": "soft",
+          "passed": true,
+          "detail": "no LoRA adapter declared (optional in this competition)"
+        }
+      ],
+      "hard_failures": [],
+      "soft_warnings": [
+        "budget_declared"
+      ],
+      "compliant": true
+    },
+    {
+      "name": "v2_budget_guard",
+      "checks": [
+        {
+          "id": "agent_yaml_at_root",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "extension_allowlist",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_shell_scripts",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "archive_hygiene",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_path_traversal_in_archive",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "agent_yaml_parses",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "agent_yaml_required_keys",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "root_model_is_mandated",
+          "level": "hard",
+          "passed": true,
+          "detail": "model='gemma-4-31b-it-qat-w4a16-ct', required 'gemma-4-31b-it-qat-w4a16-ct'"
+        },
+        {
+          "id": "subagent_models_mandated",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "include_targets_resolve",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "tools_in_registry",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_unregistered_tool_names",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "agent_tool_configs_exist",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_subagents_transfer_wiring",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "sampling_vllm_compatible",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "budget_within_ceiling",
+          "level": "hard",
+          "passed": true,
+          "detail": "120 tasks x 4.0 min = 480 min, ceiling 720 min"
+        },
+        {
+          "id": "budget_caps_positive",
+          "level": "hard",
+          "passed": true,
+          "detail": "caps=[40, 60]"
+        },
+        {
+          "id": "budget_declared",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "skill_manifests_valid",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "adapter_references_resolve",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "adapter_optional",
+          "level": "soft",
+          "passed": true,
+          "detail": "no LoRA adapter declared (optional in this competition)"
+        }
+      ],
+      "hard_failures": [],
+      "soft_warnings": [],
+      "compliant": true
+    },
+    {
+      "name": "v3_graph_navigator",
+      "checks": [
+        {
+          "id": "agent_yaml_at_root",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "extension_allowlist",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_shell_scripts",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "archive_hygiene",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_path_traversal_in_archive",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "agent_yaml_parses",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "agent_yaml_required_keys",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "root_model_is_mandated",
+          "level": "hard",
+          "passed": true,
+          "detail": "model='gemma-4-31b-it-qat-w4a16-ct', required 'gemma-4-31b-it-qat-w4a16-ct'"
+        },
+        {
+          "id": "subagent_models_mandated",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "include_targets_resolve",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "tools_in_registry",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_unregistered_tool_names",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "agent_tool_configs_exist",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_subagents_transfer_wiring",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "sampling_vllm_compatible",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "budget_within_ceiling",
+          "level": "hard",
+          "passed": true,
+          "detail": "120 tasks x 4.0 min = 480 min, ceiling 720 min"
+        },
+        {
+          "id": "budget_caps_positive",
+          "level": "hard",
+          "passed": true,
+          "detail": "caps=[40, 60]"
+        },
+        {
+          "id": "budget_declared",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "skill_manifests_valid",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "adapter_references_resolve",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "adapter_optional",
+          "level": "soft",
+          "passed": true,
+          "detail": "no LoRA adapter declared (optional in this competition)"
+        }
+      ],
+      "hard_failures": [],
+      "soft_warnings": [],
+      "compliant": true
+    },
+    {
+      "name": "v4_skill_pack",
+      "checks": [
+        {
+          "id": "agent_yaml_at_root",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "extension_allowlist",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_shell_scripts",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "archive_hygiene",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_path_traversal_in_archive",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "agent_yaml_parses",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "agent_yaml_required_keys",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "root_model_is_mandated",
+          "level": "hard",
+          "passed": true,
+          "detail": "model='gemma-4-31b-it-qat-w4a16-ct', required 'gemma-4-31b-it-qat-w4a16-ct'"
+        },
+        {
+          "id": "subagent_models_mandated",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "include_targets_resolve",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "tools_in_registry",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_unregistered_tool_names",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "agent_tool_configs_exist",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_subagents_transfer_wiring",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "sampling_vllm_compatible",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "budget_within_ceiling",
+          "level": "hard",
+          "passed": true,
+          "detail": "120 tasks x 4.0 min = 480 min, ceiling 720 min"
+        },
+        {
+          "id": "budget_caps_positive",
+          "level": "hard",
+          "passed": true,
+          "detail": "caps=[40, 60]"
+        },
+        {
+          "id": "budget_declared",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "skill_manifests_valid",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "adapter_references_resolve",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "adapter_optional",
+          "level": "soft",
+          "passed": true,
+          "detail": "no LoRA adapter declared (optional in this competition)"
+        }
+      ],
+      "hard_failures": [],
+      "soft_warnings": [],
+      "compliant": true
+    },
+    {
+      "name": "v5_verified_full",
+      "checks": [
+        {
+          "id": "agent_yaml_at_root",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "extension_allowlist",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_shell_scripts",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "archive_hygiene",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_path_traversal_in_archive",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "agent_yaml_parses",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "agent_yaml_required_keys",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "root_model_is_mandated",
+          "level": "hard",
+          "passed": true,
+          "detail": "model='gemma-4-31b-it-qat-w4a16-ct', required 'gemma-4-31b-it-qat-w4a16-ct'"
+        },
+        {
+          "id": "subagent_models_mandated",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "include_targets_resolve",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "tools_in_registry",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_unregistered_tool_names",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "agent_tool_configs_exist",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "no_subagents_transfer_wiring",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "sampling_vllm_compatible",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "budget_within_ceiling",
+          "level": "hard",
+          "passed": true,
+          "detail": "120 tasks x 4.5 min = 540 min, ceiling 720 min"
+        },
+        {
+          "id": "budget_caps_positive",
+          "level": "hard",
+          "passed": true,
+          "detail": "caps=[45, 70]"
+        },
+        {
+          "id": "budget_declared",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "skill_manifests_valid",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "adapter_references_resolve",
+          "level": "hard",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "id": "adapter_optional",
+          "level": "soft",
+          "passed": true,
+          "detail": "no LoRA adapter declared (optional in this competition)"
+        }
+      ],
+      "hard_failures": [],
+      "soft_warnings": [],
+      "compliant": true
+    }
+  ]
+}
