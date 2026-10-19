@@ -1,0 +1,58 @@
+# Kaggle L4x4（4 x L4，每张 24GB）上的正式训练配置。
+#
+# 与 local_surrogate.yaml 的差别只有三处：模型 id、量化方式、batch 规模。
+# 脚本零改动 —— 这就是「本地调通、云端只换配置」的落点。
+#
+# 配额提醒：L4x4 按 2 倍速率消耗配额。免费档约 30 GPU 小时/周 -> 实际约 15 小时/周。
+# 单个 session 上限 12 小时，且 L4 session 强制断网，模型与数据必须提前作为 input 挂载。
+
+run_name: gemma4_31b_main_lora
+
+model:
+  # 比赛锁定的基模，所有 agent 与 subagent 必须用它。
+  # L4 session 无外网，实际应指向挂载路径，例如
+  #   /kaggle/input/gemma-4-31b-it-qat-w4a16-ct
+  # 本地调试时才会用 HF 上的名字。
+  id: google/gemma-4-31b-it-qat-w4a16-ct
+
+  # 关键差异：31B 的官方权重**已经是** w4a16 量化产物（compressed-tensors）。
+  # 不要再用 bitsandbytes 二次量化 —— 那既不省显存（约 16GB 已经是 4bit），
+  # 又会额外引入一层误差。直接按原样加载，LoRA 适配器以 bf16 叠在上面。
+  quantization: checkpoint_native
+
+  compute_dtype: bfloat16
+  attn_implementation: sdpa
+
+lora:
+  r: 32
+  alpha: 64
+  dropout: 0.05
+  target_modules: auto
+  bias: none
+  task_type: CAUSAL_LM
+
+data:
+  path: data/swe_trajectories.jsonl
+  train_on: assistant_only
+  # 24GB/卡 + 4bit 权重(~16GB) 的余量很小，序列长度是第一个要压的旋钮
+  max_seq_len: 4096
+  val_ratio: 0.02
+
+training:
+  epochs: 2
+  per_device_batch_size: 1
+  # 4 张卡各一份完整权重副本（DDP），靠梯度累积凑等效 batch
+  grad_accum: 16
+  lr: 1.0e-4
+  lr_scheduler: cosine
+  warmup_ratio: 0.03
+  weight_decay: 0.0
+  max_grad_norm: 1.0
+  optim: paged_adamw_8bit
+  gradient_checkpointing: true
+  logging_steps: 5
+  save_strategy: epoch
+  save_total_limit: 2
+  seed: 42
+
+output_dir: runs/gemma4_31b_main_lora

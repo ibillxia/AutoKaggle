@@ -1,0 +1,59 @@
+# 本机 8GB 显存用的「替身」配置。
+#
+# 目标不是训出好模型，而是把整条流水线（模板渲染 -> assistant 段 mask -> LoRA 挂载 ->
+# 训练循环 -> adapter 导出 -> 提交包校验）在本机跑通。跑通后，把配置换成
+# l4x4_gemma31b.yaml 就是 Kaggle 上的正式训练，脚本本身一行不用改。
+#
+# 适配机型：RTX 4060 Ti 8GB（实际可用 ~5.7GB，桌面常驻占用约 2.4GB）
+
+run_name: local_surrogate
+
+model:
+  # 替身选择原则：架构与 Gemma 4 同族写法（都是 q/k/v/o + gate/up/down），
+  # 参数量压到 8GB 能 QLoRA 训得动。真机换 31B 时只有 id 变化。
+  id: Qwen/Qwen2.5-Coder-1.5B-Instruct
+
+  # none | bnb_4bit | checkpoint_native
+  #   bnb_4bit         = 自己用量化加载 bf16 权重（替身走这条）
+  #   checkpoint_native= 权重文件本身已是 w4a16，直接按原样加载（真 31B 走这条）
+  quantization: bnb_4bit
+  bnb_4bit_quant_type: nf4
+  bnb_4bit_use_double_quant: true
+
+  compute_dtype: bfloat16
+  # 4060 Ti（Ada）没装 flash-attn，用 sdpa 即可
+  attn_implementation: sdpa
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  # auto = 按架构查表；也可以显式写列表，或写 "all-linear"
+  target_modules: auto
+  bias: none
+  task_type: CAUSAL_LM
+
+data:
+  path: data/seed_trajectories.jsonl
+  # assistant_only = 只对助手（工具调用）段算 loss。agent SFT 的正确默认值。
+  # all            = 整条序列都算 loss（只在排查问题时用）
+  train_on: assistant_only
+  max_seq_len: 2048
+  val_ratio: 0.0
+
+training:
+  epochs: 2
+  per_device_batch_size: 1
+  grad_accum: 8
+  lr: 2.0e-4
+  lr_scheduler: cosine
+  warmup_ratio: 0.03
+  weight_decay: 0.0
+  max_grad_norm: 1.0
+  optim: paged_adamw_8bit
+  gradient_checkpointing: true
+  logging_steps: 1
+  save_strategy: "no"
+  seed: 42
+
+output_dir: runs/local_surrogate
