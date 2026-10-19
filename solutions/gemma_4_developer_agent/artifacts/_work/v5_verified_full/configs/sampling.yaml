@@ -1,0 +1,9 @@
+# configs/sampling.yaml -- generation parameters for the hosted vLLM server.
+# The harness runs vLLM, so thought channels are requested explicitly and the
+# budget is capped; `thinking_level` is intentionally absent (vLLM rejects it).
+temperature: 0.2
+top_p: 0.95
+top_k: 40
+max_output_tokens: 8192
+include_thoughts: true
+thinking_budget: 1024

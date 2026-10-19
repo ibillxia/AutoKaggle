@@ -1,0 +1,6 @@
+rank,candidate,compliant,hard_gate_failures,rubric_10,rub_budget_discipline,rub_navigation_protocol,rub_verification_loop,rub_patch_hygiene,rub_context_compaction,rub_prompt_clarity,rub_skill_reuse,proxy_executed,proxy_passed,proxy_score,rubric_norm,proxy_norm,composite,n_files
+1,v5_verified_full,1,,10.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,9,9,1.0,1.0,1.0,1.0,15
+2,v4_skill_pack,1,,8.567,1.0,1.0,1.0,0.833,0.0,1.0,1.0,9,9,1.0,0.8567,1.0,0.914,13
+3,v3_graph_navigator,1,,6.09,1.0,1.0,0.167,0.667,0.0,1.0,0.429,0,0,,0.609,0.5,0.5654,9
+4,v2_budget_guard,1,,4.083,1.0,0.167,0.167,0.667,0.0,0.8,0.0,0,0,,0.4083,0.5,0.445,4
+5,v1_starter_kit,1,,0.6,0.0,0.0,0.0,0.0,0.0,0.6,0.0,0,0,,0.06,0.5,0.236,3

@@ -1,0 +1,11 @@
+name: code_analyzer
+model: gemma-4-31b-it-qat-w4a16-ct
+description: 'Read-only repo surveyor. Returns symbol-level maps, never edits.'
+instruction: !include ../prompts/analyzer.md
+disallow_transfer_to_parent: true
+disallow_transfer_to_peers: true
+tools:
+  - read_file
+  - get_code_neighbors
+  - search_similar_code
+  - get_code_subgraph

@@ -1,0 +1,16 @@
+{
+  "ranking_rule": {
+    "composite": "compliance x (0.60 x rubric_norm + 0.40 x proxy_norm)",
+    "unverified_prior": 0.5,
+    "note": "compliance is 0/1 over hard harness gates"
+  },
+  "best": "v5_verified_full",
+  "best_zip": "E:\\Bill\\AI\\AutoKaggle\\solutions\\gemma_4_developer_agent\\artifacts\\best_submission.zip",
+  "order": [
+    "v5_verified_full",
+    "v4_skill_pack",
+    "v3_graph_navigator",
+    "v2_budget_guard",
+    "v1_starter_kit"
+  ]
+}

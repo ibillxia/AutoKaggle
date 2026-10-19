@@ -1,0 +1,18 @@
+name: gda_agent_v4_skills
+model: gemma-4-31b-it-qat-w4a16-ct
+description: 'Graph-navigating SWE agent with a reproduction-first, hygiene-checked patch loop.'
+instruction: !include prompts/system.md
+tools:
+  - run_command
+  - read_file
+  - edit_file
+  - write_file
+  - get_status
+  - submit_patch
+  - get_code_neighbors
+  - search_similar_code
+  - get_code_subgraph
+  - agent_tool:
+      config_path: sub_agents/code_analyzer.yaml
+      skip_summarization: true
+generate_content_config: !include configs/sampling.yaml
