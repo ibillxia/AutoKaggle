@@ -32,6 +32,9 @@ access_token
 /submissions/
 /_verify_scratch/
 
+# ---------- 第三方参考代码（他人公开内核导出，含未声明许可，不作为本项目源码分发）----------
+/ref/
+
 # ---------- 样例竞赛输入数据（Kaggle 原始 csv，不是本项目产出）----------
 multi_agents/competition/bank_churn/
 multi_agents/competition/classification_with_an_academic_success_dataset/
