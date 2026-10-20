@@ -140,7 +140,14 @@ def submit(
         if sandbox:
             sub.sandbox = True
 
-        result = svc.create_submission(sub)
+        try:
+            result = svc.create_submission(sub)
+        except Exception as exc:                                    # noqa: BLE001
+            body = getattr(getattr(exc, "response", None), "text", "")
+            print("CreateSubmission FAILED:", type(exc).__name__, str(exc)[:300])
+            if body:
+                print("response body:", body[:800])
+            raise
         print("CreateSubmission ->", result)
         return 0
 
