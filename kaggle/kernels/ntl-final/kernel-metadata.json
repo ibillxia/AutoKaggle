@@ -1,0 +1,17 @@
+{
+  "id": "ibillxia/ntl-final",
+  "title": "ntl final",
+  "code_file": "ntl_final.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "dataset_sources": [
+    "ibillxia/ntl-qwen4b"
+  ],
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "kernel_sources": []
+}

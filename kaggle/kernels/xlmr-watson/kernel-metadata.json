@@ -1,0 +1,17 @@
+{
+  "id": "ibillxia/xlmr-watson",
+  "title": "xlmr watson",
+  "code_file": "main.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "dataset_sources": [
+    "ibillxia/xlmr-nli"
+  ],
+  "competition_sources": [
+    "contradictory-my-dear-watson"
+  ],
+  "kernel_sources": []
+}

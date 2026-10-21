@@ -1,0 +1,19 @@
+{
+  "id": "ibillxia/xlmr-watson-ens",
+  "title": "xlmr watson ens",
+  "code_file": "main.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "dataset_sources": [
+    "ibillxia/xlmr-nli",
+    "ibillxia/xlmr-watson-ft-big",
+    "ibillxia/xlmr-watson-ft-full"
+  ],
+  "competition_sources": [
+    "contradictory-my-dear-watson"
+  ],
+  "kernel_sources": []
+}

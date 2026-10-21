@@ -1,0 +1,17 @@
+{
+  "id": "ibillxia/watson-stack3-write",
+  "title": "watson stack3 write",
+  "code_file": "main.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "ibillxia/watson-stack3"
+  ],
+  "competition_sources": [
+    "contradictory-my-dear-watson"
+  ],
+  "kernel_sources": []
+}

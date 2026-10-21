@@ -1,0 +1,19 @@
+{
+  "id": "ibillxia/kev-mountprobe",
+  "title": "kev mount probe",
+  "code_file": "probe.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "dataset_sources": [],
+  "competition_sources": [
+    "contradictory-my-dear-watson",
+    "llm-classification-finetuning"
+  ],
+  "kernel_sources": [],
+  "model_sources": [
+    "akzsh5100/qwen3-5-0-8b-base/transformers/default/1"
+  ]
+}

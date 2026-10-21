@@ -1,0 +1,15 @@
+{
+  "id": "ibillxia/ntl-tfidf",
+  "title": "ntl tfidf",
+  "code_file": "ntl_tfidf.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "dataset_sources": [],
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "kernel_sources": []
+}

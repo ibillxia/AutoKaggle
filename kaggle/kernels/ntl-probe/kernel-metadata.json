@@ -1,0 +1,15 @@
+{
+  "id": "ibillxia/ntl-probe",
+  "title": "ntl probe",
+  "code_file": "ntl_probe.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "dataset_sources": [
+    "bbucxi/qwen35-9b-safetensors"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}
