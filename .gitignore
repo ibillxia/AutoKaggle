@@ -24,13 +24,28 @@ access_token
 .env
 
 # ---------- 大型资产：只匹配仓库根目录下的同名目录 ----------
+# kaggle/ 只挡数据集快照（21G）；kernels/ 是源码，进版本控制
+/kaggle/dataset/
 /models/
 /runs/
-/kaggle/
 /data/
 /third_party/
 /submissions/
 /_verify_scratch/
+
+# ---------- 根目录临时产物（脚本可再生）----------
+/_synth.npz
+/_synth_train.csv
+/calib_full.json
+/calib_lmsys.json
+/ntl-final-out/
+
+# ---------- name-that-llm：只收源码与实验日志，构件不进仓库 ----------
+solutions/name-that-llm/data/
+solutions/name-that-llm/extra/
+solutions/name-that-llm/*.npz
+solutions/name-that-llm/*.npy
+solutions/name-that-llm/*.jsonl
 
 # ---------- 第三方参考代码（他人公开内核导出，含未声明许可，不作为本项目源码分发）----------
 /ref/

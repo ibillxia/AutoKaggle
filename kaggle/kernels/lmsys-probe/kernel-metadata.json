@@ -1,0 +1,17 @@
+{
+  "id": "ibillxia/lmsys-probe",
+  "title": "lmsys probe",
+  "code_file": "main.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "tascj0/lmsys-checkpoints-0-0805"
+  ],
+  "competition_sources": [
+    "llm-classification-finetuning"
+  ],
+  "kernel_sources": []
+}

@@ -1,0 +1,20 @@
+{
+  "id": "ibillxia/lmsys-gpipe-nb",
+  "title": "lmsys gpipe nb",
+  "code_file": "lmsys-gpipe.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "dataset_sources": [
+    "tascj0/lmsys-checkpoints-0-0805",
+    "tascj0/lmsys-checkpoints-3-0805"
+  ],
+  "competition_sources": [
+    "llm-classification-finetuning"
+  ],
+  "kernel_sources": [
+    "ibillxia/lmsys-val512-nb"
+  ]
+}

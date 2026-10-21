@@ -1,0 +1,16 @@
+{
+  "id": "ibillxia/lmsys-perf-nb",
+  "title": "lmsys perf nb",
+  "code_file": "lmsys-perf.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "dataset_sources": [
+    "tascj0/lmsys-checkpoints-0-0805",
+    "tascj0/lmsys-checkpoints-3-0805"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}
