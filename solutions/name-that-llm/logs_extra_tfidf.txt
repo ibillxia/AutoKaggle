@@ -1,0 +1,5 @@
+train 2159 | holdout 540 | extra 24015
+extra=False cap=- C=100 rows= 2159  bal_acc=0.3000
+extra=True cap=- C=100 rows=26174  bal_acc=0.2556
+extra=True cap=800 C=100 rows=14115  bal_acc=0.2759
+extra=True cap=1500 C=100 rows=19850  bal_acc=0.2611

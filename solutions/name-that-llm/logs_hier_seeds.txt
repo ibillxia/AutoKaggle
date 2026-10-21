@@ -1,0 +1,8 @@
+seed    42  flat=0.4185  k3: l1=0.914 hard=0.4259 soft=0.4241 geo=0.4352  | vendor: l1=0.574 hard=0.3852
+seed     7  flat=0.4296  k3: l1=0.896 hard=0.4333 soft=0.4333 geo=0.4426  | vendor: l1=0.646 hard=0.4111
+seed  2024  flat=0.3981  k3: l1=0.909 hard=0.3926 soft=0.3926 geo=0.4000  | vendor: l1=0.608 hard=0.3926
+seed    13  flat=0.4370  k3: l1=0.926 hard=0.4204 soft=0.4204 geo=0.4407  | vendor: l1=0.639 hard=0.3944
+seed    99  flat=0.4315  k3: l1=0.919 hard=0.4481 soft=0.4500 geo=0.4407  | vendor: l1=0.643 hard=0.4111
+
+flat=0.4230±0.0138  k3_hard=0.4241±0.0183  k3_soft=0.4241±0.0188  k3_geo=0.4319±0.0161  vendor_hard=0.3989±0.0104
+k3_hard - flat = +0.0011 (per-seed: [ 0.0074  0.0037 -0.0056 -0.0167  0.0167])

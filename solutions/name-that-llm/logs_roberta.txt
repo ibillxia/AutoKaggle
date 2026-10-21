@@ -1,0 +1,81 @@
+Loading weights:   0%|          | 0/389 [00:00<?, ?it/s]Loading weights:   4%|▎         | 14/389 [00:00<00:02, 137.07it/s]Loading weights:   9%|▊         | 34/389 [00:00<00:02, 169.60it/s]Loading weights:  13%|█▎        | 51/389 [00:00<00:01, 169.75it/s]Loading weights:  19%|█▉        | 73/389 [00:00<00:01, 173.18it/s]Loading weights:  28%|██▊       | 110/389 [00:00<00:01, 237.64it/s]Loading weights:  35%|███▍      | 135/389 [00:00<00:01, 233.20it/s]Loading weights: 100%|██████████| 389/389 [00:00<00:00, 598.92it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: E:/Bill/AI/AutoKaggle/models/roberta-large
+Key                        | Status     | 
+---------------------------+------------+-
+lm_head.layer_norm.bias    | UNEXPECTED | 
+lm_head.dense.bias         | UNEXPECTED | 
+lm_head.dense.weight       | UNEXPECTED | 
+lm_head.layer_norm.weight  | UNEXPECTED | 
+lm_head.bias               | UNEXPECTED | 
+classifier.out_proj.weight | MISSING    | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.dense.weight    | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  ep0 20/269 loss=2.9058 1.97s/it
+  ep0 40/269 loss=2.9187 2.04s/it
+  ep0 60/269 loss=2.9013 2.08s/it
+  ep0 80/269 loss=2.9185 2.10s/it
+  ep0 100/269 loss=2.9194 2.11s/it
+  ep0 120/269 loss=2.9204 2.11s/it
+  ep0 140/269 loss=2.9166 2.12s/it
+  ep0 160/269 loss=2.9058 2.13s/it
+  ep0 180/269 loss=2.8815 2.14s/it
+  ep0 200/269 loss=2.8483 2.18s/it
+  ep0 220/269 loss=2.8125 2.20s/it
+  ep0 240/269 loss=2.7675 2.22s/it
+  ep0 260/269 loss=2.7302 2.24s/it
+[ep0] holdout bal_acc=0.1500 (10.7 min this epoch)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:01<00:00,  1.59s/it]Writing model shards: 100%|██████████| 1/1 [00:01<00:00,  1.59s/it]
+  saved -> E:/Bill/AI/AutoKaggle/runs/ntl-roberta-large
+  ep1 20/269 loss=2.3580 2.45s/it
+  ep1 40/269 loss=2.2755 2.45s/it
+  ep1 60/269 loss=2.2272 2.46s/it
+  ep1 80/269 loss=2.2007 2.46s/it
+  ep1 100/269 loss=2.1892 2.48s/it
+  ep1 120/269 loss=2.1687 2.51s/it
+  ep1 140/269 loss=2.1559 2.53s/it
+  ep1 160/269 loss=2.1484 2.54s/it
+  ep1 180/269 loss=2.1323 2.56s/it
+  ep1 200/269 loss=2.1144 2.56s/it
+  ep1 220/269 loss=2.1056 2.57s/it
+  ep1 240/269 loss=2.0875 2.58s/it
+  ep1 260/269 loss=2.0737 2.58s/it
+[ep1] holdout bal_acc=0.1944 (12.2 min this epoch)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:01<00:00,  1.04s/it]Writing model shards: 100%|██████████| 1/1 [00:01<00:00,  1.04s/it]
+  saved -> E:/Bill/AI/AutoKaggle/runs/ntl-roberta-large
+  ep2 20/269 loss=1.8012 2.65s/it
+  ep2 40/269 loss=1.8004 2.65s/it
+  ep2 60/269 loss=1.8215 2.64s/it
+  ep2 80/269 loss=1.8094 2.66s/it
+  ep2 100/269 loss=1.7988 2.67s/it
+  ep2 120/269 loss=1.7879 2.67s/it
+  ep2 140/269 loss=1.7787 2.67s/it
+  ep2 160/269 loss=1.7755 2.68s/it
+  ep2 180/269 loss=1.7709 2.68s/it
+  ep2 200/269 loss=1.7670 2.68s/it
+  ep2 220/269 loss=1.7653 2.68s/it
+  ep2 240/269 loss=1.7650 2.69s/it
+  ep2 260/269 loss=1.7593 2.69s/it
+[ep2] holdout bal_acc=0.2519 (12.7 min this epoch)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  1.18it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  1.18it/s]
+  saved -> E:/Bill/AI/AutoKaggle/runs/ntl-roberta-large
+  ep3 20/269 loss=1.6005 2.70s/it
+  ep3 40/269 loss=1.6094 2.69s/it
+  ep3 60/269 loss=1.6054 2.68s/it
+  ep3 80/269 loss=1.5915 2.68s/it
+  ep3 100/269 loss=1.5904 2.67s/it
+  ep3 120/269 loss=1.5847 2.67s/it
+  ep3 140/269 loss=1.5770 2.68s/it
+  ep3 160/269 loss=1.5753 2.68s/it
+  ep3 180/269 loss=1.5762 2.68s/it
+  ep3 200/269 loss=1.5717 2.67s/it
+  ep3 220/269 loss=1.5772 2.67s/it
+  ep3 240/269 loss=1.5667 2.67s/it
+  ep3 260/269 loss=1.5734 2.67s/it
+[ep3] holdout bal_acc=0.2796 (12.6 min this epoch)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  1.40it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  1.40it/s]
+  saved -> E:/Bill/AI/AutoKaggle/runs/ntl-roberta-large

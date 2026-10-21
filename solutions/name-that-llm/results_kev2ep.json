@@ -1,0 +1,28 @@
+{
+  "run": "E:/Bill/AI/AutoKaggle/runs/kev-0.8b-ft-ntl",
+  "n": 540,
+  "accuracy": 0.06481481481481481,
+  "balanced_accuracy": 0.06481481481481483,
+  "log_loss": 2.88963512267407,
+  "sec_per_row": 0.08167023614600853,
+  "recalls": {
+    "gpt-5.5": 0.0,
+    "gpt-5.6-luna": 0.0,
+    "gpt-5.6-sol": 0.0,
+    "gpt-5.6-terra": 0.23333333333333334,
+    "gpt-6-astra": 0.0,
+    "gemini-3.1-pro-preview": 0.0,
+    "gemini-3.6-flash": 0.0,
+    "gemini-3.7-flash": 0.0,
+    "gemini-3.8-flash": 0.9333333333333333,
+    "claude-fable-5": 0.0,
+    "claude-opus-4-6": 0.0,
+    "claude-opus-4-8": 0.0,
+    "claude-opus-5": 0.0,
+    "claude-sonnet-5": 0.0,
+    "qwen3.8-max": 0.0,
+    "glm-5.3": 0.0,
+    "glm-5.3-flash": 0.0,
+    "kimi-k3": 0.0
+  }
+}

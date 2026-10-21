@@ -1,0 +1,24 @@
+computing OOF confusion on the training split ...
+  OOF bal_acc = 0.4014
+
+flat 18-way baseline: 0.4185
+
+vendor(prior)              k= 6 l1=0.574  hard=0.3852  soft=0.3852  oracle=0.5852 (16cls 0.5333)  sizes=[120, 599, 480, 120, 600, 240]
+confusion-cluster k=2      k= 2 l1=0.965  hard=0.4148  soft=0.4148  oracle=0.4370 (16cls 0.4370)  sizes=[480, 1679]
+      groups: gemini-3.1-pro-preview+gemini-3.6-flash+gemini-3.7-flash+gemini-3.8-flash | gpt-5.5+gpt-5.6-luna+gpt-5.6-sol+gpt-5.6-terra+gpt-6-astra+claude-fable-5+claude-opus-4-6+claude-opus-4-8+claude-opus-5+claude-sonnet-5+qwen3.8-max+glm-5.3+glm-5.3-flash+kimi-k3
+confusion-cluster k=3      k= 3 l1=0.914  hard=0.4259  soft=0.4241  oracle=0.4667 (16cls 0.4667)  sizes=[480, 840, 839]
+      groups: gemini-3.1-pro-preview+gemini-3.6-flash+gemini-3.7-flash+gemini-3.8-flash | gpt-5.5+gpt-5.6-luna+gpt-5.6-sol+gpt-5.6-terra+gpt-6-astra+qwen3.8-max+kimi-k3 | claude-fable-5+claude-opus-4-6+claude-opus-4-8+claude-opus-5+claude-sonnet-5+glm-5.3+glm-5.3-flash
+confusion-cluster k=4      k= 4 l1=0.807  hard=0.4167  soft=0.4167  oracle=0.5056 (16cls 0.5056)  sizes=[480, 840, 479, 360]
+      groups: gemini-3.1-pro-preview+gemini-3.6-flash+gemini-3.7-flash+gemini-3.8-flash | gpt-5.5+gpt-5.6-luna+gpt-5.6-sol+gpt-5.6-terra+gpt-6-astra+qwen3.8-max+kimi-k3 | claude-fable-5+claude-opus-5+glm-5.3+glm-5.3-flash | claude-opus-4-6+claude-opus-4-8+claude-sonnet-5
+confusion-cluster k=5      k= 5 l1=0.707  hard=0.4037  soft=0.4037  oracle=0.5556 (16cls 0.5556)  sizes=[480, 480, 360, 479, 360]
+      groups: gemini-3.1-pro-preview+gemini-3.6-flash+gemini-3.7-flash+gemini-3.8-flash | gpt-5.6-luna+gpt-5.6-sol+gpt-5.6-terra+gpt-6-astra | gpt-5.5+qwen3.8-max+kimi-k3 | claude-fable-5+claude-opus-5+glm-5.3+glm-5.3-flash | claude-opus-4-6+claude-opus-4-8+claude-sonnet-5
+confusion-cluster k=6      k= 6 l1=0.642  hard=0.4019  soft=0.4019  oracle=0.5852 (16cls 0.5608)  sizes=[480, 480, 240, 120, 479, 360]
+      groups: gemini-3.1-pro-preview+gemini-3.6-flash+gemini-3.7-flash+gemini-3.8-flash | gpt-5.6-luna+gpt-5.6-sol+gpt-5.6-terra+gpt-6-astra | gpt-5.5+kimi-k3 | qwen3.8-max | claude-fable-5+claude-opus-5+glm-5.3+glm-5.3-flash | claude-opus-4-6+claude-opus-4-8+claude-sonnet-5
+confusion-cluster k=7      k= 7 l1=0.627  hard=0.4000  soft=0.4000  oracle=0.6130 (16cls 0.5646)  sizes=[360, 120, 480, 240, 120, 479, 360]
+      groups: gemini-3.6-flash+gemini-3.7-flash+gemini-3.8-flash | gemini-3.1-pro-preview | gpt-5.6-luna+gpt-5.6-sol+gpt-5.6-terra+gpt-6-astra | gpt-5.5+kimi-k3 | qwen3.8-max | claude-fable-5+claude-opus-5+glm-5.3+glm-5.3-flash | claude-opus-4-6+claude-opus-4-8+claude-sonnet-5
+confusion-cluster k=9      k= 9 l1=0.576  hard=0.3926  soft=0.3944  oracle=0.6741 (16cls 0.5810)  sizes=[360, 120, 360, 120, 240, 120, 479, 240, 120]
+      groups: gemini-3.6-flash+gemini-3.7-flash+gemini-3.8-flash | gemini-3.1-pro-preview | gpt-5.6-luna+gpt-5.6-sol+gpt-5.6-terra | gpt-6-astra | gpt-5.5+kimi-k3 | qwen3.8-max | claude-fable-5+claude-opus-5+glm-5.3+glm-5.3-flash | claude-opus-4-6+claude-sonnet-5 | claude-opus-4-8
+confusion-cluster k=12     k=12 l1=0.519  hard=0.3981  soft=0.3981  oracle=0.7685 (16cls 0.5833)  sizes=[360, 120, 360, 120, 240, 120, 240, 120, 119, 120, 120, 120]
+      groups: gemini-3.6-flash+gemini-3.7-flash+gemini-3.8-flash | gemini-3.1-pro-preview | gpt-5.6-luna+gpt-5.6-sol+gpt-5.6-terra | gpt-6-astra | gpt-5.5+kimi-k3 | qwen3.8-max | glm-5.3+glm-5.3-flash | claude-opus-5 | claude-fable-5 | claude-opus-4-6 | claude-sonnet-5 | claude-opus-4-8
+
+saved hier_group_results.npz

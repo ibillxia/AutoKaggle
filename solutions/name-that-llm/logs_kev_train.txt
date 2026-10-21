@@ -1,0 +1,62 @@
+kev.train --base E:\Bill\AI\AutoKaggle\models\Qwen3.5-0.8B-Base --data E:\Bill\AI\AutoKaggle\solutions\name-that-llm\kev_train.jsonl --epochs 2 --lora 16 --accum 8 --lr 0.0002 --head_lr 0.0 --dtype bf16 --weights_dtype bf16 --device cuda --out E:\Bill\AI\AutoKaggle\runs\kev-0.8b-ft-ntl
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   5%|▌         | 17/320 [00:00<00:01, 169.70it/s]Loading weights:  14%|█▍        | 46/320 [00:00<00:01, 218.99it/s]Loading weights:  23%|██▎       | 73/320 [00:00<00:01, 239.41it/s]Loading weights:  32%|███▏      | 102/320 [00:00<00:00, 258.65it/s]Loading weights:  40%|████      | 128/320 [00:00<00:01, 187.38it/s]Loading weights:  47%|████▋     | 150/320 [00:00<00:00, 174.08it/s]Loading weights: 100%|██████████| 320/320 [00:00<00:00, 406.64it/s]
+W1021 12:22:31.923000 5656 Lib\site-packages\torch\utils\flop_counter.py:113] triton not found; flop counting will not work for triton kernels
+device=cuda world=1 trainable params=11.3M
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+2159 training requests (holdout=[]), questions by type {'choice': 2159}
+ep0 step 10/540 loss 3.319 kl 0.000 anchor 0.000 0.306s/rec
+ep0 step 20/540 loss 2.971 kl 0.000 anchor 0.000 0.298s/rec
+ep0 step 30/540 loss 3.058 kl 0.000 anchor 0.000 0.293s/rec
+ep0 step 40/540 loss 2.957 kl 0.000 anchor 0.000 0.294s/rec
+ep0 step 50/540 loss 3.110 kl 0.000 anchor 0.000 0.293s/rec
+ep0 step 60/540 loss 2.933 kl 0.000 anchor 0.000 0.292s/rec
+ep0 step 70/540 loss 2.935 kl 0.000 anchor 0.000 0.290s/rec
+ep0 step 80/540 loss 2.876 kl 0.000 anchor 0.000 0.288s/rec
+ep0 step 90/540 loss 2.804 kl 0.000 anchor 0.000 0.288s/rec
+ep0 step 100/540 loss 2.788 kl 0.000 anchor 0.000 0.287s/rec
+ep0 step 110/540 loss 2.904 kl 0.000 anchor 0.000 0.287s/rec
+ep0 step 120/540 loss 2.826 kl 0.000 anchor 0.000 0.286s/rec
+ep0 step 130/540 loss 2.778 kl 0.000 anchor 0.000 0.286s/rec
+ep0 step 140/540 loss 2.827 kl 0.000 anchor 0.000 0.287s/rec
+ep0 step 150/540 loss 2.850 kl 0.000 anchor 0.000 0.287s/rec
+ep0 step 160/540 loss 2.849 kl 0.000 anchor 0.000 0.287s/rec
+ep0 step 170/540 loss 2.879 kl 0.000 anchor 0.000 0.287s/rec
+ep0 step 180/540 loss 2.869 kl 0.000 anchor 0.000 0.287s/rec
+ep0 step 190/540 loss 2.734 kl 0.000 anchor 0.000 0.288s/rec
+ep0 step 200/540 loss 2.905 kl 0.000 anchor 0.000 0.287s/rec
+ep0 step 210/540 loss 2.789 kl 0.000 anchor 0.000 0.287s/rec
+ep0 step 220/540 loss 2.749 kl 0.000 anchor 0.000 0.288s/rec
+ep0 step 230/540 loss 2.870 kl 0.000 anchor 0.000 0.288s/rec
+ep0 step 240/540 loss 2.895 kl 0.000 anchor 0.000 0.288s/rec
+ep0 step 250/540 loss 2.716 kl 0.000 anchor 0.000 0.288s/rec
+ep0 step 260/540 loss 2.725 kl 0.000 anchor 0.000 0.288s/rec
+ep0 step 270/540 loss 2.618 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 280/540 loss 2.839 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 290/540 loss 2.826 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 300/540 loss 2.772 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 310/540 loss 2.770 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 320/540 loss 2.761 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 330/540 loss 2.805 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 340/540 loss 2.805 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 350/540 loss 2.820 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 360/540 loss 2.880 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 370/540 loss 2.850 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 380/540 loss 2.789 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 390/540 loss 2.884 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 400/540 loss 2.834 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 410/540 loss 2.783 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 420/540 loss 2.689 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 430/540 loss 2.788 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 440/540 loss 2.812 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 450/540 loss 2.726 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 460/540 loss 2.677 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 470/540 loss 2.792 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 480/540 loss 2.739 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 490/540 loss 2.730 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 500/540 loss 2.888 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 510/540 loss 2.704 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 520/540 loss 2.895 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 530/540 loss 2.812 kl 0.000 anchor 0.000 0.288s/rec
+ep1 step 540/540 loss 2.738 kl 0.000 anchor 0.000 0.288s/rec
+saved E:\Bill\AI\AutoKaggle\runs\kev-0.8b-ft-ntl

@@ -1,0 +1,13 @@
+tfidf only                       bal_acc=0.3074
+tfidf + style block (w=0.3)      bal_acc=0.3574
+tfidf + style block (w=1.0)      bal_acc=0.3556
+tfidf + style block (w=3.0)      bal_acc=0.3481
+[emb] vendor6 acc = 0.5742
+     per-vendor recall: alibaba=0.40, anthropic=0.70, google=0.93, moonshot=0.27, openai=0.82, zhipu=0.33
+--- emb (C_flat=100.0, C_vendor=100.0, C_inner=100.0)
+    flat             0.4185
+    cascade_hard     0.3852
+    flat_masked      0.4093
+    cascade_soft     0.3852
+    cascade_oracle   0.5852
+    geo alpha sweep  0.1:0.4278 0.2:0.4296 0.3:0.4315 0.5:0.4278 0.7:0.4278 1.0:0.4222

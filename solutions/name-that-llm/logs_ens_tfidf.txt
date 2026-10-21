@@ -1,0 +1,9 @@
+c25   C=10   bal_acc=0.3833
+c25   C=30   bal_acc=0.3870
+c25   C=100  bal_acc=0.3944
+c36   C=10   bal_acc=0.3722
+c36   C=30   bal_acc=0.3741
+c36   C=100  bal_acc=0.3815
+both  C=10   bal_acc=0.3981
+both  C=30   bal_acc=0.3981
+both  C=100  bal_acc=0.4019

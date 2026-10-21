@@ -1,0 +1,48 @@
+Loading weights:   0%|          | 0/389 [00:00<?, ?it/s]Loading weights:   8%|▊         | 30/389 [00:00<00:01, 299.47it/s]Loading weights:  15%|█▌        | 60/389 [00:00<00:01, 227.29it/s]Loading weights:  22%|██▏       | 84/389 [00:00<00:01, 194.56it/s]Loading weights:  28%|██▊       | 108/389 [00:00<00:01, 198.33it/s]Loading weights:  35%|███▌      | 138/389 [00:00<00:01, 227.54it/s]Loading weights: 100%|██████████| 389/389 [00:00<00:00, 573.90it/s]
+[transformers] [1mRobertaForSequenceClassification LOAD REPORT[0m from: E:/Bill/AI/AutoKaggle/models/roberta-large
+Key                        | Status     | 
+---------------------------+------------+-
+lm_head.layer_norm.bias    | UNEXPECTED | 
+lm_head.dense.bias         | UNEXPECTED | 
+lm_head.bias               | UNEXPECTED | 
+lm_head.layer_norm.weight  | UNEXPECTED | 
+lm_head.dense.weight       | UNEXPECTED | 
+classifier.out_proj.bias   | MISSING    | 
+classifier.dense.weight    | MISSING    | 
+classifier.dense.bias      | MISSING    | 
+classifier.out_proj.weight | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+  ep0 20/337 loss=2.9911 2.52s/it
+  ep0 40/337 loss=2.9515 2.56s/it
+  ep0 60/337 loss=2.9435 2.58s/it
+  ep0 80/337 loss=2.9366 2.59s/it
+  ep0 100/337 loss=2.9332 2.60s/it
+  ep0 120/337 loss=2.9306 2.61s/it
+  ep0 140/337 loss=2.9242 2.61s/it
+  ep0 160/337 loss=2.9069 2.62s/it
+  ep0 180/337 loss=2.8909 2.62s/it
+  ep0 200/337 loss=2.8597 2.62s/it
+  ep0 220/337 loss=2.8267 2.63s/it
+  ep0 240/337 loss=2.7915 2.63s/it
+  ep0 260/337 loss=2.7532 2.63s/it
+  ep0 280/337 loss=2.7161 2.64s/it
+  ep0 300/337 loss=2.6883 2.64s/it
+  ep0 320/337 loss=2.6572 2.64s/it
+[ep0] holdout bal_acc=0.1778 (14.9 min this epoch)
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  1.00it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  1.00it/s]
+  saved -> E:/Bill/AI/AutoKaggle/runs/ntl-roberta-full
+  ep1 20/337 loss=2.1959 2.70s/it
+  ep1 40/337 loss=2.1259 2.65s/it
+  ep1 60/337 loss=2.0979 2.66s/it
+  ep1 80/337 loss=2.0930 2.65s/it
+  ep1 100/337 loss=2.0979 2.66s/it
+  ep1 120/337 loss=2.0810 2.72s/it
+  ep1 140/337 loss=2.0761 2.81s/it
+  ep1 160/337 loss=2.0676 2.92s/it
+  ep1 180/337 loss=2.0605 2.98s/it
+  ep1 200/337 loss=2.0530 3.05s/it
+  ep1 220/337 loss=2.0466 3.10s/it
+  ep1 240/337 loss=2.0416 3.13s/it

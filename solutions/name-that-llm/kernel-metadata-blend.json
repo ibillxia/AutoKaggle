@@ -1,0 +1,17 @@
+{
+  "id": "ibillxia/ntl-blend",
+  "title": "ntl blend",
+  "code_file": "ntl_blend.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "dataset_sources": [
+    "ibillxia/ntl-roberta"
+  ],
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "kernel_sources": []
+}
