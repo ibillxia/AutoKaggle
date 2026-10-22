@@ -120,8 +120,13 @@ def extract(texts, bs=8):
     model.train()
     return Z
 
-def make_batches(df, y, epochs, rng):
-    """Yield lists of (text, label) of size TRIPLETS_PER_STEP*BS: triplets share a prompt."""
+def make_batches(df, y, epochs, rng, full_coverage=True):
+    """Yield lists of (text, label) of size TRIPLETS_PER_STEP*BS: triplets share a prompt.
+
+    full_coverage=True draws round(len(rows)/BS) triplets per prompt so one epoch actually
+    visits every passage (pool has ~15.5 passages/prompt, so the old one-triplet version only
+    saw 19% of the pool and left stage1 badly undertrained).
+    """
     by_prompt = {}
     for pid, t, yy in zip(df["prompt_id"].values, df["text"].values, y):
         by_prompt.setdefault(pid, []).append((t, yy))
@@ -133,16 +138,18 @@ def make_batches(df, y, epochs, rng):
             rows = by_prompt[pid]
             if len(rows) < BS:
                 continue
-            pick = rng.sample(rows, BS)
-            models = {yy for _, yy in pick}
-            if len(models) < 2:      # need at least 2 classes to be informative
-                continue
-            buf.append(pick)
-            if len(buf) == TRIPLETS_PER_STEP:
-                yield [x for tri in buf for x in tri]
-                buf = []
+            n_trip = max(1, round(len(rows) / BS)) if full_coverage else 1
+            for _ in range(n_trip):
+                pick = rng.sample(rows, BS)
+                models = {yy for _, yy in pick}
+                if len(models) < 2:      # need at least 2 classes to be informative
+                    continue
+                buf.append(pick)
+                if len(buf) == TRIPLETS_PER_STEP:
+                    yield [x for tri in buf for x in tri]
+                    buf = []
 
-def run_epoch(batches, opt, sched, scaler, cw):
+def run_epoch(batches, opt, sched, scaler, cw, hook=None, hook_every=0):
     tot, nsteps, nan_skips = 0.0, 0, 0
     for batch in batches:
         texts = [t for t, _ in batch]
@@ -171,6 +178,8 @@ def run_epoch(batches, opt, sched, scaler, cw):
         scaler.update()
         sched.step()
         tot += float(loss); nsteps += 1
+        if hook is not None and hook_every and nsteps % hook_every == 0:
+            hook(nsteps)
         if nsteps % 100 == 0:
             print(f"  step {nsteps} loss {tot/nsteps:.4f} ({time.time()-T0:.0f}s)", flush=True)
     return tot / max(nsteps, 1), nan_skips
@@ -196,10 +205,25 @@ def save_ckpt(out_dir, note):
 
 STAGE1 = r'''
 # ---------------- stage 1: pool ----------------
+# Full coverage of 34,940 passages is 2,912 steps at 12 texts/step, i.e. ~5.6h on 2xT4
+# (6.9s/step). STEP_BUDGET keeps the whole kernel inside Kaggle's 9h session cap; 1900 steps
+# covers ~65% of the pool and saves a checkpoint every 400 steps so a late failure is not total.
+STEP_BUDGET = 1900
+
+
+def capped(gen, limit):
+    n = 0
+    for b in gen:
+        if limit and n >= limit:
+            return
+        n += 1
+        yield b
+
+
 rng = random.Random(SEED)
 cnt = np.bincount(y_pool, minlength=K).astype(np.float64)
 cw = torch.tensor((len(y_pool) / (K * np.maximum(cnt, 1))), dtype=torch.float32, device=dev0)
-steps1 = sum(1 for _ in make_batches(pool, y_pool, 1, random.Random(SEED)))
+steps1 = min(STEP_BUDGET, sum(1 for _ in make_batches(pool, y_pool, 1, random.Random(SEED))))
 print("stage1 steps:", steps1, flush=True)
 opt = torch.optim.AdamW([
     dict(params=[p for n, p in model.named_parameters() if p.requires_grad], lr=1e-4),
@@ -207,9 +231,11 @@ opt = torch.optim.AdamW([
 scaler = torch.amp.GradScaler("cuda")
 sched = get_cosine_schedule_with_warmup(opt, int(0.1 * steps1), steps1)
 t1 = time.time()
-loss1, nans = run_epoch(make_batches(pool, y_pool, 1, rng), opt, sched, scaler, cw)
+loss1, nans = run_epoch(capped(make_batches(pool, y_pool, 1, rng), STEP_BUDGET), opt, sched, scaler, cw,
+                        hook=lambda n: save_ckpt("/kaggle/working/stage1", f"stage1 partial {n} steps"),
+                        hook_every=400)
 print(f"stage1 done: loss {loss1:.4f} nan_skips {nans} ({time.time()-t1:.0f}s)", flush=True)
-save_ckpt("/kaggle/working/stage1", "stage1 pool 1ep")
+save_ckpt("/kaggle/working/stage1", f"stage1 pool {steps1} steps")
 '''
 
 STAGE2 = r'''
