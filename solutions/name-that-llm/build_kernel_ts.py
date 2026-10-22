@@ -94,7 +94,6 @@ for rel, w in PRV.items():
     gc.collect()
     torch.cuda.empty_cache()
     print(f"{rel} done w={w} bad={int(bad)} ({time.time()-t_m:.0f}s, total {time.time()-T0:.0f}s)", flush=True)
-del m2, tok2, meta2
 gc.collect()
 torch.cuda.empty_cache()
 '''

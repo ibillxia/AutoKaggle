@@ -114,9 +114,9 @@ def sinkhorn(P):
 
 
 VARIANTS = {
-    "submission_full.parquet":   sinkhorn(softmax(LOGIT_BOTH)),
+    "submission_full.parquet":   sinkhorn(softmax(LOGIT + TWIN_LOGIT)),
     "submission_notwin.parquet": sinkhorn(softmax(LOGIT)),
-    "submission_nosink.parquet": softmax(LOGIT_BOTH),
+    "submission_nosink.parquet": softmax(LOGIT + TWIN_LOGIT),
     "submission_plain.parquet":  softmax(LOGIT),
 }
 for fname, P in VARIANTS.items():

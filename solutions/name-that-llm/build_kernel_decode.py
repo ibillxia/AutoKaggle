@@ -86,7 +86,7 @@ def group_assignment(P, groups, min_size=12, max_size=18):
     return out
 
 
-P_twin = softmax(LOGIT_BOTH)
+P_twin = softmax(LOGIT + TWIN_LOGIT)
 VARIANTS = {
     "submission_hung.parquet":   group_assignment(sinkhorn(P_twin), groups),
     "submission_sink.parquet":   sinkhorn(P_twin).argmax(1),
