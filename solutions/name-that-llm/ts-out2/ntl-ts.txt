@@ -1,0 +1,210 @@
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+train (2699, 4) test (3, 2)
+bases: /kaggle/input/models/qwen-lm/qwen-3/transformers/8b/1 /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1 /kaggle/input/models/qwen-lm/qwen-3/transformers/8b-base/1
+n-gram model done (257s)
+prvsiyan member on cuda:0 free=[14.5, 14.5]GiB
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/8b-base/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{24...35}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.down_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{24...35}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/8b-base/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{24...35}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.down_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{24...35}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+q8b_L24_ctr/full_s0 done w=0.11 bad=0 (369s, total 654s)
+prvsiyan member on cuda:1 free=[14.4, 14.5]GiB
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/8b-base/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{24...35}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.down_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{24...35}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/8b-base/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{24...35}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.down_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{24...35}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+q8b_L24_ctr/full_s1 done w=0.11 bad=0 (216s, total 870s)
+topic clusters: 3 singletons, 0 passages in clusters of 2-18
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/8b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{24...35}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.down_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{24...35}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/8b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{24...35}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.down_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{24...35}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+lora8b_v1 done (1246s)
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{27...39}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.down_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{27...39}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.down_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+lora14b_v1 done (1928s)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys;import papermill as pm;pm.execute_notebook("__notebook__.ipynb","__notebook__.ipynb",progress_bar=False,log_output=True,stdout_file=sys.stdout,stderr_file=sys.stderr,allow_errors=False,timeout=43200)
+                                      ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/papermill/execute.py", line 131, in execute_notebook
+    raise_for_execution_errors(nb, output_path)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+    raise error
+papermill.exceptions.PapermillExecutionError: 
+---------------------------------------------------------------------------
+Exception encountered at "In [5]":
+---------------------------------------------------------------------------
+FileNotFoundError                         Traceback (most recent call last)
+/tmp/ipykernel_23/1255030947.py in <cell line: 0>()
+     54     t_m = time.time()
+     55     ckpt = os.path.join(TS_ROOT, name)
+---> 56     Z, heads = lora_features(ckpt, BASE_14B_DIR, test.text.tolist(), 8)
+     57     MEM[name] = np.log(np.clip(softmax(Z @ heads["plain.weight"].T + heads["plain.bias"]), 1e-9, 1))
+     58     LOGIT += TS_W * MEM[name]
+
+/usr/local/lib/python3.13/dist-packages/torch/utils/_contextlib.py in decorate_context(*args, **kwargs)
+    122         # pyrefly: ignore [bad-context-manager]
+    123         with ctx_factory():
+--> 124             return func(*args, **kwargs)
+    125 
+    126     return decorate_context
+
+/tmp/ipykernel_23/877261303.py in lora_features(ckpt_dir, base_dir, texts, bs)
+     49 def lora_features(ckpt_dir, base_dir, texts, bs):
+     50     """Pooled features Z (n, 8 * hidden) and the checkpoint's heads."""
+---> 51     meta = json.load(open(os.path.join(ckpt_dir, "meta.json")))
+     52     assert meta["labels"] == LABELS, "label order differs from the checkpoint's heads"
+     53     cfg = meta["cfg"]
+
+FileNotFoundError: [Errno 2] No such file or directory: '/kaggle/input/datasets/zhuyu2/name-that-llm-ts-lora/ts14b_f0/ts14b_f0/meta.json'
+
+/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+  cells[i][c] = re.sub('\\\\\|', '|', cell)
+/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+[NbConvertApp] Writing 94759 bytes to __notebook__.ipynb
+[NbConvertApp] Converting notebook __notebook__.ipynb to html
+[NbConvertApp] Writing 433190 bytes to __results__.html

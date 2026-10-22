@@ -102,7 +102,8 @@ TS_CELL = r'''
 # ==================== five two-stage 14B folds (zhuyu2/name-that-llm-ts-lora) ==========
 # Drop-in for lora_features: identical adapter/heads layout, identical label order,
 # keep=27 on Qwen3-14B-Base, same 8 pooled layers. max_len comes from their meta.json.
-TS_ROOT = os.path.dirname(find("ts14b_f0/meta.json"))
+# dirname() of the meta.json path is the fold dir itself, so go up two levels.
+TS_ROOT = os.path.dirname(os.path.dirname(find("ts14b_f0/meta.json")))
 
 
 def twin_logprobs(Z, groups, twin_rows, heads):
