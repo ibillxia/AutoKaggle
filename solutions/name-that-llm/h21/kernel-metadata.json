@@ -1,0 +1,29 @@
+{
+  "id": "huangkx666/ntl-v21-em-dash-and-hungarian-guarded",
+  "id_no": 140143729,
+  "title": "NTL v21 em dash and hungarian guarded",
+  "code_file": "ntl-v21-em-dash-and-hungarian-guarded.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [
+    "gpu"
+  ],
+  "dataset_sources": [
+    "prvsiyan/ntl-two-stage-lora-adapters-v1",
+    "nishantdahal/ntl-two-stage-lora"
+  ],
+  "kernel_sources": [],
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "model_sources": [
+    "qwen-lm/qwen-3/Transformers/8b-base/1",
+    "qwen-lm/qwen-3/Transformers/14b-base/1"
+  ],
+  "docker_image": "gcr.io/kaggle-private-byod/python@sha256:2757e0c7d1e0a9cb43da657b97e223c321a98f5014bdf64f44f2f6b083ad2b2f",
+  "machine_shape": "NvidiaTeslaT4"
+}
