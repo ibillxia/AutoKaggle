@@ -1,0 +1,22 @@
+{
+  "id": "ibillxia/ntl-ens",
+  "title": "ntl ens",
+  "code_file": "ntl-ens.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "dataset_sources": [
+    "nishantdahal/ntl-two-stage-lora",
+    "prvsiyan/ntl-two-stage-lora-adapters-v1"
+  ],
+  "model_sources": [
+    "qwen-lm/qwen-3/transformers/8b/1",
+    "qwen-lm/qwen-3/transformers/14b/1",
+    "qwen-lm/qwen-3/transformers/8b-base/1"
+  ]
+}
