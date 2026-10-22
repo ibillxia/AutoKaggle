@@ -105,9 +105,30 @@ LB：0.42（当前）→ 0.58–0.60（前 10%）。缺的 0.15 不是调参能�
 微调 Qwen3.5-9B（LoRA，必要时 4-bit QLoRA），用同一套 30-prompt grouped holdout 做闸门。
 
 
+## 2026-10-22 更新：官方口径否掉「同组匈牙利」，改走公开 14B 五折
+
+**官方 Evaluation 页原文**（决定了哪些解码技巧可用）：
+> The number of test passages per model is **not** equal, and the mix of models differs
+> between the public and private leaderboard.
+
+—— 所以「每个 prompt 内 18 个模型各出现一次」**不成立**。`decode/`（ward 分组 + 同组匈牙利）
+实测预期收益作废，虽然 `sim_decode2.py` 在合成数据上显示 +0.07，但那是建立在错误的
+结构假设上（README「关键经验 1」里论坛 750390 的实测也是同向结论）。Sinkhorn 的
+「类别均匀」同理不成立，但 twin+Sinkhorn 实测 0.576 > plain 0.520，故保留。
+
+**新成员：`zhuyu2/name-that-llm-ts-lora`（5 个 Qwen3-14B two-stage LoRA 折）**
+- 与 fork592 的 loader **完全兼容**：`ts14b_fN/adapter/adapter_model.safetensors` +
+  `heads.safetensors`（norms.0–7 / plain / centered）+ `meta.json`；
+  `keep=27, max_len=447, layers=[2,4,6,8,12,16,20,24]`，标签顺序与 `LABELS` 完全一致。
+- 因此 `lora_features(ckpt, BASE_14B_DIR, texts, 8)` 直接可用，只需给 `model_sources` 挂 14B base。
+
+**权重（无 OOF 时的稳妥做法）**：公开权重 8B .226 / 14B .429 / svc 1.021，且 twin 比恰为
+0.35（.079/.226 = .150/.429）。新增五折每折 0.07（合计 0.35），twins 按同比例 0.0245；
+prvsiyan 两 seed 各 0.11。所有成员 log-prob 分开存 `MEM` / `TWIN_MEM`，末单元一次
+pass 产出 `submission_all`（提交用）/ `noprv` / `old`（复现 0.576 用）三个文件。
+
 ## 提交物
-- `ntl_tfidf.ipynb`（方案 A，纯 sklearn，CPU，无需外部数据集）
-- `ntl_blend.ipynb`（方案 B，TF-IDF + roberta-large，需 `ibillxia/ntl-roberta` 数据集）
+- `ntl_tfidf.ipynb`（方案 A，纯 sklearn，CPU，无需外部数据集）- `ntl_blend.ipynb`（方案 B，TF-IDF + roberta-large，需 `ibillxia/ntl-roberta` 数据集）
 - **`ntl_final.ipynb`（方案 C，当前最佳）**：TF-IDF/style(0.4) + 4B 7 层嵌入(0.6) + 3 簇先验(α=0.6)。
   需私有数据集 `ibillxia/ntl-qwen4b`（8.96GB：4B bf16 权重 + 训练嵌入）。
   Kaggle 上 fp16 单卡 T4 跑得动（189 ms/text，7 层 mean-pool），5-seed CV **0.445**。

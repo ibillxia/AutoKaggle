@@ -52,6 +52,10 @@ EXTRA_CELL = r'''
 # ==================== extra members: prvsiyan q8b_L24_ctr ====================
 # Their own peft-free implementation; their conventions (bos=1, max_len=384,
 # alphabetically ordered labels) are handled entirely inside their code.
+#
+# This cell runs BEFORE the 24/27-layer nishantdahal members: their loader builds a
+# 10.6GB fp16 trunk in one go and cannot share a card, so it needs a clean device.
+# Whatever is left afterwards is released before the next member loads.
 import importlib
 import sys
 
@@ -62,11 +66,28 @@ lora_cls = importlib.import_module("lora_cls")
 EXTRA = {
 %s
 }
+
+
+def free_gpu():
+    """Index of the device that can hold a 10.6GB fp16 trunk right now (garbage included:
+    a dispatched model leaves reference cycles behind, so collect before measuring)."""
+    gc.collect()
+    torch.cuda.empty_cache()
+    free = [torch.cuda.mem_get_info(i)[0] for i in range(torch.cuda.device_count())]
+    i = max(range(len(free)), key=free.__getitem__)
+    print(f"extra member on cuda:{i} free={[round(f / 2 ** 30, 1) for f in free]}GiB", flush=True)
+    return i
+
+
 for rel, w in EXTRA.items():
     t_m = time.time()
+    # their build_model picks dtype with `torch.float16 if device == "cuda" else float32`,
+    # so a device string like "cuda:1" silently means fp32 and OOMs a 14.5GB T4. Select the
+    # card with set_device and pass exactly "cuda".
+    torch.cuda.set_device(free_gpu())
     adir = os.path.join(ADAPT_ROOT, rel)
-    m2, tok2, meta2 = lora_cls.load_for_inference(adir, base_dir=BASE_8B_BASE_DIR, device="cuda:0")
-    P, bad = lora_cls.predict_probs(m2, tok2, test.text.tolist(), meta2, device="cuda:0", bs=16)
+    m2, tok2, meta2 = lora_cls.load_for_inference(adir, base_dir=BASE_8B_BASE_DIR, device="cuda")
+    P, bad = lora_cls.predict_probs(m2, tok2, test.text.tolist(), meta2, device="cuda", bs=16)
     order = [meta2["labels"].index(l) for l in LABELS]
     p = np.clip(P[:, order], 1e-9, 1)
     p = p / p.sum(1, keepdims=True)
@@ -75,6 +96,9 @@ for rel, w in EXTRA.items():
     gc.collect()
     torch.cuda.empty_cache()
     print(f"{rel} done w={w} bad={int(bad)} ({time.time()-t_m:.0f}s, total {time.time()-T0:.0f}s)", flush=True)
+del m2, tok2, meta2
+gc.collect()
+torch.cuda.empty_cache()
 '''
 
 FINAL_CELL = r'''
@@ -129,14 +153,29 @@ def main():
             stale = "    del Z\n    gc.collect()"
             assert stale in src
             src = src.replace(stale, stale + "\n    torch.cuda.empty_cache()", 1)
+            # keep the centred twin's contribution separate so the final cell can ablate it:
+            # fork592 adds it straight into LOGIT, which leaves 'with twin' and 'without twin'
+            # indistinguishable (and references an undefined LOGIT_BOTH downstream)
+            assert "LOGIT[twin_rows] +=" in src
+            src = src.replace("LOGIT[twin_rows] +=", "TWIN_LOGIT[twin_rows] +=")
+            anchor = "for ckpt_name, mc in LORAS.items():"
+            src = src.replace(anchor, "TWIN_LOGIT = np.zeros_like(LOGIT)\n\n" + anchor, 1)
+            nb["cells"][i]["source"] = src.splitlines(keepends=True)
+        elif "def lora_features(" in src:
+            # a device_map="auto" trunk (the 14B) leaves reference cycles behind, so a bare
+            # `del model` does not return its 18GB until the cyclic collector runs -- the
+            # previous run OOM'd in the extra-members cell for exactly this reason
+            stale = "    del model\n    torch.cuda.empty_cache()"
+            assert stale in src, "cleanup block changed upstream"
+            src = src.replace(stale, "    del model\n    gc.collect()\n    torch.cuda.empty_cache()", 1)
             nb["cells"][i]["source"] = src.splitlines(keepends=True)
         elif "submission.parquet" in src:
             nb["cells"][i]["source"] = FINAL_CELL.strip("\n").splitlines(keepends=True)
         elif "LORAS = {" in src:
-            # cell 1: LABELS / K / LORAS / find are all defined here -> pin bases right after K
-            anchor = "K = len(LABELS)"
-            assert anchor in src
-            nb["cells"][i]["source"] = src.replace(anchor, anchor + "\n" + BASE_PIN, 1).splitlines(keepends=True)
+            # cell 1: LABELS / K / LORAS / find are all defined here; append the pin at the
+            # very end, since find() is defined below K.
+            assert "def find(pattern):" in src, "find() moved; adjust the injection point"
+            nb["cells"][i]["source"] = (src + "\n" + BASE_PIN).splitlines(keepends=True)
 
     assert lora_idx is not None
     extra = "\n".join(f'    "{k}": {v},' for k, v in EXTRA_W.items())
@@ -147,7 +186,8 @@ def main():
         "outputs": [],
         "source": (EXTRA_CELL % extra).strip("\n").splitlines(keepends=True),
     }
-    nb["cells"].insert(lora_idx + 1, cell)
+    # before the nishantdahal loop: the extra members need a whole free card
+    nb["cells"].insert(lora_idx, cell)
     json.dump(nb, open(DST_NB, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print("written", DST_NB)
 

@@ -37,17 +37,19 @@ NEW_CLUSTER = '''Xt = TfidfVectorizer(stop_words="english", sublinear_tf=True).f
 D = np.clip(1 - (Xt @ Xt.T).toarray(), 0, None)
 np.fill_diagonal(D, 0)
 Dc = squareform(D, checks=False)
+del D
+gc.collect()
 n_t = len(test)
 # The held-out layout is 18 passages per prompt (train: 150 prompts x 18, one per model), so
 # n/18 is the number of prompts. ward on the cosine distance recovers them far better than
 # average linkage at a fixed threshold (pairwise F1 0.985 vs 0.877 on train).
 k_est = max(2, int(round(n_t / 18)))
 if n_t >= 6:
-    groups_cur = fcluster(linkage(Dc, method="average"), TWIN["thresh"], criterion="distance")
     groups = fcluster(linkage(Dc, method="ward"), k_est, criterion="maxclust")
 else:
-    groups_cur = groups = np.ones(n_t, dtype=int)
+    groups = np.ones(n_t, dtype=int)
     k_est = 1
+del Dc
 size = np.bincount(groups)[groups]
 twin_rows = (size >= TWIN["min_size"]) & (size <= TWIN["max_size"])
 print(f"ward groups: k={len(np.unique(groups))} (n/18={k_est}), twin rows {int(twin_rows.sum())}/{n_t}", flush=True)'''
@@ -67,8 +69,9 @@ def sinkhorn(P):
     return P
 
 
-def group_assignment(P, groups, min_size=10, max_size=18):
-    """Each recovered prompt holds every model exactly once -> solve a matching, not argmax."""
+def group_assignment(P, groups, min_size=12, max_size=18):
+    """Each recovered prompt holds every model exactly once -> solve a matching, not argmax.
+    min_size=12 is what sim_decode.py validated (ward groups of 12-18 rows)."""
     out = P.argmax(1).copy()
     fixed = 0
     for g in np.unique(groups):
