@@ -1,0 +1,369 @@
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+train (2699, 4) test (3, 2)
+bases: /kaggle/input/models/qwen-lm/qwen-3/transformers/8b/1 /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1 /kaggle/input/models/qwen-lm/qwen-3/transformers/8b-base/1
+n-gram model done (221s)
+prvsiyan member on cuda:0 free=[14.5, 14.5]GiB
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/8b-base/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{24...35}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{24...35}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.up_proj.weight              | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/8b-base/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{24...35}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{24...35}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.up_proj.weight              | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+q8b_L24_ctr/full_s0 done w=0.11 bad=0 (297s, total 538s)
+prvsiyan member on cuda:1 free=[14.4, 14.5]GiB
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/8b-base/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{24...35}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{24...35}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.up_proj.weight              | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/8b-base/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{24...35}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{24...35}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.up_proj.weight              | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+q8b_L24_ctr/full_s1 done w=0.11 bad=0 (60s, total 599s)
+topic clusters: 3 singletons, 0 passages in clusters of 2-18
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/8b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{24...35}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{24...35}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.up_proj.weight              | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/8b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{24...35}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{24...35}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{24...35}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.up_proj.weight              | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{24...35}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+lora8b_v1 done (901s)
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{27...39}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{27...39}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{27...39}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{27...39}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+lora14b_v1 done (1388s)
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{27...39}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{27...39}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{27...39}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{27...39}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+ts14b_f0 done (479s, total 1873s)
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{27...39}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{27...39}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{27...39}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{27...39}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+ts14b_f1 done (96s, total 1970s)
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{27...39}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{27...39}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{27...39}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{27...39}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+ts14b_f2 done (101s, total 2071s)
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{27...39}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{27...39}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{27...39}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{27...39}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+ts14b_f3 done (101s, total 2172s)
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{27...39}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{27...39}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+[transformers] [1mQwen3Model LOAD REPORT[0m from: /kaggle/input/models/qwen-lm/qwen-3/transformers/14b/1
+Key                                                    | Status     |  | 
+-------------------------------------------------------+------------+--+-
+model.layers.{27...39}.self_attn.v_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.post_attention_layernorm.weight | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.up_proj.weight              | UNEXPECTED |  | 
+model.layers.{27...39}.input_layernorm.weight          | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.k_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.o_proj.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.gate_proj.weight            | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_proj.weight         | UNEXPECTED |  | 
+lm_head.weight                                         | UNEXPECTED |  | 
+model.layers.{27...39}.self_attn.q_norm.weight         | UNEXPECTED |  | 
+model.layers.{27...39}.mlp.down_proj.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+ts14b_f4 done (98s, total 2270s)
+submission_all.parquet -> ['claude-opus-4-8', 'gpt-5.6-terra', 'gemini-3.1-pro-preview'] | 3 distinct labels
+submission_noprv.parquet -> ['claude-opus-4-8', 'gpt-5.6-terra', 'gemini-3.1-pro-preview'] | 3 distinct labels
+submission_old.parquet -> ['claude-opus-4-8', 'gpt-5.6-sol', 'gemini-3.1-pro-preview'] | 3 distinct labels
+picked submission_all.parquet -> submission.parquet
+members: ['lora14b_v1', 'lora8b_v1', 'prv_full_s0', 'prv_full_s1', 'svc', 'ts14b_f0', 'ts14b_f1', 'ts14b_f2', 'ts14b_f3', 'ts14b_f4']
+done in 2270s
+/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+  cells[i][c] = re.sub('\\\\\|', '|', cell)
+/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+[NbConvertApp] Writing 156607 bytes to __notebook__.ipynb
+[NbConvertApp] Converting notebook __notebook__.ipynb to html
+[NbConvertApp] Writing 482777 bytes to __results__.html
