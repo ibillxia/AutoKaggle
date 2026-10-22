@@ -7,6 +7,12 @@ os.makedirs(OUT_DIR, exist_ok=True)
 
 SETUP = r'''
 import gc, glob, json, math, os, random, time
+
+# Kaggle preinstalls torchao 0.10.0; recent peft raises ImportError during LoRA
+# injection when it sees an unsupported torchao. Uninstall first (offline-safe).
+os.system("pip uninstall -y torchao >/dev/null 2>&1")
+# Expandable segments reduce fragmentation with big fp16 weights on 15GB T4s.
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 import numpy as np
 import pandas as pd
 import torch
@@ -27,7 +33,7 @@ LABELS = ['gpt-5.5', 'gpt-5.6-luna', 'gpt-5.6-sol', 'gpt-5.6-terra', 'gpt-6-astr
           'qwen3.8-max', 'glm-5.3', 'glm-5.3-flash', 'kimi-k3']
 K = len(LABELS)
 LAB2I = {l: i for i, l in enumerate(LABELS)}
-TRIPLETS_PER_STEP, BS = 6, 3          # 6 triplets x 3 passages = 18 texts per step
+TRIPLETS_PER_STEP, BS = 4, 3          # 4 triplets x 3 passages = 12 texts per step (T4 OOM headroom)
 SEED = 42
 random.seed(SEED); np.random.seed(SEED); torch.manual_seed(SEED)
 
@@ -68,7 +74,11 @@ mc = AutoConfig.from_pretrained(BASE_DIR)
 mc.num_hidden_layers, mc.use_cache = KEEP, False
 if getattr(mc, "layer_types", None) is not None:
     mc.layer_types = mc.layer_types[:KEEP]
-mem = {i: "13GiB" for i in range(torch.cuda.device_count())}
+n_gpu = torch.cuda.device_count()
+# 24/36 layers of 8B fp16 is ~10.6GB of weights; cap each GPU's share so
+# device_map splits layers across both T4s and leaves room for activations.
+per_gpu = "6GiB" if n_gpu >= 2 else "13GiB"
+mem = {i: per_gpu for i in range(n_gpu)}
 model = AutoModel.from_pretrained(BASE_DIR, config=mc, dtype=torch.float16, device_map="auto", max_memory=mem).eval()
 model.norm = nn.Identity()
 model.gradient_checkpointing_enable()
@@ -78,6 +88,10 @@ lcfg = LoraConfig(r=16, lora_alpha=32, lora_dropout=0.05,
                   target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
                   bias="none", task_type=None)
 model = get_peft_model(model, lcfg)
+# IMPORTANT: enable gradient checkpointing AFTER the peft wrap — calling it on
+# the bare base model is silently lost once peft re-wraps the modules.
+model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
+model.train()
 model.print_trainable_parameters()
 
 norms = nn.ModuleList([nn.LayerNorm(H) for _ in LAYERS]).float()
