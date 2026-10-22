@@ -75,6 +75,13 @@ VARIANTS = {
 for fname, P in VARIANTS.items():
     pd.DataFrame({"id": test["id"].astype(str), "model": np.array(LABELS)[P.argmax(1)]}).to_parquet(fname, index=False)
     print(fname, "->", np.array(LABELS)[P.argmax(1)].tolist()[:3], flush=True)
+
+# Kaggle rejects any submission file not named exactly submission.parquet, so the chosen
+# variant is mirrored under that name; the others stay around for inspection.
+PICK = "submission_plain.parquet"
+P = VARIANTS[PICK]
+pd.DataFrame({"id": test["id"].astype(str), "model": np.array(LABELS)[P.argmax(1)]}).to_parquet("submission.parquet", index=False)
+print(f"picked {PICK} -> submission.parquet", flush=True)
 print(f"done in {time.time() - T0:.0f}s")
 '''
 
