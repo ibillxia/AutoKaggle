@@ -1,0 +1,6 @@
+# competition data (Kaggle ToS: do not redistribute) and derived arrays
+/data/
+/artifacts/submissions/*_probs.npy
+
+# checkpoints and logs
+/runs/*/
