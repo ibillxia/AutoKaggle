@@ -14,9 +14,12 @@ __pycache__/
 
 # ---------- local tooling / editor state ----------
 .vscode/
-.klogs/
 _tmp/
 .workbuddy/
+
+# ---------- 实验输出 / 运行日志：根目录下统一收进 logs/ ----------
+# 原先散落在一级目录的 *-out/ 与 .klogs/ 已归入此处；logs/ 整体不进仓库。
+/logs/
 
 # ---------- credentials ----------
 kaggle.json
@@ -48,6 +51,7 @@ solutions/name-that-llm/*.npy
 solutions/name-that-llm/*.jsonl
 # 内核运行日志（kernels_output 下载，体积大且可重新拉取）
 *-out/
+
 # 从 Kaggle 数据集抽出来的小样本元数据 / 权重（体积大或第三方许可，仅本地校验用）
 solutions/name-that-llm/ts_meta/
 solutions/name-that-llm/prv_meta/

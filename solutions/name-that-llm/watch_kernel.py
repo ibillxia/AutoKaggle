@@ -7,7 +7,7 @@ import time
 from kaggle.api.kaggle_api_extended import KaggleApi
 
 REF = sys.argv[1] if len(sys.argv) > 1 else "ibillxia/ntl-fork592"
-OUT = sys.argv[2] if len(sys.argv) > 2 else "fork592-out"
+OUT = sys.argv[2] if len(sys.argv) > 2 else "logs/fork592-out"
 POLL = 180
 
 api = KaggleApi()
