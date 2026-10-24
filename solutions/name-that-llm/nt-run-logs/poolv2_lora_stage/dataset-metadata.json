@@ -1,0 +1,10 @@
+{
+  "title": "NTL pool v2 lora",
+  "id": "ibillxia/ntl-pool-v2-lora",
+  "licenses": [
+    {
+      "name": "CC-BY-4.0"
+    }
+  ],
+  "description": "Two-stage LoRA member (qwen3 8B base, keep=24) trained on pool_v2 (70,034 rows) + official train; folder poolv2_8b follows the LORAS find() layout."
+}

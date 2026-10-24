@@ -147,11 +147,11 @@ def package_poolv2_lora():
         "patch_gcs_host()\n"
         "from kaggle.api.kaggle_api_extended import KaggleApi\n"
         "api=KaggleApi(); api.authenticate()\n"
-        "refs=[d.ref for d in api.datasets_list(mine=True)]\n"
+        "refs=[d.ref for d in api.dataset_list(mine=True)]\n"
         "if 'ibillxia/ntl-pool-v2-lora' in refs:\n"
-        "    print(api.dataset_create_version(r'%s', 'poolv2 lora member', quiet=False, dir_mode='skip'))\n"
+        "    print(api.dataset_create_version(r'%s', 'poolv2 lora member', quiet=False, dir_mode='zip'))\n"
         "else:\n"
-        "    print(api.dataset_create_new(r'%s', public=False, quiet=False, dir_mode='skip'))\n"
+        "    print(api.dataset_create_new(r'%s', public=False, quiet=False, dir_mode='zip'))\n"
         % (HERE.replace("\\", "\\\\"), root.replace("\\", "\\\\"), root.replace("\\", "\\\\")))
     rc, o, e = api_call(code)
     ok = '"error": null' in (o + e) or "/ibillxia/ntl-pool-v2-lora" in (o + e)
