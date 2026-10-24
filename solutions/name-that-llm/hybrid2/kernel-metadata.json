@@ -21,7 +21,8 @@
     "prvsiyan/prvsiyans-extended-name-that-llm-dataset",
     "bbucxi/qwen35-9b-safetensors",
     "pjmathematician/ultrabert-380m-ntl",
-    "zhuyu2/name-that-llm-ts-lora"
+    "zhuyu2/name-that-llm-ts-lora",
+    "swaroopmeher/ntl-public-heads"
   ],
   "kernel_sources": [
     "lucasboesen/name-that-llm-glm4-9b-trunc25",

@@ -1,5 +1,5 @@
 {
-  "id": "ibillxia/ntl-fork604b",
+  "id": "ibillxia/ntl-fork604b-full-deps",
   "title": "ntl fork604b full deps",
   "code_file": "ntl-fork604b.ipynb",
   "language": "python",
@@ -20,7 +20,8 @@
     "nishantdahal/ntl-two-stage-lora",
     "prvsiyan/prvsiyans-extended-name-that-llm-dataset",
     "bbucxi/qwen35-9b-safetensors",
-    "pjmathematician/ultrabert-380m-ntl"
+    "pjmathematician/ultrabert-380m-ntl",
+    "swaroopmeher/ntl-public-heads"
   ],
   "kernel_sources": [
     "lucasboesen/name-that-llm-glm4-9b-trunc25",

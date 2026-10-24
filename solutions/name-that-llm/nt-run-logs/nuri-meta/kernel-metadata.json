@@ -1,0 +1,29 @@
+{
+  "id": "nuridudak/0-624-two-stage-lora-encoders-typoguard",
+  "id_no": 140332312,
+  "title": "0.624 | Two-Stage LoRA + Encoders + TypoGuard",
+  "code_file": "0-624-two-stage-lora-encoders-typoguard.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [
+    "gpu"
+  ],
+  "dataset_sources": [
+    "",
+    "nishantdahal/ntl-handwriting-blend"
+  ],
+  "kernel_sources": [],
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "model_sources": [
+    "qwen-lm/qwen-3/Transformers/14b-base/1",
+    "qwen-lm/qwen2.5/Transformers/14b/1"
+  ],
+  "docker_image": "gcr.io/kaggle-images/python@sha256:17b2fc7f27c25c6c2fd4230ec8e66097ab2b89fc88e1e4d6f338b72e1ee0bc3e",
+  "machine_shape": "NvidiaTeslaT4"
+}
