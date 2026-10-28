@@ -1,0 +1,20 @@
+{
+  "id": "ibillxia/ntl-train8b-poolbig",
+  "title": "ntl train8b poolbig",
+  "code_file": "ntl-train8b-poolbig.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "competition_sources": [
+    "name-that-llm"
+  ],
+  "dataset_sources": [
+    "ibillxia/ntl-pool-v2",
+    "crtproduction/name-that-llm-open-pool"
+  ],
+  "model_sources": [
+    "qwen-lm/qwen-3/transformers/8b-base/1"
+  ]
+}
