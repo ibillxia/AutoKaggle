@@ -1,0 +1,20 @@
+{
+ "num_qubits": 1789,
+ "toffoli_count": 445229,
+ "ops": 93898574,
+ "build_seconds": 250.63466459998745,
+ "elided": {
+  "cx": 2497,
+  "ccx": 26,
+  "cz": 26,
+  "cswap": 33,
+  "swap": 2929
+ },
+ "folded": {
+  "ccx->cx": 122,
+  "cz->z": 115
+ },
+ "symbolic_products": 349261,
+ "seconds": 251.36233099998208,
+ "sha256": "529b075009f7758abeda83a63407f0c1feeb51dd70631ae4335dfd28721b7e08"
+}

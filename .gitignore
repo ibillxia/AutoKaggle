@@ -93,3 +93,16 @@ solutions/*/artifacts/_work/fixtures/
 
 # ---------- 日志 ----------
 *.log
+
+# ---------- vqcc：只收源码 / 文档 / 小报告，大产物不进仓库 ----------
+solutions/vqcc/_scratch/
+solutions/vqcc/build/
+solutions/vqcc/data/
+solutions/vqcc/code/__pycache__/
+solutions/vqcc/code/dqi_src/dqi.kmb
+solutions/vqcc/pip-*
+solutions/vqcc/tmp*/
+
+# ---------- 根目录 scratch / 工具目录（本地工作区，不进仓库）----------
+/_scratch/
+/_tools/
