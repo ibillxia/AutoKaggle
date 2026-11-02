@@ -26,6 +26,7 @@ upload_id 在 query string 里，不绑定 host。把 host 换成 storage.google
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 import time
@@ -91,12 +92,94 @@ def put_blob(path: str, url: str, retries: int = 2, connect_timeout: int = 10) -
     return False
 
 
+LEDGER = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                      "solutions", "vqcc", "submission_ledger.jsonl")
+
+
+def _my_best(api: KaggleApi, competition: str) -> float | None:
+    """当前该账号在该比赛上的最好 public 分。"""
+    best = None
+    for s in api.competition_submissions(competition):
+        d = s.to_dict() if hasattr(s, "to_dict") else s.__dict__
+        for key in ("publicScore", "public_score"):
+            v = d.get(key)
+            if v is not None:
+                try:
+                    fv = float(v)
+                except (TypeError, ValueError):
+                    continue
+                best = fv if best is None else max(best, fv)
+                break
+    return best
+
+
+def _remaining(api: KaggleApi, competition: str) -> int | None:
+    try:
+        return api.competition_get_submission_limits(competition).num_allowed_now
+    except Exception:                                            # noqa: BLE001
+        return None
+
+
+def guard(api: KaggleApi, competition: str, expect: float | None,
+          message: str, force: bool = False) -> bool:
+    """提交前闸门：配额 + 是否严格优于自己最好成绩。
+
+    规则（2026-10-31 教训）：一次提交只能用于「预期严格更高」的方案。
+    同一天连投 5 个、其中 4 个不高于已有最好分，把配额全烧光，是纯损失。
+    """
+    best = _my_best(api, competition)
+    left = _remaining(api, competition)
+    print(f"  最好 public 分 = {best}")
+    print(f"  今日剩余提交   = {left}")
+
+    if left is not None and left <= 0 and not force:
+        print("  [BLOCKED] 今日配额已用尽，拒绝提交（换机器/等 UTC 00:00 重置）。")
+        return False
+
+    if expect is None:
+        if not force:
+            print("  [BLOCKED] 未提供 --expect <预期 composite>；无法证明比现状更好。")
+            print("            确实要投就加 --force，并在 --message 里写清为什么。")
+            return False
+        print("  [WARN] --force：跳过预期分校验")
+        return True
+
+    if best is not None and expect <= best + 1e-9 and not force:
+        print(f"  [BLOCKED] 预期 {expect:.5f} <= 现有最好 {best:.5f}，这次提交不会带来提升。")
+        print("            只有电路结构不同且预期严格更高才值得花票；否则加 --force 明确覆盖。")
+        return False
+
+    print(f"  [ok] 预期 {expect if expect is None else round(expect, 5)} > 现有最好 {best}，放行")
+    return True
+
+
+def _log_ledger(competition: str, file_path: str, message: str, expect: float | None,
+                best: float | None) -> None:
+    try:
+        os.makedirs(os.path.dirname(LEDGER), exist_ok=True)
+        rec = {
+            "ts": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "competition": competition,
+            "file": os.path.basename(file_path),
+            "size": os.path.getsize(file_path),
+            "message": message,
+            "expect": expect,
+            "best_before": best,
+        }
+        with open(LEDGER, "a", encoding="utf-8") as fp:
+            fp.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    except Exception as exc:                                     # noqa: BLE001
+        print("  (ledger 写入失败:", type(exc).__name__, exc, ")")
+
+
 def submit(
     file_path: str,
     competition: str,
     message: str,
     dry_run: bool = False,
     sandbox: bool = False,
+    expect: float | None = None,
+    force: bool = False,
 ) -> int:
     file_path = os.path.abspath(file_path)
     if not os.path.isfile(file_path):
@@ -108,6 +191,11 @@ def submit(
 
     api = KaggleApi()
     api.authenticate()
+
+    best = _my_best(api, competition)
+    if not dry_run:
+        if not guard(api, competition, expect, message, force):
+            return 4
 
     with api.build_kaggle_client() as kaggle:
         svc = kaggle.competitions.competition_api_client
@@ -149,6 +237,7 @@ def submit(
                 print("response body:", body[:800])
             raise
         print("CreateSubmission ->", result)
+        _log_ledger(competition, file_path, message, expect, best)
         return 0
 
 
@@ -181,12 +270,17 @@ def main() -> int:
     ap.add_argument("--sandbox", action="store_true", help="标记为 sandbox 提交")
     ap.add_argument("--kernel", default="", help="代码赛：<owner>/<notebook>")
     ap.add_argument("--version", type=int, default=0, help="代码赛：内核版本号")
+    ap.add_argument("--expect", type=float, default=None,
+                    help="预估的 composite 分数；不高于现有最好分则拒绝提交")
+    ap.add_argument("--force", action="store_true",
+                    help="跳过闸门（仅用于确实要花票探索的场合，必须在 message 里写理由）")
     args = ap.parse_args()
     if args.kernel:
         if not args.version:
             ap.error("--version is required with --kernel")
         return submit_code(args.competition, args.kernel, args.version, args.file, args.message)
-    return submit(args.file, args.competition, args.message, args.dry_run, args.sandbox)
+    return submit(args.file, args.competition, args.message, args.dry_run, args.sandbox,
+                  args.expect, args.force)
 
 
 if __name__ == "__main__":
