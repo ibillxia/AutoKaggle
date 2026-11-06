@@ -57,3 +57,59 @@ composite **23.73171**（+0.49879 vs 当前最好；银线 +0.2005，估 rank ~5
 包：`_scratch/recon1101/out/submission_20261101b.zip`（19 条目，sha256 `e3fee23f…`）。
 已排除的较弱件：somejoint 900q DQI（62.04）、ahoirg c42 chem（331.08M）、ozertuu 898q DQI（62.75）
 + chem（3.287e8）、yoyobar portfolio chem（337.52M）。用户当日再次选择"继续等"，配额未动。
+
+## 2026-11-02 ~ 11-05 补记
+
+| 时间(UTC) | ref | public | 内容 |
+|---|---|---|---|
+| 2026-11-01 02:27 | 57857783 | 23.73311 | recon1101 升级版 B 投出 |
+| 2026-11-01 09:15 | 57867013 | 23.81418 | |
+| 2026-11-01 15:06 | 57875622 | 23.83512 | |
+| 2026-11-02 02:45 | 57892659 | 23.90992 | |
+| 2026-11-02 15:15 | 57912968 | 23.94667 | |
+| 2026-11-04 02:44 | 57968335 | 24.52615 | |
+| 2026-11-05 03:32 | 58008088 | 24.74913 | 0104d1b4 invsqrt + 748b01a7 dqi + gemma9b chem |
+
+（11-02~11-04 的中间提交为逐日收割公开前沿，细节见 git log 与 SCORECARD。）
+
+## 2026-11-05 融合提交（ref 58018258）
+
+公开前沿三连跳后的三方融合，全部组件本地官方 verifier PASS：
+- invsqrt `89c33409`（malachiwmoody 对 kirilltym `0104d1b4` 的两处精确编辑，97,875.128，62q）
+- dqi `06aa8ca2`（yoyobar 单 CCZ 重写，375,375,248,713，891q；本盐 + 板盐双实测 0 error）
+- chem `7bb5916b`（heliosli 再精修权重 on π-gauge loaders，303,866,734.23，λ 46.876470，T 15,181，Q 427）
+
+composite（0-error 情形）**24.801431**；zip sha256 `7de67009545ea3c9…`。
+用户批准后投出，当日剩 4 票。
+
+**结果：板上 24.80142（ref 58018258，COMPLETE）。** 与本地预测 24.801431 差 1e-5，
+再次确认本地官方 verifier + 默认盐 = 榜单。此分超过公开前沿最好成绩 24.79280。
+
+## 2026-11-05 通道数（C）杠杆：已测死
+
+化学成本 `T_total = 2·Σ T_k + heuristic(R,B,C,N,chi,β)`，其中 heuristic 随 C 线性下降
+（C 45→44: −79 T；每减一个通道 ≈ −0.52% T_total），而 `Q_total = 427` 在 C∈[34,45] 内
+完全不变（heuristic pers 84 + angles pers 40 + max(temp) 303）。所以减通道 = 纯 T 收益。
+
+但 error₂ 把 C 钉死：当前 w 在 rank 45 上 err2 = 0.0200000（正好贴门）。
+SVD 截断到 44 后重优化 error₂ 的地板是 **0.0235 > 0.020**（3 次重启、3000 iter L-BFGS 确认），
+rank 43 为 0.0257、42 为 0.0286。→ 45 通道已是该 word 表下 error₂ 允许的最小值，
+通道数杠杆关闭（与 leoprovorov 的 `chem_rank_lab` 结论一致：他们也没报出减通道收益）。
+
+## 公开前沿关键事实（2026-11-05）
+
+- **π-gauge 符号守恒**：Atakan Aldemir 的 π-gauge loaders 的 U 向量与旧表只差全局符号
+  （max |U_k − (±)U_old| = 0.0，286/1144 翻转）→ 任何旧 word 表上拟合的 W/H2_I 原样可用。
+  这是 maoxin123 24.78590 的核心观察。
+- **权重三连降**：π-gauge 原权重 λ 47.019778 → busyaprime R55D 46.944209（约束面 refit）
+  → heliosli 46.876470。R55D 上三道门全钉死：我们的 gauge descent（−0.0005%）、
+  native-W refit（拒，err1 超限）、约束面下降（0 步）全部 null；heliosli 因子上
+  Riemannian CG gauge 也是 null（已 gauge 最优）。
+- **loaders 无废门**：15 个 π-gauge loader 逐门穷举（全部 1220 地址）0 个永不触发的 CCX；
+  窥孔 0 抵消对 0 死目标。XOR 树在秩下界上。
+- **DQI 盐**：每个电路文件的 seed = SHA-256(文件) + salt，与包内其他文件无关。
+  `06aa8ca2` 本地默认盐 0/0、板盐 0/0（malachi 24.79280 证据）→ 双实测干净的已知最稳文件。
+- **brot ≤ 7 cliff**（未解决的 2× 天花板）：化学成本模型 Q 在 brot≤7 时折半，
+  但需要量化感知重训练（QAT 卡在 error₂ 0.11 vs 门限 0.02）；现有 8-bit 词上后验舍入直接爆门。
+- **Schur 883 DQI**（alexchilton/jday96314 线）实测 4.36e11+，比 891q yoyobar 线 3.75e11 差
+  ~16%，不适用。

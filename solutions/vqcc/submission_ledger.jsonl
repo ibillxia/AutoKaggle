@@ -1,0 +1,1 @@
+{"ts": "2026-11-05T17:32:37", "competition": "google-verifiable-quantum-circuit-compilation", "file": "submission.zip", "size": 28237395, "message": "fusion: malachi invsqrt 89c33409 + yoyobar dqi 06aa8ca2 (local+board clean) + heliosli chem 7bb5916b (lambda 46.876470, T 15181, Q 427); local PASS all three; expect 24.80143", "expect": 24.801431, "best_before": 24.74913}

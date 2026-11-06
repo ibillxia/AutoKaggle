@@ -106,3 +106,6 @@ solutions/vqcc/tmp*/
 # ---------- 根目录 scratch / 工具目录（本地工作区，不进仓库）----------
 /_scratch/
 /_tools/
+
+# ---------- name-that-llm 本地探查输出 ----------
+solutions/name-that-llm/_scratch/
