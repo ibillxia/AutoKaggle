@@ -1,0 +1,7 @@
+TOPIC 755609
+
+=== [0] ? (2026-11-04 03:34:58.180000) votes= ===
+We are sharing our experiment code and technical retrospective:
+https://github.com/cylovelife/kaggle-winner
+
+The report covers prompt-grouped validation, text-only stylistic features, external-data admission, sparse baselines, neural experiments and runtime limits. Our recorded best Public score is 0.378; this is not a top solution. The local holdout remains sealed. The repository excludes competition data, model weights, predictions and credentials. Negative results and limitations are documented alongside improvements.

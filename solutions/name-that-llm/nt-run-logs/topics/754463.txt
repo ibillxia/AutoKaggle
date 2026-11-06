@@ -1,0 +1,10 @@
+TOPIC 754463
+
+=== [0] ? (2026-10-31 17:01:11.973000) votes= ===
+Should be the data and the pipeline 
+
+=== [1] ? (2026-10-31 07:16:23.517000) votes= ===
+both important
+
+=== [2] ? (2026-10-31 07:14:04.390000) votes= ===
+I’m a student in my second competition. I’ve reproduced the public 0.66 recipe and tested a few changes (hard punctuation rules, softer balancing, pseudo-labelling the n-gram SVM, wider ATLAS coverage); all came out within the rerun noise. For those above 0.70, without revealing your solution: is the gap mainly data (more in-style passages per model) or modelling? Any general direction would really help someone learning. Thanks!

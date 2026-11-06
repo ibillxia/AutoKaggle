@@ -1,0 +1,39 @@
+TOPIC 754860
+
+=== [0] ? (2026-11-04 05:54:00.233000) votes=3 ===
+In my case, ~0.670 Qwen3-14B
+  --- reply ? (2026-11-04 08:19:12.500000): Maybe your data not only the public-pool 34940? Only single fold?
+  --- reply ? (2026-11-04 10:57:29.307000): No way, mine is even better lol. Did you count any post processes or only a naive test? For me the best single one is somewhere between 0.67-0.68
+
+=== [1] ? (2026-11-02 04:23:26.580000) votes=6 ===
+1. What score your best single model[**No Ensemble**] can achieve?  
+2. How long it will running in test?
+
+I have a Qwen model（lora）, single model & single fold0, 6min.
+Welcome to share and discuss!
+
+=== [2] ? (2026-11-02 08:00:36.407000) votes=1 ===
+0,637 only single qwen with only one adapter, just try to improve my public dataset , all the gain comes from it
+  --- reply ? (2026-11-02 09:32:32.483000): On you public dataset V10?
+
+=== [3] ? (2026-11-02 04:36:24.910000) votes=1 ===
+Mine : ~0.65 /wo ensemble 
+  --- reply ? (2026-11-02 04:42:13.520000): 
+  --- reply ? (2026-11-02 06:29:33.413000): Impressive
+
+=== [4] ? (2026-11-04 01:07:28.270000) votes= ===
+Best single model here: **0.628 public**, a Qwen3-8B LoRA, nothing else in the submission.
+
+- **Data:** competition train plus the community Open Pool (v10), capped per label. The same recipe trained on our older, smaller pool reached 0.5886 OOF; with the Open Pool it reached 0.6224 OOF (5 folds: 0.589 / 0.598 / 0.654 / 0.626 / 0.645). Like the others in this thread, nearly all of the gain came from the data, not from the model.
+- **Training:** a Kaggle TPU v5e-8 session in bfloat16. Getting the TPU took a long queue, but the run itself was short.
+- **Inference:** fp16 on a T4 with a bfloat16 retry for any batch that overflows. The public score (0.628) came out a little above the OOF (0.6224), as it has for our other LoRA members.
+- **In a blend:** the same model as the main member, plus an older LoRA at a small weight, a DeBERTa, three n-gram SVCs and a small stylometry model, scores 0.635. So the ensemble adds less than a point on top of a good single model.
+
+The OOF here is plain balanced accuracy on held-out prompts; per-fold spread is large (0.589 to 0.654), so I would not read much into single-model gaps under ~0.01 between people's numbers.
+  --- reply ? (2026-11-04 15:37:00.613000): Thank you! How long it will running in test?
+
+=== [5] ? (2026-11-03 08:01:19.977000) votes= ===
+Using community collected data, the DeBERTa Large,  LB < 0.55. I feel like I haven't learned the skills of LLM competitions yet.
+
+=== [6] ? (2026-11-02 05:58:09.070000) votes= ===
+at present LB：0.628

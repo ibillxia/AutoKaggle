@@ -1,0 +1,192 @@
+TOPIC 752766
+
+=== [0] ? (2026-10-30 13:46:09.993000) votes=3 ===
+First, I really appreciate the time and effort that went into curating this dataset and making it available to the community. It's indeed useful! I used it for pretraining (0.55), followed by fine-tuning on the competition dataset (0.609), both on my local validation set.
+
+That said, I think diversity matters more than volume. My suspicion is that many prompts in the curated dataset have responses from only a subset of the 18 LLMs.
+
+Ideally, the dataset would be structured as N prompts × 18 responses, with one response from each LLM per prompt. This could provide better supervision I think. But yeahh, I also recognize how challenging this would be to achieve, given that responses have to be collected from multiple sources and not everyone has access to all 18 LLMs. I really appreciate the effort behind making this dataset available to the community.
+  --- reply ? (2026-10-30 16:54:29.907000): Would try it, thanks so much sir
+
+=== [1] ? (2026-10-26 07:59:30.670000) votes=74 ===
+
+
+**[Open Pool v11](https://www.kaggle.com/datasets/crtproduction/name-that-llm-open-pool)** has **190,588 passages**. It is slightly smaller than v10 on purpose: the labels are more trustworthy, and you get new tools for choosing data. The image below is the short version.
+
+![](https://www.googleapis.com/download/storage/v1/b/kaggle-forum-message-attachments/o/inbox%2F20960131%2F1e8999e997ac6b3f11ae5ad0d168970d%2Ffig5_v11_overview.png?generation=1793566058704601&alt=media)
+### 1. What I tested
+
+Same setup as before: a small Qwen3-1.7B LoRA, 45,000 passages, trained on pool data only and scored on the 2,699 real train passages. Each idea changed one thing against v10 (minus one source that is no longer public).
+
+Numbers are the change in balanced accuracy, using the mean logits of 2 seeds. The range is a 95% interval from resampling prompts.
+
+| Change tested alone | All 150 train prompts | Seed 0 / seed 1 | 2 answers per prompt | Decision |
+|---|---|---|---|---|
+| gemini-3.7 from Vertex AI sources only | +0.009 (0.000 to +0.019) | +0.007 / +0.006 | +0.009 (-0.016 to +0.034) | **Adopted** |
+| Sampling matched to real typography and length | +0.026 (+0.012 to +0.039) | +0.013 / +0.022 | +0.012 (-0.021 to +0.045) | **Added as a column** |
+| Prompts with the most labels first | +0.009 (-0.005 to +0.022) | +0.016 / -0.003 | -0.006 (-0.036 to +0.027) | Not proven |
+| Adding prvsiyan's extended rows | -0.009 (-0.023 to +0.004) | -0.001 / -0.005 | -0.004 (-0.035 to +0.026) | Not added |
+
+**How strong is this?** The first two changes point the right way on every cut and on both seeds. But on the 2-answer cut, which is closest to the test shape, the interval still includes zero. So treat them as likely gains, not proven ones. I tested each change alone: the final v11 file as a whole and its new passages were not part of these tests.
+
+### 2. gemini-3.7-flash now means Vertex AI
+
+Competitors documented that since 2026-10-08, other APIs answer "gemini-3.7" requests with 3.8. The data agrees: inside one source of 7.5k rows, a classifier could not separate its 3.7 rows from its 3.8 rows (AUC 0.498), while 3.6 vs 3.8 scored 0.776.
+
+- **The main file now keeps only 3,278 rows with a documented Vertex AI route** for this label.
+- **The other 10,593 rows moved to `gemini37_unverified.parquet`.** Nothing is deleted, so you can make your own call.
+- **Recall on real passages:** 3.7 went from 0.21 to 0.42, and 3.8 from 0.59 to 0.64. **3.6 fell from 0.63 to 0.47**, so this is not a free win for every label. The total goes up.
+
+If you generated 3.7 through Vertex AI and it is in the unverified file, tell me where this is documented and I will move those rows back.
+
+### 3. New: `match_weight`
+
+The pool's typography is still different from real passages. For example, word hyphens appear in 44% of the pool's Gemini passages but only 12% of real ones. The new column reweights passages inside each label so these rates match.
+
+```python
+import pandas as pd
+pool = pd.read_parquet("/kaggle/input/name-that-llm-open-pool/ntl_open_pool.parquet")
+
+# train on the whole file, or sample a fixed number per label matched to real typography
+sample = pool.groupby("model", group_keys=False).apply(
+    lambda d: d.sample(min(2500, len(d)), weights="match_weight", random_state=0))
+```
+
+The weights use all train prompts, so a validation on train.csv after using them will read slightly high. My test fitted on one half of the prompts and scored the other half (+0.027 on that half).
+
+### 4. New: recovered prompts, thanks to the comment on prompt coverage
+
+A commenter on this thread suspected that many prompts have answers from only a subset of the 18 LLMs. They were right.
+
+`prompt_group` turned out to be unreliable: one group could be a whole file, and the same prompt in two sources became two groups. So I recovered the real prompt for each passage and matched prompts across sources.
+
+- **`prompt_canon`** gives you a prompt id for 99% of rows, for cleaner group splits.
+- **`prompts.parquet`** has the text of 13,021 prompts.
+- **592 prompts are now answered by all 18 labels** (and I can see exactly which are not).
+- **`panel_gaps.csv`** lists 4,472 prompts with 10 to 17 labels and which labels they miss. **If you want to help the community, generate these.** The most-missing labels are gemini-3.7-flash, qwen3.8-max, kimi-k3 and claude-fable-5.
+
+"Prompts with the most labels first" did not repeat its gain on the second seed, so I am not recommending it yet. `panel_labels` lets you test it yourself. Your result may well differ with a bigger model.
+
+### 5. A warning about one metric
+
+My earlier test tables include a "prompt-centred" column, which subtracts each prompt's mean logits. With 17 to 18 answers per prompt, it over-predicts some labels: my baseline predicted gemini-3.1 466 times at 0.32 precision, and never predicted kimi-k3. So I did not use it for these decisions. I added the 2-answers-per-prompt cut instead, since that is closer to the test. If you use this kind of score on full prompts, check your prediction counts per label.
+
+### 6. Two corrections
+
+- **prvsiyan:** in v9 I placed prvsiyan's extended dataset in the "off-genre" row. **That was wrong, and I apologise.** It is on-genre and has some of the best provenance in this competition, including a served-model check on every call. Adding its rows gave no gain in my small test, so they stay out for now, except its 266 Vertex AI gemini-3.7 rows, which are back. That result is about one small test, not about the author's work.
+- **One source I called undocumented** has a short description. What it does not state is the generation route.
+
+### 7. What else changed
+
+- **+10,294 new passages** through the same filters:
+
+| Source | New passages |
+|---|---|
+| abdullah1afify/ntl-generations (includes 1,943 GLM rows) | 8,160 |
+| elliotthankinson/ntl-exact-gens-v3 | 705 |
+| adurey/ntl-proxy-gen-20261031 | 590 |
+| aswathvanan/ntl-proxy-passages | 410 |
+| prvsiyan's Vertex AI gemini-3.7 rows | 266 |
+| lucasboesen/ntl-free-proxy-generations | 163 |
+
+- **7,620 rows removed:** their source is no longer public, and I only include sources that anyone can check.
+- **Your code still works:** all other rows, ids and columns are unchanged. New ids continue from `ntlop_269065`.
+
+**Caveats:** labels are still the publishers' claims. These tests use a small model, so please check on the LB with your own larger models and tell me what you see, especially if it disagrees.
+
+**If this pool helps you, an upvote on the dataset helps others find it. And if something in my method or numbers looks wrong, please tell me. I would rather be corrected than wrong in public.**
+
+
+UPdate 3/11/2026 :
+
+**[Open Pool v12](https://www.kaggle.com/datasets/crtproduction/name-that-llm-open-pool)** has **211,369 passages** from 59 source datasets. Every v11 passage is kept as it was, and new ids continue from `ntlop_279271`.
+
+### What is new
+
+| Source | New passages | Why it matters |
+|---|---|---|
+| [kilupy/ntl-claude-family-passages](https://www.kaggle.com/datasets/kilupy/ntl-claude-family-passages) + [kilupy/ntl-18-model-corpus](https://www.kaggle.com/datasets/kilupy/ntl-18-model-corpus) | 17,507 | 14,148 Claude passages via the official Anthropic API. 1,588 prompts have all five Claude labels, so the hardest siblings can be compared on the same prompt |
+| [zeminglii/ntl-own-exact-route-generations](https://www.kaggle.com/datasets/zeminglii/ntl-own-exact-route-generations) | 2,000 | +263 `gemini-3.7-flash` with a documented Vertex AI route, plus GLM, Kimi and Fable from their first-party providers |
+| [abdullah1afify/ntl-generations](https://www.kaggle.com/datasets/abdullah1afify/ntl-generations) | 937 | new batch |
+| [parkjinsu1/ntl-kb-proxy-panels](https://www.kaggle.com/datasets/parkjinsu1/ntl-kb-proxy-panels) | 337 | written for v11's `panel_gaps.csv` |
+
+### Thank you for filling the gaps
+
+In the v11 post I asked for generations on the prompts in `panel_gaps.csv`. Two of you did exactly that, using v11's `prompts.parquet`. **Prompts answered by all 18 labels went from 592 to 712.** Thank you, zeminglii and parkjinsu1.
+
+The updated `panel_gaps.csv` lists 4,669 prompts with 10 to 17 labels. The most-missing labels are still `gemini-3.7-flash` (Vertex AI only, please), `qwen3.8-max`, `kimi-k3` and `claude-fable-5`.
+
+### Things to know before you train on it
+
+- **Not tested on the LB yet.** The new passages went through the same filters as v11, but I have not trained a model on v12.
+- **The new Claude passages answer synthetic prompts, and their typography is off.** The em dash appears in 55% of the new `claude-fable-5` rows against 83% in real passages. `match_weight` corrects each label's rate. The cost is that the Claude labels' effective sample falls from 73% to 62% of their rows.
+- **Claude now holds a bigger share of the file.** Balance classes when you sample.
+- **The kilupy licence comes from the README.** The datasets' Kaggle licence field is unset, but their READMEs state CC BY 4.0, and `source_license` says so.
+- **`prompt_canon` changed on 482 v11 rows.** The new sources added prompt evidence. All other v11 columns are unchanged.
+- **Left out this round:**
+  - One dataset with no documentation of how it was generated.
+  - Annotations of the competition train set.
+  - Four re-merges of passages already in the pool.
+  - 245 `gemini-3.7-flash` rows with no documented Vertex AI route. They went to `gemini37_unverified.parquet`, as in v11.
+
+**If the pool helps you, an upvote helps others find it. If you try v12 on the LB, please share what you see, especially if it disagrees.**
+
+
+=== [2] ? (2026-11-02 10:34:29.363000) votes= ===
+Hi, I read your Open Pool v11 audit, especially the provenance checks, recovered prompts, and controlled sampling experiments. I'm looking for complementary teammates for a three-person Name That LLM team using free compute only; my current public score is 0.349 with a CPU text/style baseline. Would you be interested in contributing data-quality and validation experiments? Are you still competing solo, and roughly how much time could you contribute? I'm checking fit before sending formal team invitations.
+  --- reply ? (2026-11-02 10:43:45.807000): my initial thinking when coming to any competition is to learn , not to compete, but Im always willing to try my best, for this competitions, I will only doing a solo and contribute to the community and gain the insights into the deep learning but thanks for your invitation, I am really appreciate. 
+
+=== [3] ? (2026-10-31 04:43:27.010000) votes= ===
+Thanks for the controlled comparison and for calling +0.002 noise. One thing that may help with reading such pairs:
+the noise of a *difference* between two submissions is not the noise of one score. Both are scored on the same public
+rows, so only the rows where exactly one of the two is right move the gap. If f is that share, the sd of the public
+gap is about sqrt(f / n_public), which for ~1,200 public rows is:
+
+| f (rows where exactly one is right) | 1% | 2% | 5% | 10% | 20% |
+| --- | --- | --- | --- | --- | --- |
+| sd of the public gap | 0.003 | 0.004 | 0.006 | 0.009 | 0.013 |
+
+You can measure f on your OOF before submitting: compare the two models' correctness row by row.
+
+- Two separately trained models (different pools, or even the same code with another seed) can easily disagree in
+  correctness on 10-20% of rows. That gives an sd of 0.009-0.013, the size of the ~0.009 that alexchilton measured,
+  and +0.002 says nothing either way, as you wrote.
+- Two blends that differ in one small weight are a different story. My 0.621 and 0.623 blends disagree in
+  correctness on only 1% of OOF rows, so their gap has an sd of about 0.003. There, 0.002 is still under one sd, but
+  a 0.01 gap would be over three sd, i.e. real.
+
+I checked the formula by simulation (balanced accuracy, 18 classes, random 30% public split; it matched within ±6%
+everywhere) and put it in a CPU notebook, with a helper that estimates f from your own OOF predictions:
+https://www.kaggle.com/code/locdunhat/is-a-0-002-lb-gain-real
+
+Caveat: it assumes independent rows. Real errors cluster by prompt and topic, so treat these numbers as a floor.
+  --- reply ? (2026-10-31 16:53:24.723000): bro, that is really helpful, thanks for all the community and your support, I learnt alot, so this will contribute to this dataset, I fell it is silly to try to blend and make a "HUGE" ensemble, all the competition wins come from the clean data, the decent label , then the skillful pipeline, this means a lot, thank you.
+
+
+=== [4] ? (2026-10-29 15:56:12.953000) votes= ===
+I observe that in computer vision tasks, even 10% of incorrect labels don't hurt training quality.
+  --- reply ? (2026-10-29 18:51:13.280000): Yes I just give my observation, seems from the beginning it is like some competitions like "pay to win" but in fact , it is not, we can learn many things about fine tuning, applying deep learning and data analysis, I just want to dive deeper into the datasets, thanks for your comment, I will check it out to find the best suitable data
+
+=== [5] ? (2026-10-27 22:29:45.523000) votes= ===
+Deep analysis 👌
+
+=== [6] ? (2026-10-27 03:25:35.360000) votes= ===
+gonna do this weekly to fetch more data, everyday I find about 20 legit datasets from user been given out, so I may do this weekly , or update this dataset for about 2 - 3 days. so the datasets can stay up-to-date
+
+=== [7] ? (2026-10-26 12:29:26.687000) votes= ===
+already fix and update the dataset, this dataset I will keep to gather any further public dataset in the future by using kaggle CLI update during the period, hopefully can gather the best quality pool for analyzing 18 different models. 
+
+=== [8] ? (2026-10-26 11:45:45.970000) votes= ===
+Hi, first of all, Thanks for your effort !!
+
+I tried to download this dataser, but, got following message:
+
+Data not available. This dataset may need its archive recreated. Contact dataset author.
+  --- reply ? (2026-10-26 12:06:03.893000): well, I already published it in publicity, what is the problem, maybe you try to dowload it with kaggle CLI ? , I think it would be good practice
+
+
+=== [9] ? (2026-10-27 05:54:49.350000) votes= ===
+Great work!
+
+=== [10] ? (2026-10-26 19:54:25.417000) votes= ===
+Thank you!

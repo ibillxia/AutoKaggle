@@ -1,0 +1,16 @@
+TOPIC 755314
+
+=== [0] ? (2026-11-04 17:48:06.763000) votes=3 ===
+Anthropic claims their model being distilled, so yeah that explains some of that.
+
+
+=== [1] ? (2026-11-03 07:40:43.373000) votes=2 ===
+maybe GLM5.3 API will rerouter to fable5?
+
+=== [2] ? (2026-11-03 07:38:06.530000) votes=1 ===
+Trained a 9B classifier to tell 18 LLMs apart.
+Gemini only gets confused with Gemini. GPT only with GPT.
+GLM-5.3? Classified as Claude more often than as GLM-5.3 itself (68 vs 34 out of 150).
+Family resemblance is a hell of a thing.
+
+![](https://www.googleapis.com/download/storage/v1/b/kaggle-forum-message-attachments/o/inbox%2F15255201%2Fadc6e47319cc189848e66bbe504f7f53%2Fimage-1793691457725.png?generation=1793691468047983&alt=media)

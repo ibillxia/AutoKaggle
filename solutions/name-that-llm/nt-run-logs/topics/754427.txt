@@ -1,0 +1,62 @@
+TOPIC 754427
+
+=== [0] ? (2026-11-02 03:21:15.610000) votes=1 ===
+Your table matches something I measured this week from the other direction, so here is one more data point and a rough rule for what to expect.
+
+I retrained one DeBERTa member on the clean Open Pool. Alone it went from 0.522 to 0.566 on the public LB, the largest single-member jump I've had. Back in my blend, which scored 0.626, four weightings gave:
+
+| new member's share of the blend weight | correctness flips vs the old blend (OOF) | paired sd on 1,200 rows | public LB |
+| --- | --- | --- | --- |
+| 0.22 (replaces the old member) | 5.3% | 0.0067 | 0.621 |
+| 0.11 (half old, half new) | 2.9% | 0.0049 | 0.624 |
+| 0.11 (less old, half new) | 2.6% | 0.0047 | 0.624 |
+| 0.10 (old kept, new added) | 3.6% | 0.0055 | 0.620 |
+
+To see whether that was surprising, I simulated a soft-voting blend: 18 classes, members with shared and private Gaussian noise. Three things came out of it.
+
+1. **A blend sees about `share x solo gain`.** For correlated members, a 0.044 solo gain at 20% of the weight is worth about +0.008.
+2. **One submission usually can't show that.** Two such blends disagree on 2-5% of rows, so the paired sd on the public rows is 0.004-0.006.
+3. **A member below the rest of the blend can hurt at any real weight, even with a decent OOF.** In one setting (rest of the blend at 0.69, errors correlated at rho = 0.7), a new member with solo 0.55 changes the blend by 0.000 / -0.002 / -0.010 / -0.029 at 10 / 20 / 33 / 50% of the weight. Your ModernBERT result looks like this case: smaller weight, smaller damage.
+
+A caveat on my own numbers: the simulation is not a full explanation. It expected about +0.005 to +0.009 for my four blends. The results are compatible with no change at all (-0.4 to -1.1 sd), but they sit 1.4 to 2.2 sd below that expectation, so the rule was too optimistic here. They also aren't independent checks, because the four blends share most of their members. Likely reasons: my solo gain is noisy too (sd about 0.012), those solo submissions used Sinkhorn and the blends did not, and the gain may fall on rows the other members already get right.
+
+The practical change for me: I now work out the expected blend gain and its paired sd before spending a submission on a new member. If the expected gain is below one sd, the result can't settle much either way.
+
+Notebook and grid: [How Much of a Solo Gain Reaches the Blend](https://www.kaggle.com/code/locdunhat/how-much-of-a-solo-gain-reaches-the-blend).
+  --- reply ? (2026-11-03 02:27:44.297000): Thanks, that rule is useful. Two measurements from my side that bear on it:
+
+- **Rescoring:** I resubmitted my 0.659 notebook unchanged (same kernel version). It scored 0.659 again. That is one pair, so it only shows that rescoring the same code didn't move the score this time. It doesn't measure the blend-vs-blend sd you worked out.
+- **The gap I mentioned above** (my fork at 0.659 vs the notebook's displayed 0.664) is now explained. The code I pulled was a later version than the scored one. The scored version 2 uses a Sinkhorn mix of 0.30 and a typography coefficient of 1.5; my pull had 0.60 and 1.2. With version 2's two values, my fork scored 0.663.
+
+=== [1] ? (2026-11-01 12:39:46.590000) votes= ===
+Update: Llama access came through, so I measured the same comparison on a different base, a fork of judith007's public 0.664 notebook with my reliability changes.
+
+| Version | Public LB |
+|---|---|
+| Without the Llama member (5 members) | 0.657 |
+| With official Llama 3.1 (6 members) | 0.659 |
+
+That is a difference of 0.002, from one submission each. I have seen differences of up to 0.009 [reported](https://www.kaggle.com/code/alexchilton/name-that-llm-0-662-all-public-what-failed) between submissions of identical code, so this doesn't separate the two. My fork also scored below the notebook's displayed 0.664. I haven't found out why, and I haven't verified that the code I pulled is the scored version.
+
+=== [2] ? (2026-10-31 05:50:13.137000) votes= ===
+I can't access Llama 3.1 (still 403 for me), so I forked nlm-v27 by dhruvtibarewal (public 0.651) without its `ll8v5` member and tried to win the score back. It didn't work, so here are the results in case they save someone a few slots.
+
+| Version | Change | Public LB |
+|---|---|---|
+| Original | With Llama | 0.651 |
+| v22 | Without Llama, plus runtime guards | 0.642 |
+| v23 | v22 + the author's ModernBERT-large (OOF 0.588, weight 1.5) | 0.638 |
+| v24 | v23 + my own Mistral-7B two-stage (OOF 0.578, weight 1.0) | 0.640 |
+| v25 | v22 + Mistral-7B only | 0.641 |
+| v26 | v22 + ModernBERT-large at weight 0.5 | 0.641 |
+| v26 | v22 + ModernBERT-large at weight 0.3 | 0.642 |
+
+**What I take from this**
+
+- **A decent OOF didn't help here.** ModernBERT's OOF is close to the 0.597 the author reports for Llama, yet adding it lowered my score by 0.004. Smaller weights removed the loss but added nothing: 0.641 at weight 0.5 and 0.642 at weight 0.3, against 0.642 for v22.
+- **The same member moved in opposite directions.** Mistral gave +0.002 on v23 and −0.001 on v22. At that size I treat it as roughly zero.
+- **Next time I'd add one part at a time at a modest weight**, and check each on the LB.
+
+**What I don't know:** I attribute the 0.009 drop to removing Llama, but I haven't isolated it. A public no-Llama version scoring 0.643 is consistent with that, but it isn't proof. I also don't know whether a different non-Llama model would have worked.
+
+Has anyone recovered this gap without Llama? I'd like to know what kind of model did it.

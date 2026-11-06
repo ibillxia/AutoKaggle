@@ -1,0 +1,22 @@
+TOPIC 754084
+
+=== [0] ? (2026-11-03 02:28:49.163000) votes= ===
+One data point on rescoring noise: I resubmitted a notebook unchanged (same kernel version, so the same code and weights). Both submissions scored 0.659 on the public LB. That is one pair only. Differences of up to 0.009 between identical submissions have been reported here, so this shows that a rerun can reproduce the score exactly, not that it always does.
+
+=== [1] ? (2026-10-30 06:15:02.230000) votes= ===
+Many of us score several offline versions of the same blend (full-prompt OOF, prompts cut to a few answers, a holdout) and check which one moves with the public LB. I did that and it went wrong for me: over ten submissions, one cut of my OOF had Spearman 0.82 with the LB. I picked the next five by it, and on those five its Spearman was 0.05 (details in a reply on 753177).
+
+So I simulated the situation with a known ground truth. Each configuration has a latent quality. Each proxy tracks it with correlation rho, and the proxies can share part of their error, as cuts of one OOF matrix do. The LB tracks it with correlation r. Phase 1 submits n configurations and picks the proxy with the best Spearman; phase 2 submits the top 5 by that proxy. Notebook (CPU, under a minute):
+https://www.kaggle.com/code/locdunhat/which-offline-score-tracks-the-lb
+
+What came out, for r = 0.7 and 10 phase-1 submissions:
+
+- **The best-correlated proxy is often not the best proxy.** When the proxies are close in quality, it is truly the best 28–41% of the time (chance is 25%). Well-separated proxies only reach 43–64%.
+- **The winning correlation is inflated.** On average it is 0.65, against a true 0.47. Four identical proxies show exactly the same inflation, so a high winning correlation tells you little.
+- **A collapse on the next five is expected.** On the five configurations a proxy ranks highest, its correlation with the LB averaged between −0.02 and 0.27 everywhere in the grid, even when it was truly the best proxy. Those five are about equally good, so LB noise sets their order. A proxy that "stopped working" may be as good as before.
+- **Average or select, depending on shared error.** If the proxies' errors are independent, averaging them beats even the best single one. If they share most of their error (cuts of the same OOF), averaging dilutes the best one. Then choosing by correlation pays off only once you have about 20 points.
+
+What I do now: I only submit a change if it improves every cut of the OOF, not just the one that looked best on the LB, and I do not read much into the order of my top few submissions. The model is simple (Gaussian, no directional bias in the proxies, and LB noise independent across submissions, while a real public split is fixed), so treat the numbers as orders of magnitude.
+
+Code and the 180,000 simulated seasons are public (CC0):
+https://www.kaggle.com/datasets/locdunhat/proxy-selection-simulations

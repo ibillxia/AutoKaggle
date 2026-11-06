@@ -1,0 +1,74 @@
+TOPIC 754426
+
+=== [0] ? (2026-11-03 12:38:58.067000) votes=1 ===
+Hi HALX2158, your notes on scored-version drift and cheap ablations seem complementary to the validation and integration work I can contribute. I’m currently solo, with a best public score of 0.473, and looking for two teammates for a three-person team using an owned RTX 4060 and free Kaggle compute. My experiments are AI-assisted. Would you be open to collaborating on inference checks and ensemble experiments? What is your current team size, and roughly how much time could you contribute? Details: https://www.kaggle.com/competitions/name-that-llm/discussion/755378 . No worries if you already have commitments.
+  --- reply ? (2026-11-04 10:35:19.337000): Thanks for reading the notes and for the kind offer. I'm thinking about teaming up with colleagues, so I'll pass this time. Good luck with the competition, and I hope you find teammates who fit what you're looking for.
+
+=== [1] ? (2026-11-03 02:29:16.713000) votes= ===
+A caution for anyone forking a public notebook: `kaggle kernels pull` returns the **latest version**, not necessarily the version that carries the displayed score. I forked judith007's 0.664 notebook this way. Its best-scoring version is version 2 of 6, which uses a Sinkhorn mix of 0.30 and a typography coefficient of 1.5. The code I pulled had 0.60 and 1.2. My fork scored 0.659; with version 2's two values it scored 0.663. Before forking, compare what you pulled against the scored version on the notebook page.
+
+=== [2] ? (2026-11-01 12:46:17.840000) votes= ===
+Here is the full table behind "the 10 variants" above. Each row is the 0.638 base (my fork of a public part-two notebook) with the listed part's blend weight set to 0. Solo CV is the notebook author's figure, shown where I have one.
+
+| Removed | Solo CV | Public LB | Delta |
+|---|---|---|---|
+| Qwen3-14B LoRA, plain head + centred twin | | 0.618 | −0.020 |
+| Qwen3-14B LoRA, plain head only | 0.611 | 0.621 | −0.017 |
+| Both centred twins (Qwen3-14B and Qwen2.5-14B) | | 0.621 | −0.017 |
+| Qwen2.5-14B LoRA, plain head + centred twin | | 0.624 | −0.014 |
+| N-gram SVC | 0.473 | 0.627 | −0.011 |
+| Qwen2.5-14B LoRA, plain head only | 0.569 | 0.628 | −0.010 |
+| ATLAS (10% blend) | | 0.629 | −0.009 |
+| Complementary stack (15% blend) | | 0.630 | −0.008 |
+| DeBERTa | 0.546 | 0.633 | −0.005 |
+| Sinkhorn balancing | | 0.636 | −0.002 |
+
+What stands out to me:
+
+- The SVC has the lowest solo CV here (0.473), but removing it cost more than removing DeBERTa (0.546): −0.011 against −0.005.
+- Removing the Qwen2.5-14B plain head (solo CV 0.569) cost −0.010, not far from the −0.017 for the Qwen3-14B plain head (0.611).
+- Removing both centred twins cost −0.017. I didn't remove either twin on its own, so I can't split that between them.
+
+Limits: these are single submissions on the public part of the test, on this one base. They may not hold for another blend. Setting a weight to 0 also changes the blend's temperature, so a delta isn't purely the removed part's contribution.
+
+=== [3] ? (2026-10-31 05:49:31.633000) votes= ===
+Once my ensemble came from public forks, CV stopped telling me which parts mattered. This is the workflow I use now. All numbers are from my own runs.
+
+**1. Make submissions cheap**
+
+The scoring rerun did not use my weekly GPU quota; only the commit run did (175 s used, both before and after a roughly 2 h scoring run). The public test has only 3 rows, so on the commit run I write a placeholder and skip the model cells:
+
+```python
+LIGHT = os.environ.get('KAGGLE_IS_COMPETITION_RERUN') is None and len(test) < 50
+```
+
+That cut my commit from about 1.8 h to 167 s. The rerun still runs everything: the full and light commits of the same pipeline both scored 0.617.
+
+**2. Guard against what a light commit can't catch**
+
+A light commit doesn't prove that the rerun will work. I lost submissions or GPU time to these:
+
+- **Input paths:** a Kaggle Model doesn't keep the dataset's top folder name, so an upstream glob can miss your mirror. I now run a free CPU script of about 1 minute that checks every lookup first.
+- **Docker image:** one upstream notebook pinned an image whose torch had no CUDA. The commit passed, then the reruns failed after 3 h. Add `assert torch.cuda.device_count() > 0` to the light path.
+- **Optional parts:** give them a deadline, and treat a failure like a timeout by dropping the part. Never `assert returncode == 0`.
+- **Slow loads:** `load_file` on LoRA adapters read from a Dataset mount took about 100 s each, against 24 s in the author's log. Copying the adapters to `/tmp` took 34 s and cut my main pipeline from 4,884 s to 2,866 s (author: 2,859 s), with identical predictions.
+
+I put these guards into a small CPU notebook you can copy from, with sample output for each: [ntl-fork-guard-utility](https://www.kaggle.com/code/mizuno0522/ntl-fork-guard-utility).
+
+**3. Measure parts by removing them**
+
+I set one part's blend weight to 0 and submit it with a light commit, about 3 minutes of GPU per variant. Two results on a 0.638 base:
+
+| Removed | Public LB | Delta |
+|---|---|---|
+| ATLAS (10% blend) | 0.629 | −0.009 |
+| Sinkhorn balancing | 0.636 | −0.002 |
+
+Across the 10 variants I tried, every removal lowered the score, and weak but different models mattered more than their solo CV suggested.
+
+**Limits**
+
+- It uses up submission slots, so I run 2–3 a day and keep a reserve.
+- It measures only the public part of the test, and scores are rounded to 3 decimals, so I don't read much into a delta of 0.001–0.002.
+- Parts can substitute for each other: two similar parts can each look small alone and large when removed together, so test groups too.
+- Removing is not the mirror of adding. See my next post.

@@ -1,0 +1,6 @@
+TOPIC 755946
+
+=== [0] ? (2026-11-05 00:14:35.873000) votes= ===
+Hi all, I published a notebook that studies which surface-level signals help identify the source model. It covers label distribution, a char n-gram TF-IDF baseline with StratifiedGroupKFold grouped by prompt_id (so CV matches the unseen-prompt test setup), an analysis of style features, and an error analysis showing which model families get confused with each other (for example the gemini-3.7/3.8 and gpt-5.6-sol/terra pairs).
+
+Baseline CV accuracy is about 0.31. Feedback and upvotes are welcome: https://www.kaggle.com/code/shirazimatin77/notebooke615cb6c77
