@@ -1,4 +1,17 @@
-"""The hard floor on Lambda implied by the E_gap inequality alone.
+"""DEPRECATED (2026-11-06) -- kept only for historical reproducibility.
+
+The floor derived below uses the weak bound
+``lambda_h2 >= 0.25*(||W|| - ||s||)^2``, which discards the dominant
+``0.25*||W||^2`` term and produces the WRONG ``lambda_eff >= 14.46``.
+The correct hard floor is 46.7862 (only 0.23% below the public 46.8936):
+see ``lambda_floor_hard.py`` and SCORECARD.md "严格地板是 46.7862".
+Do NOT use this script's floor / headroom numbers.  The "submitted point"
+diagnostics (p, ||W||^2, Lambda at the shipped npz) above the floor section
+remain valid.
+
+--- original docstring below ---
+
+The hard floor on Lambda implied by the E_gap inequality alone.
 
 lambda_h2 = 0.25 * sum_rc (L1_rc + |H2_I_rc|)^2 >= 0.25 * ||H2_I||^2,
 because both L1_rc and |H2_I_rc| are nonnegative. H2_I = W + s with
