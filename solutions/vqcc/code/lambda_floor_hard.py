@@ -1,17 +1,24 @@
-"""What is the true hard floor on Lambda implied ONLY by the E_gap gate?
+"""Hard floor on Lambda / lambda_eff implied by the E_gap gate.
 
-lambda_eff = sqrt(E_gap*(2*Lambda - E_gap)) increases in E_gap, and E_gap must
-exceed E_GAP_FLOOR = 3.914898. So for a given Lambda the best lambda_eff sits at
-E_gap = floor + tiny. Minimising lambda_eff therefore means minimising Lambda.
+CORRECTED 2026-11-06.  The original version of this script used the weak
+bound ``lambda_h2 >= 0.25*(||W|| - ||s||)^2`` and reported lambda_eff >=
+14.46.  That is WRONG: the identity ``W = H2_I - sum_b w_b`` plus the
+triangle inequality gives, pointwise for every (r,c),
 
-The E_gap identity pins  0.5*||W||^2 + 2p > 563.047371  (p = sum of the negative
-eigenvalues of h1_prime, i.e. the part of Lambda coming from h1). Hence with
-||H2_I|| = ||s|| the H2 part of Lambda is at least 0.25*(sqrt(C - 4p) - ||s||)^2
-with C = 1126.0947.  This prints f(p) = p + 0.25*(sqrt(C-4p)-||s||)^2 and its
-minimiser, i.e. the LOOSEST possible Lambda floor, to separate 'the floors allow
-it' from 'the fit forbids it'.
+    |H2_I_rc| + sum_b |w_rcb|  >=  |H2_I_rc - sum_b w_rcb| = |W_rc|,
 
-Usage: python lambda_floor_hard.py [--s 22.8471]
+hence ``lambda_h2 = 0.25 sum_rc (L1_rc + |H2_I_rc|)^2 >= 0.25 ||W||^2``.
+The E_gap identity is  E_gap = C0 + 2p + 0.5||W||^2, so the floor
+E_gap > E_GAP_FLOOR forces ||W||^2 > C - 4p with C = 1126.0947.  Combining:
+
+    Lambda = lambda_h1 + lambda_h2 >= p + 0.25*(C - 4p) = 0.25*C = 281.5237,
+
+INDEPENDENT of p.  Therefore lambda_eff >= sqrt(floor*(2*281.5237 - floor))
+= 46.7862, matching the forum's 46.786 bound and leaving only 0.23% headroom
+over the public 46.8936.  The 14.46 figure was an artifact of discarding the
+dominant ||W||^2 term; do not use it.
+
+Usage: python lambda_floor_hard.py
 """
 from __future__ import annotations
 
@@ -35,37 +42,20 @@ def lam_eff(E_gap: float, Lam: float) -> float:
 
 
 def main() -> None:
-    s = S_NORM
-    if '--s' in sys.argv:
-        s = float(sys.argv[sys.argv.index('--s') + 1])
     floor = V.E_GAP_FLOOR
-    print(f'E_GAP_FLOOR = {floor}, ||s|| = {s:.4f}, C = {C_CONST}')
-    print()
-    print(f"{'p':>10} {'Lambda floor':>14} {'lam_eff@floor':>14}")
-    best = (1e18, None)
-    for p in (0.0, 1.0, 5.0, 10.0, 20.0, 40.0, 60.0, 100.0, 150.0, 200.0, 240.0):
-        root = np.sqrt(max(C_CONST - 4.0 * p, 0.0))
-        lam = p + 0.25 * (root - s) ** 2
-        le = lam_eff(floor + 1e-9, lam) if lam > floor / 2 else float('nan')
-        flag = ''
-        if lam < best[0]:
-            best = (lam, p)
-            flag = '  <- min'
-        print(f'{p:>10.1f} {lam:>14.4f} {le:>14.4f}{flag}')
-    # Analytic minimiser of g(p) = p + 0.25*(sqrt(C-4p) - s)^2 on [0, C/4).
-    ps = np.linspace(0.0, C_CONST / 4 - 1e-6, 2_000_001)
-    g = ps + 0.25 * (np.sqrt(C_CONST - 4.0 * ps) - s) ** 2
-    i = int(np.argmin(g))
-    print()
-    print(f'grid min: Lambda >= {g[i]:.4f} at p = {ps[i]:.4f}')
-    print(f'  -> lambda_eff >= {lam_eff(floor + 1e-9, g[i]):.4f}')
-    print(f'  shipped: Lambda = 293.5256, lambda_eff = 47.85037 '
-          f'(E_gap 3.926532)')
-    cur = lam_eff(floor + 1e-9, 293.5256)
-    print(f'  if only E_gap were pushed to its floor: lambda_eff = {cur:.4f} '
-          f'(x{47.85037 / cur:.5f})')
-    print(f'  composite gain of the whole unreachable floor: '
-          f'x{(47.85037 / lam_eff(floor + 1e-9, g[i])) ** (1 / 3):.4f}')
+    Lam_floor = 0.25 * C_CONST
+    le_floor = lam_eff(floor + 1e-9, Lam_floor)
+    print(f'E_GAP_FLOOR = {floor}, C = {C_CONST}')
+    print('Identity: W = H2_I - sum_b w_b, so pointwise')
+    print('  |H2_I| + sum_b|w_b| >= |W|  =>  lambda_h2 >= 0.25||W||^2')
+    print(f'E_gap > floor  =>  ||W||^2 > {C_CONST:.4f} - 4p')
+    print(f'Lambda >= p + 0.25*(C - 4p) = 0.25*C = {Lam_floor:.4f}  '
+          f'(INDEPENDENT of p)')
+    print(f'HARD FLOOR: lambda_eff >= {le_floor:.4f}')
+    print(f'  public lambda_eff 46.8936 -> remaining headroom '
+          f'{100 * (46.8936 / le_floor - 1):.4f}%')
+    print('  (The old 14.46 result came from the weak bound')
+    print('   lambda_h2 >= 0.25*(||W||-||s||)^2, which drops 0.25||W||^2.)')
 
 
 if __name__ == '__main__':
