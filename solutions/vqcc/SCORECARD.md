@@ -4757,3 +4757,343 @@ bronze rank 271 = 25.1509（77 队并列），silver rank 135 =
 4. **纪律不变**：三任务本地官方 PASS + composite 严格 >
    25.23789 + 用户明确批准，才提交。当前没有任何候选。
 
+---
+
+## 2026-11-11 更正：我们自己已投到 25.29394，公开 SOTA 25.29527
+
+### 1. 实时提交历史（Kaggle API，非本地记录）
+
+| ref | 公开分 | 状态 | UTC 时间 | 说明 |
+|---|---:|---|---|---|
+| **58203802** | **25.29394** | COMPLETE | 2026-11-10 14:18 | v100：maoxin invsqrt `a15b0d73` 93,925.35（官方 PASS）+ DQI `368d2d1c`（k=0 继承）+ exp50 chem 299,055,070.70（官方 PASS）；本地 GM k=0 25.29395 |
+| 58202108 | 25.23923 | COMPLETE | 2026-11-10 13:16 | exp50 stacked：invsqrt `26ebf39d` + DQI `368d2d1c` + marculera chem 新 k0 + exp45 refit npz 299,055,070.70 |
+| 58192870 | 25.23789 | COMPLETE | 2026-11-10 08:11 | v98：heliosli v104 invsqrt `26ebf39d` + DQI `368d2d1c` + marculera chem 299,102,624.43 |
+| 58132745 | 25.14772 | COMPLETE | 2026-11-08 15:27 | v96 heliosli v95 pkg |
+
+**所以「自己最好成绩」从 25.23789 再更正为 25.29394。** 本地 `SUBMISSIONS.md` 里停在
+24.80142 / “4 tickets unused” 的记录已过时；本节以 API 为准。
+
+### 2. 25.29394（v100）的公开组件来源
+
+`heliosli/qcc-circuits-live` 已更新为 portfolio `v107axr_ax_ay3`，其
+`QCC_RELEASE_MANIFEST.json` 逐文件给出 SHA-256：
+
+| task | 文件 | SHA-256 前缀 | 本地校验 |
+|---|---|---|---|
+| invsqrt | `invsqrt.kmb` | `a15b0d73` | OK |
+| dqi | `dqi.kmb`（由 `dqi.kmb.xz` 解压） | `9fcda0c1` | OK |
+| dfthcsos | 15 个 `angle_k_*.kmb` + `submission.npz` | `8a10c831` | 全 OK |
+
+18 个文件已下载到 `_scratch/v100/v107/`，全部按 manifest 哈希匹配。
+`maoxin123/lb-25-283` 解释了 `a15b0d73` 的做法：从公开 `c6519219` 出发，
+把 Block A 的 shift-and-add 从 coarse→fine 改成 **fine→coarsest**，缩短两级
+（16→8、16→11 Toffoli），并复用 conditional-zero wires；受控 SWAP 重写与
+hoisted measurements 后，62 qubits / 41 rotations / 平均 1,219.83 Toffoli，
+cost 93,925.35（ratio 22.1109）。
+
+### 3. 公开 SOTA：ozertuu 25.29527，比我们自己高
+
+`ozertuu/25-295-i-m-better-verified-sota-portfolio`（11-10 16:57）与
+`masonbradleygilhool/qcc-combo-v2-verified-best-public-merge` 都基于同一套
+15 个 4,132-Toffoli/pass loaders，差别只在 chem 的 `submission.npz` 权重。
+
+本地 **未修改官方 verifier** 对三套权重全部 PASS：
+
+| 权重集 | npz SHA 前缀 | chem cost | λ_eff | T | Q | GM（公共 invsqrt+DQI） |
+|---|---|---:|---:|---:|---:|---:|
+| v107 / heliosli | `8a10c831` | 299,061,076.84 | 46.923304 | 14,926 | 427 | 25.293793 |
+| combo / masonbradleygilhool | `79bc97e7` | 299,062,551.73 | 46.923535 | 14,926 | 427 | 25.293752 |
+| **ozertuu / quantum-sim-linalg-cache** | **`10d0ab8e`** | **299,008,823.77** | **46.915105** | 14,926 | 427 | **25.295267** |
+
+ozertuu 的 `error_1 = 0.019999744`、`error_2 = 0.019999975`、
+`E_gap = 3.914898057` 都紧贴 0.020 门限（比另两套更激进），λ_eff 低 0.0082，
+chem 便宜 52,253（−0.0175%），GM 比我们自己 25.29394 高约 **+0.00133**。
+`ozertuu` 与 `v107` 的 invsqrt、dqi、15 个 loader 逐字节相同。
+
+### 4. 本地工具与状态
+
+- 三任务完整官方验证脚本 `_tools/kprobe/verify_full_v100.py` 已启动
+  （invsqrt 200,540,928 shots + DQI 102,400 shots + chem full），日志
+  `_scratch/v100/full_verify.log`；结果写入 `_scratch/v100/full_verify.json`。
+- `_tools/kprobe/inv_rotcal.py` 已把 quick verify 的默认 `shots_per_x`
+  从 8 改为 256（官方 verifier 要求 `num_shots % 256 == 0`，
+  `3,133,452 * 8` 不是 256 的倍数；256 是最小合法值）。
+- `a15b0d73` 解析出 44 个 `Z_POW`，其中 41 个是 synthesized（计入 T-cost），
+  无条件；这正是 rotation-margin calibration 的适用对象。
+- 分类器：`group/ds-glm-flash-hy4` 的 `/v1/chat/completions` 返回
+  `content: null` 且把 token 全花在 `reasoning_content` 上，auto mode 因而
+  “timed out”；`workbuddy/deepseek-v4.1-flash` 1.36s 正常返回 `content`。
+  已在项目级 `.claude/settings.local.json` 写入 `model` 与
+  `ANTHROPIC_SMALL_FAST_MODEL/HAIKU/SONNET` override（用户明确授权换分类器），
+  用户级 `settings.json` 因 OS 层 ACL 拒绝写入未改；下次会话应恢复。
+  本次会话用项目 allowlist 里的两个 Python 解释器完成了全部下载与验证。
+
+### 5. 纪律不变
+
+三任务本地官方 **PASS** + composite **严格 > 25.29394** + 用户明确批准，
+才提交。当前 ozertuu 25.295267 是「在最新基础上」的明确提升候选，但尚未
+完成三任务全量本地验证，也没有提交授权；**没有提交，配额未动**。
+
+### 6. 三任务完整官方验证结果（2026-11-11 完成）
+
+`_tools/kprobe/verify_full_v100.py`，未修改官方 verifier，默认盐，日志
+`_scratch/v100/full_verify.log`：
+
+| task | status | cost | 详情 |
+|---|---|---:|---|
+| invsqrt `a15b0d73` | **PASS** | 93,925.349071 | 200,540,928 shots；62q；1,219.834 Toffoli；t_base 1；41 rot；eps 2.43404e-13；worst 0.9993238 @ x=161 |
+| dqi `9fcda0c1` | **PASS** | 374,685,006,335.94 | 102,400 shots；892q；mean 395,302.79 Toffoli；0 value / 0 phase errors |
+| dfthcsos `10d0ab8e` | **PASS** | 299,008,823.765 | λ_eff 46.915105；14,926 Toffoli；427q；err1 0.019999744 / err2 0.019999975 / E_gap 3.914898057 |
+
+ratios = 22.110902 / 65.226692 / 11.222410 →
+**GEOMETRIC_MEAN = 25.295270**，比我们自己 board best 25.29394 **+0.00133**。
+耗时 invsqrt 629 s、DQI 137 s、chem 10 s。结果 JSON：`_scratch/v100/full_verify.json`。
+
+**结论：这是一个三任务本地官方 PASS、且严格超过自己当前最好的候选。**
+仍未提交（无提交授权）；纪律要求的三项里还差「用户明确批准」。
+
+---
+
+## 2026-11-11 补充：全公开前沿已饱和（实时榜单 + 一轮系统负结果）
+
+本节所有数字都来自**未修改的官方 verifier**（`invsqrt` / `dqi` / `dfthcsos`），
+或来自官方 verifier 自带模块（`costs_prepare.SpinFreeData_V1`、`verify.evaluate_words`）。
+
+### 7. 实时榜单与公开前沿的真实差距
+
+用 `kagglesdk` 拉的实时排行榜（1600 队，`_tools/kprobe/lb_gap.py`）：
+
+| 名次 | 队名 | 分数 |
+|---:|---|---:|
+| 1 | Entangled Team | 29.30100 |
+| 2 | Schrodinger's cat lived | 29.18459 |
+| 3 | taiseiu | 28.44097 |
+| 4 | Breaking1800 | 27.99617 |
+| 12 | Some Joint（= somejoint） | 27.00309 |
+| **153** | **biubiu666（我们）** | **25.29394** |
+| 336 | bill123987 | 25.23798 |
+
+对 273 个已知 QCC kernel + 106 个 dataset 的标题做 `2[0-9].\d+` 扫描
+（`_scratch/v100/qcc_assets.json`）：**没有任何一条公开自报分 >= 26.0**，
+最高就是 ozertuu 的 `25.295+`（本地三任务官方验证 25.295270，见 §6）。
+
+结论：**公开前沿 ≈ 25.295，与榜首差约 4.0 分，且这个差距没有以公开形式被填平。**
+第 12 名的 somejoint 公开 kernel 只有 24.65（`somejoint/quantum-circuits-24-65-local-gm-chem-refit`），
+说明 27+ 的解法是私有的。
+
+### 8. 本轮系统负结果（每一条都过了官方 verifier）
+
+**(a) invsqrt 旋转余量标定（新思路，最大潜在收益之一）**
+
+`_tools/kprobe/inv_rotcal.py _scratch/v100/v107/invsqrt.kmb --passes 3 --max-drop 6 --shots-per-x 256`
+（结果 `_scratch/v100/rotcal.log` / `rotcal/calibration.json`）：
+
+- 基线 quick verify：PASS，score **93925.338702**，62q，toffoli 1219.834，t_base 1，
+  41 rotations，eps 2.434041e-13，worst 0.9993238。
+- 解析出 44 条 `Z_POW`（41 条需合成）；3 趟采样的 novelty 在第 2 趟就归零
+  → **不存在分支相关的旋转**（angle 与测量分支无关）。
+- drop 0：精确 margin **58,597,850 units**，LP 切平面迭代后仍是同一个值
+  → **该电路已是 LP 最优**；drop 1：精确 margin **−60,340,978**（直接失效）。
+- **gain = 0.000000**：公开解已经用过这个技巧，没有剩余空间。
+
+**(b) invsqrt 端口互换：所有公开件都是 62 qubits**
+
+本地 12 个唯一 `invsqrt.kmb` 的 `num_qubits` 全部 = 62（`x` 22 + scratch 40，
+`out_bits = result_bits(29) + n_p(10) + 1`）。静态 Toffoli 数最低的是 **`a15b0d73`（1381）**；
+gengsr `26ebf39d`-系 = 1392、black-cat v6 = 1393、其余 1470~1537，全部更差。
+
+**(c) DQI：结构、前沿与所有公开候选**
+
+- 结构（`validate_registers` + `verify`）：`Q = 840 + 52 ancilla = 892`，
+  其中 **840 = 70 个 `S` 寄存器 x degree 12 是强制的**；`score = rep_factor * Q^2 * toffoli`，
+  0 error 时 `rep_factor = 1.1912605`（已到底，`log2_delta=-128`、`num_shots=102400` 固定）。
+- 因此 `Q^2 * toffoli` 就是唯一可动的量。本地 17 个唯一 `dqi.kmb`：
+
+| 来源 | Q | 静态 toffoli | Q^2 * toffoli |
+|---|---:|---:|---:|
+| **v107 / ozertuu `9fcda0c1`** | **892** | **395584** | **3.1475e11** |
+| cand1105 `993c7038` | 891 | 397191 | 3.1532e11 |
+| yb_sota `73e1b187` | 889 | 441968 | 3.4930e11 |
+| sj `qcc-dqi-892-q26` | 892 | 457906 | 3.6434e11 |
+| sj `qcc-dqi-892`(v34) | 892 | 480363 | 3.8226e11 |
+| sj `qcc-dqi-898` | 898 | 467670 | 3.7716e11 |
+| gengsr `e9f54be3` | 892 | 395586 | 3.1477e11 |
+| black-cat v6 | 892 | 395658 | 3.1481e11 |
+| qsd_clean `545189b9` | 882 | 519157 | 4.0392e11 |
+
+  → **`9fcda0c1` 仍是最优**；somejoint（LB 27.00）公开的 DQI 反而更差，
+  说明他们的 27 分来自私有件。
+
+**(d) chem：定在 ozertuu `10d0ab8e`**
+
+- gengsr chem：`lambda_eff = 46.891275`（**比 ozertuu 的 46.915105 更低**），
+  但 `T = 14958 > 14926` → cost 299,497,671.217 → ratio 11.2041 < 11.2224，
+  整体 25.228（与 gengsr 自报 25.22676 / receipt 一致）。
+- Apache 公开集合 `manwithacat/vqcc-apache-public-circuits` 的 **13 个 chemistry 变体
+  全部官方 PASS 但更差**（`_scratch/apache_chem.log`），最好的 `05b11c52d631`：
+  `lambda_eff 46.890791`、T 14966、Q 427 → 25.2771。其余 24.1~25.16。
+- **权重不能跨源混用**：`chem_blend2.py`（把 gengsr / black-cat v6 的 `W`、`H2_I`
+  线性混入 ozertuu，角度字保持 ozertuu 的）在 a=0.25 时 `error_1` 就跳到 **11.6**
+  → 权重与 `angle_words` 强耦合（角度字必须匹配该 factorization 的 Givens 向量）。
+- 沿 v107→ozertuu 的凸混合（`chem_sweep.py`）：a=1.0（ozertuu）是端点，
+  a>=1.15 时 `error_1 = 0.0220 > 0.020`。
+
+**(e) chem 形状空间的启发式下界（只做成本模型，不训练）**
+
+用官方 `SpinFreeData_V1` 扫 (R,B,C,beta)：`heuristic T*Q` 的最小值约
+**1.23e6** 出现在 (2,64,24,beta=7)，而当前 (8,143,44,8) 是 2.58e6。
+但小形状的 `error_2` 会远超 0.020（公开解都把形状顶在精度边界上），
+要吃这条必须重训 factorization（dfthc 训练库不在本地），本轮不做。
+
+### 9. 结论
+
+- 三任务都在前沿、且贴近各自的**结构极限**：
+  invsqrt `Q=62` 且旋转 LP 最优；DQI `Q=840(强制)+52` 且 0 error 已到底；
+  chem `lambda_eff` 距 46.7862 硬地板仅 0.28%，`T*Q = 6,373,402` 已是最优形状。
+- 只用公开件能达到的理论上限 ≈ **(22.110902 * 65.226692 * 11.25335)^(1/3) ≈ 25.320**
+  （需要把 chem 的 `lambda_eff` 精确压到地板、且 T/Q 不变；本轮证明不可达）。
+  再往上必须自研电路（更少 scratch / ancilla），本轮无产出。
+- **当前可提交的最佳 = ozertuu 组合 25.295270（三任务官方 PASS），
+  严格高于记录最好 25.29394（+0.00133）。** 未提交，等用户批准。
+
+---
+
+## 2026-11-11 补充二：三个组件的"硬底"普查
+
+### 10. invsqrt：62 qubits 是公开硬底（27 个唯一公开电路全查）
+
+`_tools/kprobe/scan_invsqrt_q.py` 扫了 89 个公开 QCC dataset，49 个含 `invsqrt.kmb`，
+下 51 个文件（`_scratch/invscreen/`），按 SHA-256 去重得 **27 个唯一电路**。
+用官方 kickmix 读 `num_qubits` / `operation_statistics()`：
+
+- **没有任何一个 Q < 62。** 最好的 16 个都是 `Q=62`；
+  其余为 63 / 66 / 68 / 78 / 82 / 90 / 91 / 171。
+- `Q=62` 那一档里静态 Toffoli 的排序（越小越好）：
+  **`a15b0d73` 1381（我们用的）** < `26ebf39d` 1392 < `c6519219` 1393
+  < `13b5bf7a` 1404 < `29505732` 1405 < `1c5b1ee2` 1409 < `af846e54` 1418
+  < `95621d7e` 1422 < `87cb9aa9`/`c27e83ac` 1475 < `bce2948f` 1495
+  < `6dbb98b3` 1501 < `0104d1b4`/`4ccef421`/`56c25f97`/`af469847` 1537。
+  另外那些 `Q>62` 的（含 `phucthaiv02/qcc-best-invsqrt-circuit` 82q、
+  `auqib92/qvcc-own-circuits` 90q）静态 Toffoli 反而在 1359~1584，但 Q 更大 →
+  线性代价更高，全部更差。
+- 结构（`_tools/kprobe/inv_struct.py`）：把每个 qubit 的 first..last 操作区间做成
+  区间图，**峰值并发 = 62，且从第 2000 行到第 25000 行一直是 62**，
+  说明 40 个 scratch 在整个计算段同时存活，**没有任何可以复用的空档**。
+- 相位构造（`_tools/kprobe/inv_phase.py`）：44 条 `Z_POW`（41 条需合成，2 条打在
+  `q4` 上是 Clifford/T），其余 42 条打在 `q28` 上，角度是 2^-k 的二进制展开
+  （2^-35 … 2^-1），与 `HMR` 测量反计算逐步交织 —— 也就是把 1/sqrt(x) 的位
+  一边反计算一边用 QFT 式累加器变成相位。
+- **结论：`Q=62` + 41 条旋转（已 LP 最优，§8a）+ 静态 Toffoli 1381 是公开硬底。**
+
+### 11. DQI：`Q = 840 + ancilla`，ancilla 连续顶置
+
+`_tools/kprobe` 读取 `9fcda0c1`：
+
+- `S0..S69` 恰好占 **q0..q839**（连续 840 个，强制，`degree=12` x 70）；
+  ancilla 恰好是 **q840..q891（52 个，连续顶置）**。
+- 因此 `num_qubits = 840 + ancilla`，score 对 Q 是**平方**敏感
+  （`score = 1.1912605 * Q^2 * mean_toffoli`），少一个 ancilla 就是一个
+  2*840/892^2 ≈ 0.21% 的收益。
+- 全部已知 DQI 的 ancilla 都在 42~60：`qsd_clean 545189b9` 最少（Q=882，42 个），
+  但它把静态 Toffoli 抬到 519k，净亏；somejoint 三个是 52/52/58；
+  gengsr / black-cat v6 是 52。**没人做到 42 以下而还能保持 Toffoli 不涨。**
+- 另需注意：score 用的是**逐 shot 均值**（测量条件门只在触发 shot 计数），
+  所以"静态高、均值低"的电路有可能反超 —— 这条正在用官方 verifier 补测
+  （`_tools/kprobe/dqi_mean_sweep.py` → `_scratch/dqi_mean_sweep.log`）。
+
+### 12. 最终判断
+
+- 三个任务都已被公开件压在**结构硬底**上：invsqrt 62q / 旋转 LP 最优；
+  DQI 840 强制 + 0 error（rep_factor 已到底）；chem 单一形状 (8,143,44)，
+  §8(d) 已证明 13 个变体 + gengsr + 跨源混合全部更差。
+- 要再往上只有一条路：**自研电路**（把 invsqrt 的 40 位 y 寄存器压窄，
+  或给 DQI 换一个 ancilla 更少的 RS 解码器）。这两个都是研究级任务，
+  本轮已把可用的机械手段（重标记/复用/旋转标定/权重搜索/形状扫描）全部证否。
+- 当前可提交的最佳 = ozertuu 组合 **25.295270**（三任务官方 PASS），
+  严格高于记录最好 25.29394（+0.00133）。仍在等用户决定是否提交。
+
+---
+
+## 2026-11-11 补充三：以用户 25.31234 为基线；公开件逐槽融合与盐风险
+
+> 用户新提交了 ref 58227418 / **25.31234**，并明确「暂不提交，继续找大提升」。
+> 本节取代上文以 25.29394 / 25.295270 为基线的结论。所有数值均来自
+> 未修改官方 verifier 的本地默认盐运行；我方本轮没有提交动作。
+
+### 13. 三个公开件的本地复现（全是官方 PASS）
+
+| task | 文件 / 指纹 | 官方 score | ratio | 备注 |
+|---|---|---:|---:|---|
+| invsqrt | `6c6a734d`（manwithacat HW-25） | 93,863.3572624325 | 22.1255055677 | Q=62，平均 Toffoli 1,218.834293247112，比 `a15b0d73` 少 1 |
+| invsqrt | `a15b0d73`（旧件） | 93,925.34907144618 | 22.1109024800 | 供对照 |
+| DQI | `9fcda0c1`（heliosli / ozertuu / busyaprime 共有） | 374,685,006,335.9395 | 65.2266922092 | Q=892，0 error，rep_factor 1.1912604648 |
+| DQI | `4432ec5f`（mason combo v2） | 374,735,446,628.5309 | 65.2179125395 | 更差 |
+| DQI | `cd71c482`（ozertuu 25.32234 宣传件） | 375,561,652,398.9356 | 65.0744383181 | **默认盐 1 个 value error** |
+| chem | `prvsiyan303`（290-Toffoli k1..3） | 298,720,881.30016786 | 11.2332273985 | λ 46.9076383443、T 14,914、Q 427 |
+| chem | `_scratch/chemstage/loader_mix`（逐槽最优） | **298,600,262.28712577** | **11.2377650395** | λ 46.9075689659、T **14,908**、Q 427 |
+
+`6c6a734d` + `9fcda0c1` + `prvsiyan303` = **25.308964088**；
+`6c6a734d` + `9fcda0c1` + `loader_mix` = **25.312371465**。
+后者仅比用户 LB 25.31234 高 **+0.000031**，不构成明确提升，未提交。
+
+### 14. chem：把 15 个 loader 的 mix 系统化
+
+`_tools/kprobe/chem_pool.py` 将本地 116 个 chem 目录按 `angle_words` 指纹分组；
+最优组 `509fe0cd7a3384b6…` 有 9~11 个家族，它们共享完全相同的
+`angle_words.npy`（`chem_loader_mix.py` 里的数组字节指纹为
+`d20bfc6f1c958cab…`；两者只是「.npy 文件字节」与「数组裸字节」两种哈希口径）。
+因此 15 个 `angle_k_*.kmb` 可以逐槽互换而保持 words / npz / 其它两任务不变。
+`_tools/kprobe/chem_loader_mix.py` 对每槽取静态 `num_toffoli_like` 最小者：
+
+```
+k :   0    1    2    3    4    5    6    7    8    9   10   11   12   13   14
+T : 297  290  290  290  270  269  269  270  270  267  268  268  268  268  269
+                          sum = 4,123 / pass   (2*sum = 8,246)
+```
+
+`T_total = 8,246 + 6,662 = 14,908`；比整取 `prvsiyan303`（Σ=4,126，
+T=14,914）少 6 个 Toffoli。组装后 `chem_mix_verify.py` 用官方 `V.verify()`
+在默认盐完整跑过 15 个电路、所有地址 × 64 shots，返回 `status: PASS`。
+
+**权重/gauge 已到局部最优**：以 `matousakura/best-of-public-portfolio`
+的 `8d4c99a2` npz（λ 46.90756896586743，三道门 error_1 0.01999998 /
+error_2 0.019999997 / E_gap 3.914898003 全贴门）为起点：
+
+- `chem_gauge_best.py`：4 个旋转半径 × 2 个随机序 × 6 轮精确正交 gauge
+  descent，全部第 0 轮 `accepted=0`、Gram defect 0、λ 完全不变。
+- `chem_joint_refit.py`：8 轮增广拉格朗日 joint refit（w 与 W 同时动），
+  每轮 `ok=True` 但 λ 始终 46.907568966，输出的 `W`/`H2_I` 与输入逐字节相同。
+- 新公开 `malachiwmoody/our_refit_on_syed_table.npz` 是另一条 C=45 表，
+  λ 46.925408（更差）；`matousakura/sister release` 数据集目前 403 不可列。
+
+### 15. DQI：`cd71c482` 的 25.32234 是盐选择性结果，不是稳健提升
+
+`ozertuu/25-32234-sota-apex-1-vqcc-fast-runner-portfolio` 的 PIN 表把
+`cd71c482` 的 cost 写成 373,844,569,412，并宣称 GM 25.32234。本地实际：
+
+```
+salt=""  : 1 value error / 0 phase error, eps_plus 0.0009104197583,
+           rep_factor 1.1967314992, score 375,561,652,398.9356 (ratio 65.074438)
+salt="s1": 0 / 0,                     eps_plus 0.0008660587302,
+           rep_factor 1.1912604648, score 373,844,583,259.0734 (ratio 65.373325)
+```
+
+也就是说该 DQI 的 0-error 成本 373.8446e9 只在换盐后出现；默认盐因其罕见
+错误反而比 `9fcda0c1` 贵 0.23%。官方 `SCORING_README.md` §「private,
+unpredictable salt」明确说明私有盐正是为防止 seed grinding。把 `cd71c482`
+换成默认盐与现有最优 invsqrt/chem 组合，GM 只有 25.312… 附近甚至更低；
+把 `s1` 的 0-error 成本代入则得 25.322342，等于其宣传值——所以那不是
+可在提交前确定的提升。该件**不纳入候选**。
+
+### 16. 本轮结论
+
+- 公开件逐槽取最小后，本地可预测 GM = **25.312371**，对 25.31234 的优势
+  只有 3.1e-5，属于数值/边界噪声级，违反「有明确提升才提交」。
+- invsqrt 相位块 44 条 `Z_POW` 中 41 条为 level>=4，需合成；两条相邻 q28
+  旋转之间 q28 是 CX/CCX 目标且被 HMR 测量，简单合并不是合法重写；先前
+  `inv_rotcal.py` 的 cutting-plane LP 也已证明 drop 任一旋转即负 margin。
+- 三任务均已在公开结构前沿；剩余可量化空间只有 chem λ_eff 46.90757 →
+  46.7862 硬地板（约 +0.022 GM）和 invsqrt 每条旋转约 +0.0026 GM，
+  都需要新的物理/编译构造，而不是再混公开件。
+- **没有提交，配额未动。** 下一个候选必须：三任务本地官方 PASS、默认盐 GM
+  严格且明显 > 25.31234、用户明确批准。
